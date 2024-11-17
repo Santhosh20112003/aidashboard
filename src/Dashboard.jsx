@@ -42,7 +42,7 @@ const safetySettings = [
 const YouTubeFrame = ({ videoID }) => (
   videoID && (
     <iframe
-      className="w-full min-h-[300px] h-[35vh] mb-2 rounded-md shadow-lg"
+      className="w-full min-h-[350px] h-[35vh] mb-2 rounded-md shadow-lg"
       src={`https://www.youtube.com/embed/${videoID}`}
       title="YouTube video player"
       frameBorder="0"
@@ -305,10 +305,8 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col items-center">
-      <div className="w-full h-[5vh] p-4 bg-white flex space-x-4">
-
-      </div>
-      <div className="w-full h-[95vh] p-4 bg-white flex space-x-4">
+      {/* <div className="w-full h-[5vh] p-4 bg-white flex space-x-4"></div> */}
+      <div className="w-full h-screen p-4 bg-white flex space-x-4">
         <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
           <YouTubeFrame videoID={videoID} />
           {(explanation && videoID) && (
