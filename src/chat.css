@@ -1,0 +1,76 @@
+.jarvis pre {
+  margin: 12px 0;
+  background: #1a1a1a;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  white-space: pre-wrap;
+  border: 2px solid #f3f3f3;
+  outline: 2px solid #1a1a1a;
+}
+
+.jarvis code {
+  background: #1a1a1a;
+  padding: 5px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.no-tailwindcss {
+  all: unset !important;
+}
+
+.jarvis-cont {
+  -webkit-overflow-scrolling: touch;
+}
+
+.jarvis {
+  overflow-wrap: break-word;
+  font-size: 0.9rem;
+}
+
+.jarvis pre > code {
+  background: #1a1a1a;
+  color: #fff;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 3px 0;
+}
+.jarvis pre ::selection {
+  background-color: #fff;
+  color: #1a1a1a;
+}
+
+.jarvis ol,
+menu {
+  display: block;
+  list-style-type: none;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.jarvis ul {
+  display: block;
+  list-style-type: none;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+
+.jarvis li {
+  margin-top: 0.6em;
+  list-style-type: square;
+  margin-bottom: 0.6em;
+  text-align: -webkit-match-parent;
+}
+
+.jarvis p {
+  font-weight: 500 !important;
+}
