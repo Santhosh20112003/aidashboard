@@ -5,11 +5,13 @@ import showdown from "showdown";
 import { FaPlay, FaGear } from "react-icons/fa6";
 import { MdIosShare } from "react-icons/md";
 import axios from "axios";
-import { LANGUAGE_VERSIONS } from "./constants";
+import { LANGUAGE_VERSIONS } from "../constants";
 import { BiCopy, BiSolidCopy } from "react-icons/bi";
 import { BsStars } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
 import * as Dialog from "@radix-ui/react-dialog";
+import { VscLightbulbSparkle } from "react-icons/vsc";
+import { RiExchangeBoxFill } from "react-icons/ri";
 
 const converter = new showdown.Converter();
 const genAI = new GoogleGenerativeAI("AIzaSyCVYbRztmqUamxjghxQYoqXTmwGnRD4Z7Q");
@@ -39,16 +41,21 @@ const safetySettings = [
   { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_NONE },
 ];
 
-const YouTubeFrame = ({ videoID }) => (
+const YouTubeFrame = ({ videoID, onSwap, videos }) => (
   videoID && (
-    <iframe
-      className="w-full min-h-[310px] h-[35vh] mb-2 rounded-md shadow-lg"
-      src={`https://www.youtube.com/embed/${videoID}`}
-      title="YouTube video player"
-      frameBorder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
+    <div className="min-h-[310px] h-[35vh] relative">
+      <iframe
+        className="w-full h-full mb-2 rounded-md shadow-lg"
+        src={`https://www.youtube.com/embed/${videoID}`}
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+      {videos && <button onClick={() => onSwap()} className="absolute top-1/2 active:scale-95 transition-all -translate-y-1/2 right-3 p-1 rounded-md bg-white shadow-lg">
+        <RiExchangeBoxFill className="text-[1.3rem]" />
+      </button>}
+    </div>
   )
 );
 
@@ -108,8 +115,9 @@ const OutputDisplay = ({ output, isOutputLoading, handleCopy, copied }) => (
 );
 
 function App() {
-  const [editorContent, setEditorContent] = useState("// some comment");
+  const [editorContent, setEditorContent] = useState("");
   const [input, setInput] = useState("");
+  const [videos, setVideos] = useState(null);
   const [lastInput, setLastInput] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [explanation, setExplanation] = useState("");
@@ -121,25 +129,23 @@ function App() {
   const [videoID, setVideoID] = useState("");
   const [isOutputLoading, setIsOutputLoading] = useState(false);
   const [output, setOutput] = useState(null);
+  const [isGenerating, setisGenerating] = useState(false);
 
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("dashboardData")) || {};
-    console.log(storedData)
     if (Object.keys(storedData).length) {
-      setEditorContent(storedData.editorContent || editorContent);
-      setHeading(storedData.heading || heading);
-      setExplanation(storedData.explanation || explanation);
-      setVideoID(storedData.videoID || videoID);
-      setLanguage(storedData.language || language);
-      setLastInput(storedData.lastInput || lastInput);
-      setInput(storedData.lastInput || lastInput);
+      setEditorContent(storedData.editorContent || "");
+      setHeading(storedData.heading || "");
+      setExplanation(storedData.explanation || "");
+      setVideoID(storedData.videoID || "");
+      setLanguage(storedData.language || "javascript");
+      setLastInput(storedData.lastInput || "");
+      setInput(storedData.lastInput || "");
     }
   }, []);
 
-  const handleChange = (value, event) => {
-    console.log(event)
-    setEditorContent(value);
+  const UpdateLocal = () => {
     localStorage.setItem(
       "dashboardData",
       JSON.stringify({
@@ -153,14 +159,21 @@ function App() {
     );
   }
 
+  const handleChange = (value, event) => {
+    console.log(event)
+    setEditorContent(value);
+    UpdateLocal();
+  }
+
   const searchYouTube = (head) =>
     new Promise((resolve, reject) => {
       if (!head) return reject(new Error("head is required"));
 
-      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&q=${encodeURIComponent(head)}&type=video&key=AIzaSyBTzFaLovTRNftZ5peD4AkZe_q4vRpBk8w`)
+      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${encodeURIComponent(head)}&type=video&key=AIzaSyBTzFaLovTRNftZ5peD4AkZe_q4vRpBk8w`)
         .then((response) => response.json())
         .then((data) => {
-          // console.log(data)
+
+          setVideos(data);
           setVideoID(data.items[0].id.videoId);
           resolve(data.items[0].id.videoId);
         })
@@ -241,7 +254,13 @@ function App() {
     }
   };
 
-
+  const onSwap = () => {
+    const randomNumber = Math.floor(Math.random() * 5) + 1;
+    if (videos?.items[randomNumber]?.id?.videoId !== videoID) {
+      setVideoID(videos.items[randomNumber].id.videoId);
+    }
+    toast.success("Video Changed")
+  };
 
   const handleCodeExecute = async () => {
     setIsOutputLoading(true);
@@ -276,6 +295,76 @@ function App() {
     }
   };
 
+  const handleOptimizer = async () => {
+    setisGenerating(true);
+
+    try {
+      const setting = {
+        temperature: 1,
+        topP: 0.95,
+        topK: 40,
+        maxOutputTokens: 8192,
+        responseMimeType: "application/json",
+        responseSchema: {
+          type: "object",
+          properties: {
+            code: {
+              type: "string"
+            },
+            timeComplexity: {
+              type: "string"
+            },
+            spaceComplexity: {
+              type: "string"
+            }
+          },
+          required: [
+            "code",
+            "timeComplexity",
+            "spaceComplexity"
+          ]
+        },
+      };
+
+      if (!editorContent) {
+        console.error('No code content provided.');
+        return;
+      }
+
+      const AI = new GoogleGenerativeAI("AIzaSyDmmnVfs5qtu9NRGhLWphp-hiK4MlGhmz8");
+      const chat = AI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: "You’re a skilled software engineer with extensive experience in code optimization and performance analysis. Your expertise lies in evaluating algorithms for both space and time complexity, and you have a knack for rewriting code to enhance efficiency without compromising functionality.\nYour task is to analyze the provided code, evaluate its current space and time complexity, and rewrite it to achieve a more optimized version by reducing unnecessary resource usage and minimizing execution time.\nPlease ensure to clearly state the initial complexity and the new complexity of the rewritten code. Include comments in the code explaining the optimizations made and how they impact performance. Return the final output in JSON format as follows:\n{\n  \"code\": \"<optimized_code>\",\n  \"timeComplexity\": \"<new_time_complexity>\",\n  \"spaceComplexity\": \"<new_space_complexity>\"\n}",
+      }).startChat({
+        setting,
+        history: [
+          {
+            role: "user",
+            parts: [
+              { text: `#include <iostream>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\n// Function to check if two strings are anagrams\nbooln areAnagrams(string str1, string str2) {\n    str1.erase(remove(str1.begin(), str1.end(), ' '), str1.end());\n    str2.erase(remove(str2.begin(), str2.end(), ' '), str2.end());\n    transform(str1.begin(), str1.end(), str1.begin(), ::tolower);\n    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);\n    // Check if lengths are different\n    if (str1.length() != str2.length()) {\n        return false;\n    }\n    // Sort the strings and compare\n    sort(str1.begin(), str1.end());\n    sort(str2.begin(), str2.end());\n    return str1 == str2;\n}\n\nint main() {\n    string string1 = \"Listen\";\n    string string2 = \"Silent\";\n    string string3 = \"hello\";\n    string string4 = \"world\";\n    cout << \"\\\" \" << string1 << \" \\\" and \\\" \" << string2 << \" \\\" are anagrams: \" << (areAnagrams(string1, string2) ? \"true\" : \"false\") << endl;\n    cout << \"\\\" \" << string3 << \" \\\" and \\\" \" << string4 << \" \\\" are anagrams: \" << (areAnagrams(string3, string4) ? \"true\" : \"false\") << endl;\n    return 0;\n}\n` },
+            ],
+          },
+          {
+            role: "model",
+            parts: [
+              { text: `{\"code\": \"#include <iostream>\\n#include <string>\\n#include <algorithm>\\n\\nusing namespace std;\\n\\n// Function to check if two strings are anagrams\\nbool areAnagrams(string str1, string str2) {\\n    //Remove spaces and convert to lowercase in one pass\\n    string lowerStr1 = \\\"\\\";\\n    string lowerStr2 = \\\"\\\";\\n    for (char c : str1) {\\n        if (c != ' ')\\n            lowerStr1 += tolower(c);\\n    }\\n    for (char c : str2) {\\n        if (c != ' ')\\n            lowerStr2 += tolower(c);\\n    }\\n\\n    // Check if lengths are different. If so, return false immediately.\\n    if (lowerStr1.length() != lowerStr2.length()) {\\n        return false;\\n    }\\n\\n    //Use a map to count character frequencies. This avoids sorting.   \\n    map<char, int> charCount;\\n    for (char c : lowerStr1) {\\n        charCount[c]++;\\n    }\\n    for (char c : lowerStr2) {\\n        charCount[c]--;\\n        if (charCount[c] < 0) {\\n            return false; //Character count mismatch\\n        }\\n    }\\n    return true; //All character counts matched\\n}\\n\\nint main() {\\n    string string1 = \\\"Listen\\\";\\n    string string2 = \\\"Silent\\\";\\n    string string3 = \\\"hello\\\";\\n    string string4 = \\\"world\\\";\\n\\n    cout << \\\"\\\\\\\" \\\" << string1 << \\\" \\\\\\\" and \\\\\\\" \\\" << string2 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string1, string2) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    cout << \\\"\\\\\\\" \\\" << string3 << \\\" \\\\\\\" and \\\\\\\" \\\" << string4 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string3, string4) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    return 0;\\n}\", \"spaceComplexity\": \"O(min(m,n))\", \"timeComplexity\": \"O(m+n)\"}` },
+            ],
+          },
+        ],
+      });
+      const result = await chat.sendMessage(editorContent);
+      const data = await result.response.text();
+      console.log(data);
+      const responseData = JSON.parse(data.replace("```json", "").replace("```", ""));
+      setEditorContent(`//${heading}\n//time complexity: ${responseData.timeComplexity}\n//Space complexity: ${responseData.spaceComplexity} \n` + responseData.code)
+      UpdateLocal();
+      toast.success(`Code is optimized.`);
+    } catch (error) {
+      console.error('Error optimizing code:', error);
+    } finally {
+      setisGenerating(false); // Ensure this runs after the operation finishes
+    }
+  };
 
   const copyOutputToClipboard = () => {
     if (navigator.clipboard && window.isSecureContext) {
@@ -311,19 +400,19 @@ function App() {
           <h1 className=" text-xl ms-2 font-semibold">Code Spark</h1>
         </div>
         <div className="">
-          <h1 className="">AI Dash</h1>
+          <h1 className="">Login Now</h1>
         </div>
       </div>
       <div className="w-full h-[94vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
         <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
-          <YouTubeFrame videoID={videoID} />
+          <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
           {(explanation && videoID) && (
             <Dialog.Root>
               <Dialog.Trigger asChild>
                 <div className="p-4 cursor-pointer hover:brightness-75 active:scale-[98%] transition-all bg-gray-100 max-h-[175px] h-[30vh] overflow-y-auto rounded-lg border border-gray-300">
                   <div className="flex items-center mb-3 justify-between">
                     <h3 className="text-lg font-semibold  text-black">{heading}</h3>
-                    <h3 className="text-sm px-2 pb-1 pt-0.5 uppercase rounded-md bg-black font-semibold  text-gray-100">{language}</h3>
+                    <h3 className="text-sm px-2 pb-0.5 pt-1 uppercase rounded-md bg-black font-semibold  text-gray-100">{language}</h3>
                   </div>
                   <div dangerouslySetInnerHTML={{ __html: converter.makeHtml(explanation) }} />
                 </div>
@@ -350,13 +439,18 @@ function App() {
         <div className={`${videoID ? "w-1/2 md:block hidden" : "hidden"} h-full`}>
           <CodeEditor language={language} editorContent={editorContent} handleChange={handleChange} theme={theme} />
           <div className="flex justify-between mt-4">
-            <button
-              onClick={handleCodeExecute}
-              disabled={isLoading || isOutputLoading}
-              className="flex active:scale-95 transition-all items-center justify-center py-1 px-4 bg-black text-white font-medium rounded-lg hover:bg-black/85"
-            >
-              <FaPlay className="mr-2" /> Run Code
-            </button>
+            <div className="flex items-center gap-5">
+              <button
+                onClick={handleCodeExecute}
+                disabled={isLoading || isOutputLoading}
+                className="flex active:scale-95 transition-all items-center justify-center py-1 px-4 bg-black text-white font-medium rounded-lg hover:bg-black/85"
+              >
+                <FaPlay className="mr-2" /> Run Code
+              </button>
+              <button disabled={isGenerating} onClick={handleOptimizer} className="disabled:opacity-50 disabled:animate-bounce" >
+                <VscLightbulbSparkle className="text-xl text-black" />
+              </button>
+            </div>
             <div className="flex items-center gap-5">
               <select
                 className="p-1 bg-gray-100 rounded-md border border-gray-300 focus:ring-0"

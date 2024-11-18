@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Dashboard from "./Dashboard";
+import Dashboard from "./components/Dashboard";
 import NIM from './NIM';
 
 function App() {
