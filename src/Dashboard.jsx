@@ -42,7 +42,7 @@ const safetySettings = [
 const YouTubeFrame = ({ videoID }) => (
   videoID && (
     <iframe
-      className="w-full min-h-[350px] h-[35vh] mb-2 rounded-md shadow-lg"
+      className="w-full min-h-[310px] h-[35vh] mb-2 rounded-md shadow-lg"
       src={`https://www.youtube.com/embed/${videoID}`}
       title="YouTube video player"
       frameBorder="0"
@@ -78,7 +78,7 @@ const ChatInput = ({ input, setInput, handleChatSubmission, isLoading, videoID }
 
 const CodeEditor = ({ language, editorContent, handleChange, theme }) => (
   <Editor
-    height="61%"
+    height="60%"
     language={language}
     value={editorContent}
     options={{ minimap: { enabled: true }, fontSize: 18, lineHeight: 1.6 }}
@@ -304,15 +304,23 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center">
-      {/* <div className="w-full h-[5vh] p-4 bg-white flex space-x-4"></div> */}
-      <div className="w-full h-screen p-4 bg-white flex space-x-4">
+    <div className="min-h-screen flex flex-col  items-center">
+      <div className="w-full items-center justify-between max-h-[5vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
+        <div className="flex items-center">
+          <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
+          <h1 className=" text-xl ms-2 font-semibold">Code Spark</h1>
+        </div>
+        <div className="">
+          <h1 className="">AI Dash</h1>
+        </div>
+      </div>
+      <div className="w-full h-[94vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
         <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
           <YouTubeFrame videoID={videoID} />
           {(explanation && videoID) && (
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <div className="p-4 cursor-pointer hover:brightness-75 active:scale-[98%] transition-all bg-gray-100 max-h-[190px] h-[30vh] overflow-y-auto rounded-lg border border-gray-300">
+                <div className="p-4 cursor-pointer hover:brightness-75 active:scale-[98%] transition-all bg-gray-100 max-h-[175px] h-[30vh] overflow-y-auto rounded-lg border border-gray-300">
                   <div className="flex items-center mb-3 justify-between">
                     <h3 className="text-lg font-semibold  text-black">{heading}</h3>
                     <h3 className="text-sm px-2 pb-1 pt-0.5 uppercase rounded-md bg-black font-semibold  text-gray-100">{language}</h3>
@@ -328,7 +336,7 @@ function App() {
                       {heading}
                     </div>
                     <button onClick={copyToClipboard}>
-                      {iscopied ? <BiSolidCopy className="text-gray-200 text-sm" /> : <BiCopy className="text-gray-200 text-sm" />}
+                      {iscopied ? <BiSolidCopy className="text-gray-600 text-sm" /> : <BiCopy className="text-gray-700 text-sm" />}
                     </button>
                   </div>
                   <hr className="mb-3 bg-gray-600" />
@@ -339,7 +347,7 @@ function App() {
           )}
           <ChatInput input={input} setInput={setInput} handleChatSubmission={handleChatSubmission} isLoading={isLoading} videoID={videoID} />
         </div>
-        <div className={`${videoID ? "w-1/2 md:block hidden" : "hidden"}  h-full`}>
+        <div className={`${videoID ? "w-1/2 md:block hidden" : "hidden"} h-full`}>
           <CodeEditor language={language} editorContent={editorContent} handleChange={handleChange} theme={theme} />
           <div className="flex justify-between mt-4">
             <button
