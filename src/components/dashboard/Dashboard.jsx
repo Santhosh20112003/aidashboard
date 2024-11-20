@@ -1,38 +1,25 @@
 import { useEffect, useState } from "react";
-import Editor from "@monaco-editor/react";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
 import showdown from "showdown";
-import { FaPlay, FaGear } from "react-icons/fa6";
+import { FaPlay } from "react-icons/fa6";
 import { MdIosShare } from "react-icons/md";
 import axios from "axios";
-import { LANGUAGE_VERSIONS } from "../constants";
+import { LANGUAGE_VERSIONS } from "../../constants";
 import { BiCopy, BiSolidCopy } from "react-icons/bi";
-import { BsStars } from "react-icons/bs";
 import toast, { Toaster } from "react-hot-toast";
 import * as Dialog from "@radix-ui/react-dialog";
 import { VscLightbulbSparkle } from "react-icons/vsc";
-import { RiExchangeBoxFill } from "react-icons/ri";
-
-const converter = new showdown.Converter();
-const genAI = new GoogleGenerativeAI("AIzaSyCVYbRztmqUamxjghxQYoqXTmwGnRD4Z7Q");
-
-const generationConfig = {
-  temperature: 1.4,
-  topP: 0.95,
-  topK: 40,
-  maxOutputTokens: 8192,
-  responseMimeType: "application/json",
-  responseSchema: {
-    type: "object",
-    properties: {
-      language: { type: "string" },
-      code: { type: "string" },
-      explanation: { type: "string" },
-      heading: { type: "string" },
-    },
-    required: ["language", "code", "explanation", "heading"],
-  },
-};
+import YouTubeFrame from "./parts/YouTubeFrame";
+import CodeEditor from "./parts/CodeEditor";
+import OutputDisplay from "./parts/OutputDisplay";
+import ChatInput from "./parts/ChatInput";
+import { useUserAuth } from "../context/UserAuthContext";
+import * as Popover from "@radix-ui/react-popover";
+import { converter, genAI, generationConfig } from "../../common/config";
+import { Link, useLocation } from "react-router-dom";
+import { TiPlus, TiPlusOutline } from "react-icons/ti";
+import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
+import { IoMdCodeWorking } from "react-icons/io";
 
 const safetySettings = [
   { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
@@ -41,83 +28,14 @@ const safetySettings = [
   { category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_NONE },
 ];
 
-const YouTubeFrame = ({ videoID, onSwap, videos }) => (
-  videoID && (
-    <div className="min-h-[310px] h-[35vh] relative">
-      <iframe
-        className="w-full h-full mb-2 rounded-md shadow-lg"
-        src={`https://www.youtube.com/embed/${videoID}`}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      />
-      {videos && <button onClick={() => onSwap()} className="absolute top-1/2 active:scale-95 transition-all -translate-y-1/2 right-3 p-1 rounded-md bg-white shadow-lg">
-        <RiExchangeBoxFill className="text-[1.3rem]" />
-      </button>}
-    </div>
-  )
-);
-
-const ChatInput = ({ input, setInput, handleChatSubmission, isLoading, videoID }) => (
-  <div>
-    <textarea
-      className={`w-full ${isLoading ? "opacity-50" : ""} ${videoID ? "h-12" : "h-[82vh]"} px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
-      placeholder="Type your prompt here..."
-      value={input}
-      disabled={isLoading}
-      onChange={(e) => setInput(e.target.value)}
-    />
-    <div className="flex gap-3 mt-2 items-center">
-      <button
-        onClick={handleChatSubmission}
-        className="w-full py-3 active:scale-95 transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black"
-        disabled={isLoading}
-      >
-        <BsStars /> Generate Contents
-      </button>
-      {isLoading && <FaGear className="text-3xl animate-spin text-black" />}
-    </div>
-
-
-  </div>
-);
-
-const CodeEditor = ({ language, editorContent, handleChange, theme }) => (
-  <Editor
-    height="60%"
-    language={language}
-    value={editorContent}
-    options={{ minimap: { enabled: true }, fontSize: 18, lineHeight: 1.6 }}
-    theme={theme}
-    onChange={handleChange}
-  />
-);
-
-const OutputDisplay = ({ output, isOutputLoading, handleCopy, copied }) => (
-  <div className="bg-black/90 overflow-auto max-h-[300px] h-[30%] mt-3 rounded-lg">
-    <div className="px-3 flex justify-between items-center pt-2 mb-2">
-      <h1 className="text-lg font-medium text-gray-100">Output:</h1>
-      {output && (
-        <button onClick={handleCopy}>
-          {copied ? <BiSolidCopy className="text-gray-200 text-sm" /> : <BiCopy className="text-gray-200 text-sm" />}
-        </button>
-      )}
-    </div>
-    <hr />
-    <p
-      dangerouslySetInnerHTML={{
-        __html: isOutputLoading ? "Loading output..." : output ?? 'Click "Run Code" to see the output here',
-      }}
-      className="text-lg p-3 text-gray-200"
-    />
-  </div>
-);
-
 function App() {
+  const { user, logOut } = useUserAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const location = useLocation();
   const [editorContent, setEditorContent] = useState("");
   const [input, setInput] = useState("");
   const [videos, setVideos] = useState(null);
+  const [open, setOpen] = useState(false);
   const [lastInput, setLastInput] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [explanation, setExplanation] = useState("");
@@ -131,19 +49,24 @@ function App() {
   const [output, setOutput] = useState(null);
   const [isGenerating, setisGenerating] = useState(false);
 
-
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("dashboardData")) || {};
     if (Object.keys(storedData).length) {
-      setEditorContent(storedData.editorContent || "");
-      setHeading(storedData.heading || "");
-      setExplanation(storedData.explanation || "");
-      setVideoID(storedData.videoID || "");
-      setLanguage(storedData.language || "javascript");
-      setLastInput(storedData.lastInput || "");
-      setInput(storedData.lastInput || "");
+      setVideos(storedData.videos || videos);
+      setEditorContent(storedData.editorContent || editorContent);
+      setHeading(storedData.heading || heading);
+      setExplanation(storedData.explanation || explanation);
+      setVideoID(storedData.videoID || videoID);
+      setLanguage(storedData.language || language);
+      setLastInput(storedData.lastInput || lastInput);
+      setInput(storedData.lastInput || lastInput);
     }
   }, []);
+
+  useEffect(() => {
+    console.log(user)
+  }, [])
+
 
   const UpdateLocal = () => {
     localStorage.setItem(
@@ -194,6 +117,10 @@ function App() {
     setIsLoading(true);
 
     try {
+      const history = [
+        lastInput ? { role: "user", parts: [{ text: lastInput }] } : null,
+        editorContent ? { role: "model", parts: [{ text: editorContent }] } : null,
+      ].filter(Boolean);
       const chatSession = genAI.getGenerativeModel({
         model: "gemini-1.5-flash",
         systemInstruction: `Create a JSON object designed for the Monaco Editor interface with the following structure:
@@ -213,12 +140,8 @@ function App() {
       }).startChat({
         generationConfig,
         safetySettings,
-        history: [
-          { role: "user", parts: [{ text: lastInput }] },
-          { role: "model", parts: [{ text: editorContent }] },
-        ],
+        history
       });
-
       const result = await chatSession.sendMessage(input);
       const responseData = JSON.parse(await result.response.text());
 
@@ -255,11 +178,18 @@ function App() {
   };
 
   const onSwap = () => {
-    const randomNumber = Math.floor(Math.random() * 5) + 1;
-    if (videos?.items[randomNumber]?.id?.videoId !== videoID) {
-      setVideoID(videos.items[randomNumber].id.videoId);
+    try {
+      const randomNumber = Math.floor(Math.random() * 5) + 1;
+      if (videos?.items[randomNumber]?.id?.videoId !== videoID) {
+        setVideoID(videos.items[randomNumber].id.videoId);
+      }
+      toast.success("Video Swapped")
     }
-    toast.success("Video Changed")
+    catch (err) {
+      toast.error("Unable to Swap Video")
+      console.log(err);
+    }
+
   };
 
   const handleCodeExecute = async () => {
@@ -394,22 +324,97 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col  items-center">
-      <div className="w-full items-center justify-between max-h-[5vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
-        <div className="flex items-center">
-          <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
-          <h1 className=" text-xl ms-2 font-semibold">Code Spark</h1>
+      <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
+        <div className="flex items-center gap-3 sm:gap-6">
+          <button onClick={() => setOpen(true)} className="active:scale-95 transition-all" >
+            <TbLayoutSidebarLeftExpand className="size-7 text-gray-600" />
+          </button>
+          <Dialog.Root open={open} >
+            <Dialog.Portal>
+              <Dialog.Overlay onClick={() => { setOpen(!open) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
+              <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-slideDrawer fixed top-0 left-0 w-[75%] flex items-start justify-between flex-col max-w-[400px] bg-white p-4 focus:outline-none">
+                <h1 className="text-2xl">Space List</h1>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
+          <Link to="/home" className="flex items-center">
+            <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
+            <h1 className=" text-xl ms-2 font-semibold"><p className="hidden md:block">Code Spark</p></h1>
+          </Link>
         </div>
-        <div className="">
-          <h1 className="">Login Now</h1>
+        <div className="flex items-center gap-3">
+          <button className="p-2 active:scale-95 transition-all" >
+            <IoMdCodeWorking className="text-2xl md:hidden" />
+          </button>
+          <button className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
+            <TiPlusOutline className="text-lg md:text-base" />  <p className="hidden sm:block">New Space</p>
+          </button>
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <button
+                onClick={() => {
+                  setIsDropdownOpen(!isDropdownOpen);
+                }}
+                className="flex w-fit items-center cursor-pointer gap-2 active:scale-95 transition-all"
+              >
+                <div className="size-11 rounded-lg flex border border-main/30 items-center justify-center text-white md:text-3xl text-2xl text-center relative">
+                  <img
+                    src={user.photoURL || 'https://xsgames.co/randomusers/assets/avatars/pixel/51.jpg'}
+                    alt="user_logo"
+                    className="size-9 rounded-md bg-main/30"
+                  />
+                </div>
+              </button>
+            </Popover.Trigger>
+            <Popover.Portal>
+              <Popover.Content
+                className="grid grid-cols-1 me-4 z-[10000] gap-3 rounded-lg px-1 py-2 mt-2 dark:bg-main bg-white w-[180px] border border-gray-200 shadow-lg will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
+                sideOffset={3}
+              >
+                <div
+                  className="px-2 flex flex-col gap-1"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu"
+                >
+                  <Link
+                    to="profile"
+                    className={`${location.pathname.includes("profile")
+                      ? " bg-main shadow-lg text-white rounded-md"
+                      : ""
+                      } block w-full text-start px-4 py-2 text-sm dark:text-white text-main focus:outline-none`}
+                    role="menuitem"
+                    onClick={() => {
+                      setIsDropdownOpen(!isDropdownOpen);
+                    }}
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => {
+                      localStorage.removeItem("codespark");
+                      logOut();
+                      window.location.href = "/home";
+                    }}
+                    className="block w-full text-start px-4 py-2 text-sm text-main focus:outline-none"
+                    role="menuitem"
+                  >
+                    Sign out
+                  </button>
+                </div>
+                <Popover.Arrow className="fill-main/25 -ms-3" />
+              </Popover.Content>
+            </Popover.Portal>
+          </Popover.Root>
         </div>
       </div>
-      <div className="w-full h-[94vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
+      <div className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
         <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
           <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
           {(explanation && videoID) && (
             <Dialog.Root>
               <Dialog.Trigger asChild>
-                <div className="p-4 cursor-pointer hover:brightness-75 active:scale-[98%] transition-all bg-gray-100 max-h-[175px] h-[30vh] overflow-y-auto rounded-lg border border-gray-300">
+                <div className="p-4 cursor-pointer hover:brightness-75 active:scale-[99%] transition-all bg-gray-100 h-[25vh] overflow-y-auto rounded-lg border border-gray-300">
                   <div className="flex items-center mb-3 justify-between">
                     <h3 className="text-lg font-semibold  text-black">{heading}</h3>
                     <h3 className="text-sm px-2 pb-0.5 pt-1 uppercase rounded-md bg-black font-semibold  text-gray-100">{language}</h3>
