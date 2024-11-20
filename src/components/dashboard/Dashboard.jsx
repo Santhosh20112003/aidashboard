@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/generative-ai";
-import showdown from "showdown";
 import { FaPlay } from "react-icons/fa6";
 import { MdIosShare } from "react-icons/md";
 import axios from "axios";
@@ -14,12 +13,10 @@ import CodeEditor from "./parts/CodeEditor";
 import OutputDisplay from "./parts/OutputDisplay";
 import ChatInput from "./parts/ChatInput";
 import { useUserAuth } from "../context/UserAuthContext";
-import * as Popover from "@radix-ui/react-popover";
 import { converter, genAI, generationConfig } from "../../common/config";
 import { Link, useLocation } from "react-router-dom";
-import { TiPlus, TiPlusOutline } from "react-icons/ti";
-import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { IoMdCodeWorking } from "react-icons/io";
+import Header from "./parts/Header";
+import { useData } from "../context/DataContext";
 
 const safetySettings = [
   { category: HarmCategory.HARM_CATEGORY_HARASSMENT, threshold: HarmBlockThreshold.BLOCK_NONE },
@@ -30,24 +27,40 @@ const safetySettings = [
 
 function App() {
   const { user, logOut } = useUserAuth();
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const location = useLocation();
-  const [editorContent, setEditorContent] = useState("");
-  const [input, setInput] = useState("");
-  const [videos, setVideos] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [lastInput, setLastInput] = useState("");
-  const [language, setLanguage] = useState("javascript");
-  const [explanation, setExplanation] = useState("");
-  const [heading, setHeading] = useState("");
-  const [theme, setTheme] = useState("vs-light");
-  const [isLoading, setIsLoading] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [iscopied, setisCopied] = useState(false);
-  const [videoID, setVideoID] = useState("");
-  const [isOutputLoading, setIsOutputLoading] = useState(false);
-  const [output, setOutput] = useState(null);
-  const [isGenerating, setisGenerating] = useState(false);
+  const { isDropdownOpen,
+    setIsDropdownOpen,
+    editorContent,
+    setEditorContent,
+    input,
+    setInput,
+    videos,
+    setVideos,
+    open,
+    setOpen,
+    lastInput,
+    setLastInput,
+    language,
+    setLanguage,
+    explanation,
+    setExplanation,
+    heading,
+    setHeading,
+    theme,
+    setTheme,
+    isLoading,
+    setIsLoading,
+    copied,
+    setCopied,
+    iscopied,
+    setisCopied,
+    videoID,
+    setVideoID,
+    isOutputLoading,
+    setIsOutputLoading,
+    output,
+    setOutput,
+    isGenerating,
+    setisGenerating, } = useData();
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("dashboardData")) || {};
@@ -64,9 +77,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(user)
-  }, [])
-
+    console.log(user);
+  }, []);
 
   const UpdateLocal = () => {
     localStorage.setItem(
@@ -80,22 +92,25 @@ function App() {
         lastInput: input,
       })
     );
-  }
+  };
 
   const handleChange = (value, event) => {
-    console.log(event)
+    console.log(event);
     setEditorContent(value);
     UpdateLocal();
-  }
+  };
 
   const searchYouTube = (head) =>
     new Promise((resolve, reject) => {
       if (!head) return reject(new Error("head is required"));
 
-      fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${encodeURIComponent(head)}&type=video&key=AIzaSyBTzFaLovTRNftZ5peD4AkZe_q4vRpBk8w`)
+      fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${encodeURIComponent(
+          head
+        )}&type=video&key=AIzaSyBTzFaLovTRNftZ5peD4AkZe_q4vRpBk8w`
+      )
         .then((response) => response.json())
         .then((data) => {
-
           setVideos(data);
           setVideoID(data.items[0].id.videoId);
           resolve(data.items[0].id.videoId);
@@ -119,11 +134,14 @@ function App() {
     try {
       const history = [
         lastInput ? { role: "user", parts: [{ text: lastInput }] } : null,
-        editorContent ? { role: "model", parts: [{ text: editorContent }] } : null,
+        editorContent
+          ? { role: "model", parts: [{ text: editorContent }] }
+          : null,
       ].filter(Boolean);
-      const chatSession = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash",
-        systemInstruction: `Create a JSON object designed for the Monaco Editor interface with the following structure:
+      const chatSession = genAI
+        .getGenerativeModel({
+          model: "gemini-1.5-flash",
+          systemInstruction: `Create a JSON object designed for the Monaco Editor interface with the following structure:
             Code: Include a fully functioning script that solves the problem of [problem_description] without requiring user input.
             Language: Specify the language used for the script. It must match one of these options:
               {
@@ -137,11 +155,12 @@ function App() {
             Explanation: Provide a detailed explanation of how the code works.
             Heading: Include a descriptive title summarizing the purpose of the code.
             Ensure the code is simple, modular, and adheres to best practices for readability.`,
-      }).startChat({
-        generationConfig,
-        safetySettings,
-        history
-      });
+        })
+        .startChat({
+          generationConfig,
+          safetySettings,
+          history,
+        });
       const result = await chatSession.sendMessage(input);
       const responseData = JSON.parse(await result.response.text());
 
@@ -166,7 +185,6 @@ function App() {
       );
 
       toast.success("Content generated successfully!");
-
     } catch (error) {
       console.error("Error generating content:", error);
       toast.error(
@@ -183,13 +201,11 @@ function App() {
       if (videos?.items[randomNumber]?.id?.videoId !== videoID) {
         setVideoID(videos.items[randomNumber].id.videoId);
       }
-      toast.success("Video Swapped")
-    }
-    catch (err) {
-      toast.error("Unable to Swap Video")
+      toast.success("Video Swapped");
+    } catch (err) {
+      toast.error("Unable to Swap Video");
       console.log(err);
     }
-
   };
 
   const handleCodeExecute = async () => {
@@ -202,8 +218,11 @@ function App() {
         files: [{ content: editorContent }],
       };
 
-      const response = await axios.post("https://emkc.org/api/v2/piston/execute", payload);
-      console.log(response)
+      const response = await axios.post(
+        "https://emkc.org/api/v2/piston/execute",
+        payload
+      );
+      console.log(response);
       const { stdout = "No output", stderr } = response.data.run || {};
 
       if (stdout.trim() === "No output" && !stderr) {
@@ -211,7 +230,11 @@ function App() {
         setOutput("No output.");
       } else if (stderr) {
         toast.error("Error during code execution.");
-        setOutput(`<strong>Error:</strong><br/>${stderr.replace(/\n/g, "<br/>").replace(/\t/g, "&nbsp;")}`);
+        setOutput(
+          `<strong>Error:</strong><br/>${stderr
+            .replace(/\n/g, "<br/>")
+            .replace(/\t/g, "&nbsp;")}`
+        );
       } else {
         toast.success("Code Executed succesfully");
         setOutput(stdout.replace(/\n/g, "<br/>").replace(/\t/g, "&nbsp;"));
@@ -239,45 +262,48 @@ function App() {
           type: "object",
           properties: {
             code: {
-              type: "string"
+              type: "string",
             },
             timeComplexity: {
-              type: "string"
+              type: "string",
             },
             spaceComplexity: {
-              type: "string"
-            }
+              type: "string",
+            },
           },
-          required: [
-            "code",
-            "timeComplexity",
-            "spaceComplexity"
-          ]
+          required: ["code", "timeComplexity", "spaceComplexity"],
         },
       };
 
       if (!editorContent) {
-        console.error('No code content provided.');
+        console.error("No code content provided.");
         return;
       }
 
-      const AI = new GoogleGenerativeAI("AIzaSyDmmnVfs5qtu9NRGhLWphp-hiK4MlGhmz8");
+      const AI = new GoogleGenerativeAI(
+        "AIzaSyDmmnVfs5qtu9NRGhLWphp-hiK4MlGhmz8"
+      );
       const chat = AI.getGenerativeModel({
         model: "gemini-1.5-flash",
-        systemInstruction: "You’re a skilled software engineer with extensive experience in code optimization and performance analysis. Your expertise lies in evaluating algorithms for both space and time complexity, and you have a knack for rewriting code to enhance efficiency without compromising functionality.\nYour task is to analyze the provided code, evaluate its current space and time complexity, and rewrite it to achieve a more optimized version by reducing unnecessary resource usage and minimizing execution time.\nPlease ensure to clearly state the initial complexity and the new complexity of the rewritten code. Include comments in the code explaining the optimizations made and how they impact performance. Return the final output in JSON format as follows:\n{\n  \"code\": \"<optimized_code>\",\n  \"timeComplexity\": \"<new_time_complexity>\",\n  \"spaceComplexity\": \"<new_space_complexity>\"\n}",
+        systemInstruction:
+          'You’re a skilled software engineer with extensive experience in code optimization and performance analysis. Your expertise lies in evaluating algorithms for both space and time complexity, and you have a knack for rewriting code to enhance efficiency without compromising functionality.\nYour task is to analyze the provided code, evaluate its current space and time complexity, and rewrite it to achieve a more optimized version by reducing unnecessary resource usage and minimizing execution time.\nPlease ensure to clearly state the initial complexity and the new complexity of the rewritten code. Include comments in the code explaining the optimizations made and how they impact performance. Return the final output in JSON format as follows:\n{\n  "code": "<optimized_code>",\n  "timeComplexity": "<new_time_complexity>",\n  "spaceComplexity": "<new_space_complexity>"\n}',
       }).startChat({
         setting,
         history: [
           {
             role: "user",
             parts: [
-              { text: `#include <iostream>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\n// Function to check if two strings are anagrams\nbooln areAnagrams(string str1, string str2) {\n    str1.erase(remove(str1.begin(), str1.end(), ' '), str1.end());\n    str2.erase(remove(str2.begin(), str2.end(), ' '), str2.end());\n    transform(str1.begin(), str1.end(), str1.begin(), ::tolower);\n    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);\n    // Check if lengths are different\n    if (str1.length() != str2.length()) {\n        return false;\n    }\n    // Sort the strings and compare\n    sort(str1.begin(), str1.end());\n    sort(str2.begin(), str2.end());\n    return str1 == str2;\n}\n\nint main() {\n    string string1 = \"Listen\";\n    string string2 = \"Silent\";\n    string string3 = \"hello\";\n    string string4 = \"world\";\n    cout << \"\\\" \" << string1 << \" \\\" and \\\" \" << string2 << \" \\\" are anagrams: \" << (areAnagrams(string1, string2) ? \"true\" : \"false\") << endl;\n    cout << \"\\\" \" << string3 << \" \\\" and \\\" \" << string4 << \" \\\" are anagrams: \" << (areAnagrams(string3, string4) ? \"true\" : \"false\") << endl;\n    return 0;\n}\n` },
+              {
+                text: `#include <iostream>\n#include <string>\n#include <algorithm>\nusing namespace std;\n\n// Function to check if two strings are anagrams\nbooln areAnagrams(string str1, string str2) {\n    str1.erase(remove(str1.begin(), str1.end(), ' '), str1.end());\n    str2.erase(remove(str2.begin(), str2.end(), ' '), str2.end());\n    transform(str1.begin(), str1.end(), str1.begin(), ::tolower);\n    transform(str2.begin(), str2.end(), str2.begin(), ::tolower);\n    // Check if lengths are different\n    if (str1.length() != str2.length()) {\n        return false;\n    }\n    // Sort the strings and compare\n    sort(str1.begin(), str1.end());\n    sort(str2.begin(), str2.end());\n    return str1 == str2;\n}\n\nint main() {\n    string string1 = \"Listen\";\n    string string2 = \"Silent\";\n    string string3 = \"hello\";\n    string string4 = \"world\";\n    cout << \"\\\" \" << string1 << \" \\\" and \\\" \" << string2 << \" \\\" are anagrams: \" << (areAnagrams(string1, string2) ? \"true\" : \"false\") << endl;\n    cout << \"\\\" \" << string3 << \" \\\" and \\\" \" << string4 << \" \\\" are anagrams: \" << (areAnagrams(string3, string4) ? \"true\" : \"false\") << endl;\n    return 0;\n}\n`,
+              },
             ],
           },
           {
             role: "model",
             parts: [
-              { text: `{\"code\": \"#include <iostream>\\n#include <string>\\n#include <algorithm>\\n\\nusing namespace std;\\n\\n// Function to check if two strings are anagrams\\nbool areAnagrams(string str1, string str2) {\\n    //Remove spaces and convert to lowercase in one pass\\n    string lowerStr1 = \\\"\\\";\\n    string lowerStr2 = \\\"\\\";\\n    for (char c : str1) {\\n        if (c != ' ')\\n            lowerStr1 += tolower(c);\\n    }\\n    for (char c : str2) {\\n        if (c != ' ')\\n            lowerStr2 += tolower(c);\\n    }\\n\\n    // Check if lengths are different. If so, return false immediately.\\n    if (lowerStr1.length() != lowerStr2.length()) {\\n        return false;\\n    }\\n\\n    //Use a map to count character frequencies. This avoids sorting.   \\n    map<char, int> charCount;\\n    for (char c : lowerStr1) {\\n        charCount[c]++;\\n    }\\n    for (char c : lowerStr2) {\\n        charCount[c]--;\\n        if (charCount[c] < 0) {\\n            return false; //Character count mismatch\\n        }\\n    }\\n    return true; //All character counts matched\\n}\\n\\nint main() {\\n    string string1 = \\\"Listen\\\";\\n    string string2 = \\\"Silent\\\";\\n    string string3 = \\\"hello\\\";\\n    string string4 = \\\"world\\\";\\n\\n    cout << \\\"\\\\\\\" \\\" << string1 << \\\" \\\\\\\" and \\\\\\\" \\\" << string2 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string1, string2) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    cout << \\\"\\\\\\\" \\\" << string3 << \\\" \\\\\\\" and \\\\\\\" \\\" << string4 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string3, string4) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    return 0;\\n}\", \"spaceComplexity\": \"O(min(m,n))\", \"timeComplexity\": \"O(m+n)\"}` },
+              {
+                text: `{\"code\": \"#include <iostream>\\n#include <string>\\n#include <algorithm>\\n\\nusing namespace std;\\n\\n// Function to check if two strings are anagrams\\nbool areAnagrams(string str1, string str2) {\\n    //Remove spaces and convert to lowercase in one pass\\n    string lowerStr1 = \\\"\\\";\\n    string lowerStr2 = \\\"\\\";\\n    for (char c : str1) {\\n        if (c != ' ')\\n            lowerStr1 += tolower(c);\\n    }\\n    for (char c : str2) {\\n        if (c != ' ')\\n            lowerStr2 += tolower(c);\\n    }\\n\\n    // Check if lengths are different. If so, return false immediately.\\n    if (lowerStr1.length() != lowerStr2.length()) {\\n        return false;\\n    }\\n\\n    //Use a map to count character frequencies. This avoids sorting.   \\n    map<char, int> charCount;\\n    for (char c : lowerStr1) {\\n        charCount[c]++;\\n    }\\n    for (char c : lowerStr2) {\\n        charCount[c]--;\\n        if (charCount[c] < 0) {\\n            return false; //Character count mismatch\\n        }\\n    }\\n    return true; //All character counts matched\\n}\\n\\nint main() {\\n    string string1 = \\\"Listen\\\";\\n    string string2 = \\\"Silent\\\";\\n    string string3 = \\\"hello\\\";\\n    string string4 = \\\"world\\\";\\n\\n    cout << \\\"\\\\\\\" \\\" << string1 << \\\" \\\\\\\" and \\\\\\\" \\\" << string2 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string1, string2) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    cout << \\\"\\\\\\\" \\\" << string3 << \\\" \\\\\\\" and \\\\\\\" \\\" << string4 << \\\" \\\\\\\" are anagrams: \\\" << (areAnagrams(string3, string4) ? \\\"true\\\" : \\\"false\\\") << endl;\\n    return 0;\\n}\", \"spaceComplexity\": \"O(min(m,n))\", \"timeComplexity\": \"O(m+n)\"}`,
+              },
             ],
           },
         ],
@@ -285,12 +311,17 @@ function App() {
       const result = await chat.sendMessage(editorContent);
       const data = await result.response.text();
       console.log(data);
-      const responseData = JSON.parse(data.replace("```json", "").replace("```", ""));
-      setEditorContent(`//${heading}\n//time complexity: ${responseData.timeComplexity}\n//Space complexity: ${responseData.spaceComplexity} \n` + responseData.code)
+      const responseData = JSON.parse(
+        data.replace("```json", "").replace("```", "")
+      );
+      setEditorContent(
+        `//${heading}\n//time complexity: ${responseData.timeComplexity}\n//Space complexity: ${responseData.spaceComplexity} \n` +
+        responseData.code
+      );
       UpdateLocal();
       toast.success(`Code is optimized.`);
     } catch (error) {
-      console.error('Error optimizing code:', error);
+      console.error("Error optimizing code:", error);
     } finally {
       setisGenerating(false); // Ensure this runs after the operation finishes
     }
@@ -301,7 +332,7 @@ function App() {
       navigator.clipboard
         .writeText(output.replace(/<br\/>/g, "\n").replace(/&nbsp;/g, "\t"))
         .then(() => {
-          toast.success("Output Copied")
+          toast.success("Output Copied");
           setCopied(true);
           setTimeout(() => setCopied(false), 3000);
         })
@@ -314,7 +345,7 @@ function App() {
       navigator.clipboard
         .writeText(explanation)
         .then(() => {
-          toast.success("Code Explanation Copied")
+          toast.success("Code Explanation Copied");
           setisCopied(true);
           setTimeout(() => setisCopied(false), 3000);
         })
@@ -323,91 +354,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col  items-center">
-      <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
-        <div className="flex items-center gap-3 sm:gap-6">
-          <button onClick={() => setOpen(true)} className="active:scale-95 transition-all" >
-            <TbLayoutSidebarLeftExpand className="size-7 text-gray-600" />
-          </button>
-          <Dialog.Root open={open} >
-            <Dialog.Portal>
-              <Dialog.Overlay onClick={() => { setOpen(!open) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
-              <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-slideDrawer fixed top-0 left-0 w-[75%] flex items-start justify-between flex-col max-w-[400px] bg-white p-4 focus:outline-none">
-                <h1 className="text-2xl">Space List</h1>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
-          <Link to="/home" className="flex items-center">
-            <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
-            <h1 className=" text-xl ms-2 font-semibold"><p className="hidden md:block">Code Spark</p></h1>
-          </Link>
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="p-2 active:scale-95 transition-all" >
-            <IoMdCodeWorking className="text-2xl md:hidden" />
-          </button>
-          <button className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
-            <TiPlusOutline className="text-lg md:text-base" />  <p className="hidden sm:block">New Space</p>
-          </button>
-          <Popover.Root>
-            <Popover.Trigger asChild>
-              <button
-                onClick={() => {
-                  setIsDropdownOpen(!isDropdownOpen);
-                }}
-                className="flex w-fit items-center cursor-pointer gap-2 active:scale-95 transition-all"
-              >
-                <div className="size-11 rounded-lg flex border border-main/30 items-center justify-center text-white md:text-3xl text-2xl text-center relative">
-                  <img
-                    src={user.photoURL || 'https://xsgames.co/randomusers/assets/avatars/pixel/51.jpg'}
-                    alt="user_logo"
-                    className="size-9 rounded-md bg-main/30"
-                  />
-                </div>
-              </button>
-            </Popover.Trigger>
-            <Popover.Portal>
-              <Popover.Content
-                className="grid grid-cols-1 me-4 z-[10000] gap-3 rounded-lg px-1 py-2 mt-2 dark:bg-main bg-white w-[180px] border border-gray-200 shadow-lg will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
-                sideOffset={3}
-              >
-                <div
-                  className="px-2 flex flex-col gap-1"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="user-menu"
-                >
-                  <Link
-                    to="profile"
-                    className={`${location.pathname.includes("profile")
-                      ? " bg-main shadow-lg text-white rounded-md"
-                      : ""
-                      } block w-full text-start px-4 py-2 text-sm dark:text-white text-main focus:outline-none`}
-                    role="menuitem"
-                    onClick={() => {
-                      setIsDropdownOpen(!isDropdownOpen);
-                    }}
-                  >
-                    Profile
-                  </Link>
-                  <button
-                    onClick={() => {
-                      localStorage.removeItem("codespark");
-                      logOut();
-                      window.location.href = "/home";
-                    }}
-                    className="block w-full text-start px-4 py-2 text-sm text-main focus:outline-none"
-                    role="menuitem"
-                  >
-                    Sign out
-                  </button>
-                </div>
-                <Popover.Arrow className="fill-main/25 -ms-3" />
-              </Popover.Content>
-            </Popover.Portal>
-          </Popover.Root>
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col items-center">
+      <Header setOpen={setOpen} open={open} setIsDropdownOpen={setIsDropdownOpen} isDropdownOpen={isDropdownOpen} logOut={logOut} />
       <div className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
         <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
           <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
