@@ -17,6 +17,11 @@ module.exports = {
         org: "#ff5001",
       },
       keyframes: {
+        bounce: {
+          from: { transform: "translateY(-25%)" },
+          via: { transform: "translateY(0)" },
+          to: { transform: "translateY(-25%)" },
+        },
         slideDownAndFade: {
           from: { opacity: "0", transform: "translateY(-2px)" },
           to: { opacity: "1", transform: "translateY(0)" },
@@ -98,6 +103,7 @@ module.exports = {
       exitToRight: "exitToRight 250ms ease",
       spin: "spin 1s linear infinite",
       pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) alternate infinite",
+      bounce: "bounce 2s cubic-bezier(0.8, 0, 1, 1) alternate infinite",
     },
   },
   plugins: [

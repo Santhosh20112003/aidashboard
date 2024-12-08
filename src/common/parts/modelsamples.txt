@@ -1,0 +1,109 @@
+ip prompt 
+Generate a JSON response structured as follows, adhering to the provided guidelines: 
+{
+  "type": "Specify the script type. Options: ['html', 'react', 'angular', 'vuejs'].",
+  "html": "If the selected type is 'html', provide a complete HTML document addressing [problem_description]. Include only valid HTML elements. Do not include any '<link>' tags to reference 'style.css' or '<script>' tags to reference 'script.js'. Additionally, do not include styles within '<style>' tags or scripts within '<script>' tags. All styles should be provided in the 'css' field, and all scripts should be provided in the 'js' field.",
+  "css": "If the type is 'html', provide a separate CSS file addressing [problem_description]. Exclude HTML or JavaScript content.",
+  "js": "If the type is 'html', provide a JavaScript file addressing [problem_description]. Exclude HTML or CSS content.",
+  "frameworks": "For 'html', specify the CSS framework(s) used. Options: ['css', 'tailwindcss', 'bulma', 'bootstrap', 'uikit', 'purecss']. If no frameworks are used, set this to ['css']. Do not include CDN links for any frameworks.",
+  "Code": "For types 'react', 'angular', or 'vuejs', provide a complete code snippet addressing [problem_description]. Omit this if the selected type is 'html'.",
+  "Heading": "Provide a concise title summarizing the code's purpose.",
+  "Explanation": "Provide a detailed explanation of how the code works. Ensure the solution is modular, adheres to best practices, and delivers a professional, rich UI experience. Additional CSS frameworks or APIs may be used if necessary."
+}
+
+
+
+Here are the input prompts covering the various combinations of HTML, CSS, JavaScript, and different CSS frameworks as you requested:
+
+1. **HTML with CSS**  
+> Create a basic webpage layout with a header, footer, and a main content section. Provide the HTML structure and the CSS for styling the layout. Do not use inline styles or `<style>` tags.
+
+2. **HTML with CSS and JS**  
+> Build a simple webpage with a button that, when clicked, displays a message. Include the HTML structure, CSS for styling, and JavaScript to handle the click event.
+
+3. **HTML with JavaScript**  
+> Create a webpage with a form that validates the user's input when submitted. Include the HTML structure and JavaScript logic for form validation. Do not include styles.
+
+4. **HTML with TailwindCSS**  
+> Design a simple webpage layout using HTML and style it with TailwindCSS. Ensure that no CDN links are included, and TailwindCSS styles are applied in a separate CSS file.
+
+5. **HTML with TailwindCSS and JavaScript**  
+> Create a webpage with a card component using HTML and TailwindCSS. Add JavaScript functionality to toggle the card's content visibility on button click.
+
+6. **HTML with TailwindCSS and CSS**  
+> Build a webpage with a navigation bar and content section. Style the page using HTML and TailwindCSS, and include additional custom styles in a separate CSS file for enhancements.
+
+7. **HTML with Bulma**  
+> Create a responsive webpage layout using HTML and style it with Bulma. Do not use any CDN links for Bulma, and ensure all styles are applied through a local CSS file.
+
+8. **HTML with Bulma and JavaScript**  
+> Build a webpage with a card grid using HTML and Bulma. Add JavaScript to handle dynamic sorting of the cards when a button is clicked.
+
+9. **HTML with Bulma and CSS**  
+> Design a webpage with a footer and content section, styled using Bulma and additional custom CSS for specific layout adjustments.
+
+10. **HTML with PureCSS**  
+> Create a simple webpage layout using HTML and style it with PureCSS. Ensure that no CDN links for PureCSS are used, and style the page using a local CSS file.
+
+11. **HTML with PureCSS and JavaScript**  
+> Create a webpage with a button that displays a modal dialog. Use HTML for the structure, PureCSS for styling, and JavaScript for handling the modal's opening and closing.
+
+12. **HTML with PureCSS and CSS**  
+> Build a webpage with a sidebar layout styled with PureCSS. Include additional custom CSS for the sidebar’s responsiveness and appearance.
+
+13. **HTML with Bootstrap**  
+> Design a webpage using HTML and style it with Bootstrap. Ensure that no external CDN links for Bootstrap are included, and apply Bootstrap styles through a local CSS file.
+
+14. **HTML with Bootstrap and CSS**  
+> Build a webpage layout with a header and footer styled with HTML and Bootstrap. Add custom CSS to style the content section, ensuring no CDN links for Bootstrap.
+
+15. **HTML with Bootstrap and JavaScript Logic**  
+> Create a webpage with a collapsible navigation menu using HTML and Bootstrap. Add JavaScript logic to toggle the menu when the user clicks on a button.
+
+16. **HTML with UIkit**  
+> Design a webpage layout using HTML and style it with UIkit. Ensure that the styles are applied locally, without using any CDN links for UIkit.
+
+17. **HTML with UIkit and JavaScript**  
+> Build a webpage with a grid layout using HTML and UIkit. Add JavaScript logic to filter the displayed items based on a search query.
+
+18. **HTML with UIkit and CSS**  
+> Create a webpage with a sidebar and content section, using HTML and UIkit for styling. Include custom CSS for specific styling details for the sidebar.
+
+19. **HTML with JavaScript Logic**  
+> Create a webpage with a countdown timer that displays the remaining time until a specific event. Use HTML for the layout and JavaScript for the countdown logic.
+
+20. **HTML with External API**  
+> Build a webpage that fetches and displays data from an external API, such as a weather service. Include the HTML structure and JavaScript to make the API request and display the data dynamically.
+
+21. **HTML with External JavaScript Libraries**  
+> Create a webpage that integrates with an external JavaScript library like Chart.js to display a bar chart. Use HTML to structure the page, and include JavaScript to configure and render the chart.
+
+1. HTML with External JavaScript Libraries and CSS
+Create a webpage that displays a line chart using Chart.js. Use HTML for the structure, CSS for styling the page, and ensure the chart container is styled professionally. Do not include <link> or <style> tags in the HTML, and ensure all CSS is placed in a separate file.
+
+2. HTML with External JavaScript Libraries and TailwindCSS
+Build a webpage that displays a pie chart using D3.js. Use TailwindCSS for styling the layout, and ensure the page has a responsive design. Do not include CDN links or <style> tags in the HTML. Apply TailwindCSS classes directly in the HTML.
+
+3. HTML with External JavaScript Libraries and Bulma
+Design a webpage using HTML and Bulma that integrates a sortable data table using the DataTables.js library. Use Bulma for styling the table and layout. Ensure no CDN links for Bulma or <link> tags are included, and all styles come from the local Bulma file.
+
+4. HTML with External JavaScript Libraries and PureCSS
+Create a webpage using PureCSS and integrate it with the Leaflet.js library to display an interactive map. Style the map container and page using PureCSS. Ensure no CDN links or <link> tags are included, and the styles are applied locally.
+
+5. HTML with External JavaScript Libraries and Bootstrap
+Build a webpage using HTML and Bootstrap that visualizes data with ApexCharts.js. Use Bootstrap for layout and styling, and ensure the chart container is styled professionally. Do not include any external CDN links or <link> tags for Bootstrap, and all styles should come from a local Bootstrap file.
+
+1. HTML with External API and CSS
+Create a webpage that fetches and displays weather data from an external API like OpenWeatherMap. Use CSS to style the page, ensuring it looks professional and responsive. Do not include <link> or <style> tags in the HTML, and ensure all styles are in a separate CSS file.
+
+2. HTML with External API and TailwindCSS
+Build a webpage that fetches and displays cryptocurrency prices from an external API like CoinGecko. Use TailwindCSS to style the page, making it visually appealing and responsive. Apply TailwindCSS classes directly in the HTML without including CDN links or <style> tags.
+
+3. HTML with External API and Bulma
+Design a webpage that retrieves and displays user data from an external API like JSONPlaceholder. Use Bulma to style the layout and make the data display table look polished. Do not include any <link> tags or external CDN links for Bulma.
+
+4. HTML with External API and Bootstrap
+Create a webpage that fetches and displays trending movies from an external API like TMDB. Use Bootstrap to style the page, ensuring the layout is modern and responsive. Do not include <link> or external CDN links for Bootstrap, and style the page using a local Bootstrap file.
+
+5. HTML with External API and PureCSS
+Build a webpage that retrieves and displays live news articles from an external API like NewsAPI. Style the layout using PureCSS to make it clean and responsive. Ensure no CDN links or <link> tags are included, and the styles are applied locally.
