@@ -62,10 +62,10 @@ const SpacesList = () => {
                             className="size-10 p-1 rounded-xl object-cover"
                         />
                         <div className="ml-3">
-                            <h2 className="text-[0.9rem] font-semibold text-gray-700 group-hover:text-gray-900">
-                                {space.heading.slice(0, 30)} - <span className="text-xs">{ParseAIDate(space.updatedAt)}</span>
+                            <h2 className="text-[0.9rem] leading-relaxed line-clamp-1 me-6 font-semibold text-gray-700 group-hover:text-gray-900">
+                                {space.heading}
                             </h2>
-                            <p className="text-xs text-gray-500">{space.spaceid}</p>
+                            <p className="text-xs leading-relaxed line-clamp-1 text-gray-500">{space.spaceid}</p>
                         </div>
                     </Link>
 

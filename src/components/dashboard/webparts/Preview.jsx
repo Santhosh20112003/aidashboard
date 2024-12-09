@@ -8,7 +8,7 @@ import { RiFullscreenExitLine, RiFullscreenFill, RiRefreshLine } from "react-ico
 import * as Tooltip from "@radix-ui/react-tooltip";
 
 const Preview = ({ htmlCode, cssCode, jsCode, framework }) => {
-    const { isFullScreen, setIsFullscreen } = useData();
+    const { isFullScreen, setIsFullscreen, webspaceid } = useData();
     const [reloadFlag, setReloadFlag] = useState(false);
     const iframeRef = useRef(null);
 
@@ -35,7 +35,6 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework }) => {
         }
     };
 
-    // Load the content in iframe
     useEffect(() => {
         try {
             if (iframeRef.current) {
@@ -126,6 +125,11 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework }) => {
                             <RiFullscreenFill className="text-lg text-gray-700" />
                         )}
                     </button>
+                    <Link target="_blank" to={`/ws/${webspaceid}`}
+                        className="bg-gray-200 p-2 rounded-md active:scale-90 transition-all"
+                    >
+                        Live
+                    </Link>
                 </div>
             </div>
 

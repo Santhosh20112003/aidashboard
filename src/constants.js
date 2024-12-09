@@ -166,6 +166,48 @@ export const LANGUAGE_VERSIONS = {
       "https://ik.imagekit.io/vituepzjm/logos/f40ee6322bba6ef1100a5adb0fe196d6.webp?updatedAt=1733265039268",
     banner: "https://ik.imagekit.io/vituepzjm/banners/19.png",
   },
+  css: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/css-3.svg?updatedAt=1733771166475",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/30.png",
+  },
+  tailwindcss: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/images.png?updatedAt=1733771319537",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/25.png",
+  },
+  bulma: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/bulma-io.png?updatedAt=1733087434805",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/28.png",
+  },
+  bootstrap: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/bootstrap.png?updatedAt=1733083627229",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/27.png",
+  },
+  uikit: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/ui2.png?updatedAt=1733087922800",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/26.png",
+  },
+  purecss: {
+    version: "",
+    comment: "//",
+    image:
+      "https://ik.imagekit.io/vituepzjm/Frameworks/unnamed.png?updatedAt=1733087828514",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/29.png",
+  },
 };
 
 export const Frameworks = {

@@ -39,7 +39,7 @@ function SpaceInfo() {
         isShareOpen,
         setCodeShared,
         CodeShared,
-        spaceid,
+        framework,
         AddNewSharedSpace,
         RevokeSpaceAccess,
         UpdateSpaceAccess,
@@ -142,7 +142,7 @@ function SpaceInfo() {
             setLastInput(res?.lastinput);
             setExplanation(res?.explanation);
             setType(res?.type);
-            setFramework(res?.framework);
+            setFramework(res?.frameworks);
             setHtmlCode(res?.htmlCode);
             setCssCode(res?.cssCode);
             setJsCode(res?.jsCode);
@@ -163,7 +163,7 @@ function SpaceInfo() {
     return (
         <section className="relative pt-20 pb-16">
             <img
-                src={LANGUAGE_VERSIONS[Type]?.banner || "https://via.placeholder.com/50"}
+                src={LANGUAGE_VERSIONS[framework]?.banner || "https://via.placeholder.com/50"}
                 alt="cover"
                 className="w-full absolute top-0 left-0 z-0 h-80 "
             />
@@ -171,9 +171,9 @@ function SpaceInfo() {
                 <div className="flex flex-col gap-5 lg:flex-row items-center justify-between px-6 py-6 md:py-10 border-b border-gray-200">
                     <div className="flex items-center gap-4">
                         <img
-                            src={LANGUAGE_VERSIONS[Type]?.image || "https://via.placeholder.com/50"}
+                            src={LANGUAGE_VERSIONS[framework]?.image || "https://via.placeholder.com/50"}
                             alt="language-logo"
-                            className="size-12 p-1 rounded-lg object-cover"
+                            className="w-12 p-1 rounded-lg object-cover"
                         />
                         <div>
                             <h1 className="md:text-2xl font-semibold text-gray-800">{heading}</h1>

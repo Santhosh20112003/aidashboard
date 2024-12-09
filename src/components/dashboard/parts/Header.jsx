@@ -196,23 +196,46 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                     <MdOutlineAdminPanelSettings className='text-xl' /> Admin Spaces
                                 </Link>
                             </div>}
-
+                            <div className="">
+                                <Link
+                                    to="/dashboard/shared/list"
+                                    className={`flex items-center justify-center gap-1 px-3 py-2 text-center text-sm font-medium rounded-lg transition-all ${location.pathname.includes('shared') && !location.pathname.includes("/dashboard/shared/webspace/view")
+                                        ? 'bg-main text-white shadow-lg'
+                                        : 'text-main bg-gray-100'
+                                        }`}
+                                    role="menuitem"
+                                    onClick={() => setIsDropdownOpen(false)}
+                                >
+                                    <MdOutlineGroups className='text-xl' /> Shared Space
+                                </Link>
+                            </div>
 
                             <hr className="mt-2 mb-2 border-gray-300 dark:border-gray-700" />
 
                             <div role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-
-                                <div className="mb-2">
+                                <div className="mb-2 block md:hidden">
                                     <Link
-                                        to="/dashboard/shared/list"
-                                        className={`flex items-center justify-center gap-1 px-3 py-2 text-center text-sm font-medium rounded-lg transition-all ${location.pathname.includes('shared') && !location.pathname.includes("/dashboard/shared/webspace/view")
+                                        to="/dashboard/space/list"
+                                        className={`flex items-center justify-center gap-1 px-3 py-2 text-center text-sm font-medium rounded-lg transition-all ${location.pathname.includes('dashboard/space/list')
                                             ? 'bg-main text-white shadow-lg'
                                             : 'text-main bg-gray-100'
                                             }`}
                                         role="menuitem"
                                         onClick={() => setIsDropdownOpen(false)}
                                     >
-                                        <MdOutlineGroups className='text-xl' /> Shared Space
+                                        CodeSpaces
+                                    </Link>
+                                </div>
+                                <div className="mb-2 block md:hidden">
+                                    <Link
+                                        to="/dashboard/webspace/list"
+                                        className={`flex items-center justify-center gap-1 px-3 py-2 text-center text-sm font-medium rounded-lg transition-all ${location.pathname.includes('dashboard/webspace/list')
+                                            ? 'bg-main text-white shadow-lg'
+                                            : 'text-main bg-gray-100'
+                                            }`}
+                                        role="menuitem"
+                                        onClick={() => setIsDropdownOpen(false)}
+                                    > WebSpaces
                                     </Link>
                                 </div>
                                 <div className="grid mb-2 grid-cols-2 gap-2">
@@ -234,7 +257,6 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                         </Link>
                                     ))}
                                 </div>
-
                                 <div className="grid grid-cols-2 gap-2">
                                     <Link
                                         to="/dashboard/profile"

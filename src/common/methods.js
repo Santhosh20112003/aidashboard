@@ -157,8 +157,8 @@ export function getUniqueLanguages(dataArray) {
 export function getUniqueWebLanguages(dataArray) {
   const langset = new Set();
   dataArray.forEach((item) => {
-    if (item.type) {
-      langset.add(item.type);
+    if (item.frameworks) {
+      langset.add(item.frameworks);
     }
   });
   return Array.from(langset);

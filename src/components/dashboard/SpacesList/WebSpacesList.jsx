@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useData } from "../../context/DataContext";
 import { LANGUAGE_VERSIONS } from "../../../constants";
-import { getUniqueLanguages, getUniqueWebLanguages, ParseAIDate } from "../../../common/methods";
+import { getUniqueWebLanguages, ParseAIDate } from "../../../common/methods";
 import * as Popover from "@radix-ui/react-popover";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import { HiTrash } from "react-icons/hi";
@@ -37,10 +37,10 @@ const WebSpacesList = () => {
             filtered = filtered.filter(
                 (space) =>
                     space.heading.toLowerCase().includes(websearchPrompt.toLowerCase()) ||
-                    space.type.toLowerCase().includes(websearchPrompt.toLowerCase())
+                    space.frameworks.toLowerCase().includes(websearchPrompt.toLowerCase())
             );
         } else if (webpromptLang?.trim()) {
-            filtered = filtered.filter((space) => space.type === webpromptLang);
+            filtered = filtered.filter((space) => space.frameworks === webpromptLang);
         }
 
         setWebResults(filtered);
@@ -49,8 +49,8 @@ const WebSpacesList = () => {
     const renderSpaceCard = (space) => (
         <div key={space.spaceid} className="">
             <img
-                src={LANGUAGE_VERSIONS[space.type]?.banner || "https://via.placeholder.com/50"}
-                alt={space.type}
+                src={LANGUAGE_VERSIONS[space.frameworks]?.banner || "https://via.placeholder.com/50"}
+                alt={space.frameworks}
                 className="h-32 w-full rounded-t-xl object-cover"
             />
             <div
@@ -59,15 +59,15 @@ const WebSpacesList = () => {
                 <div className="flex items-center justify-between mb-4">
                     <Link to={`/dashboard/webspace/info/${space.spaceid}`} className="flex items-center">
                         <img
-                            src={LANGUAGE_VERSIONS[space.type]?.image || "https://via.placeholder.com/50"}
-                            alt={space.type}
-                            className="size-10 p-1 rounded-xl object-cover"
+                            src={LANGUAGE_VERSIONS[space.frameworks]?.image || "https://via.placeholder.com/50"}
+                            alt={space.frameworks}
+                            className="w-8 object-cover"
                         />
                         <div className="ml-3">
-                            <h2 className="text-[0.9rem] font-semibold text-gray-700 group-hover:text-gray-900">
-                                {space.heading.slice(0, 30)} - <span className="text-xs">{ParseAIDate(space.updatedAt)}</span>
+                            <h2 className="text-[0.9rem]leading-relaxed line-clamp-1 font-semibold text-gray-700 group-hover:text-gray-900">
+                                {space.heading.slice(0, 30)}
                             </h2>
-                            <p className="text-xs text-gray-500">{space.spaceid}</p>
+                            <p className="text-xs leading-relaxed line-clamp-1 text-gray-500">{space.spaceid}</p>
                         </div>
                     </Link>
 
@@ -154,11 +154,12 @@ const WebSpacesList = () => {
                                         </button>
                                         {availableLangs.map((item, index) => (
                                             <button
+                                                title={item}
                                                 key={index}
                                                 onClick={() => setwebpromptLang(item)}
                                                 className={` rounded-md ${item == webpromptLang ? 'border border-gray-500' : ''} p-1`}
                                             >
-                                                <img src={LANGUAGE_VERSIONS[item]?.image || "https://via.placeholder.com/50"} alt={item} className="size-6" />
+                                                <img src={LANGUAGE_VERSIONS[item]?.image || "https://via.placeholder.com/50"} alt={item} className="w-6" />
                                             </button>
                                         ))}
                                     </div>

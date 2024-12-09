@@ -794,9 +794,11 @@ export function DataContextProvider({ children }) {
       toast.error("Change the Input Prompt to Generate Contents");
       return;
     }
+
     setIsLoading(true);
 
     try {
+      // Construct chat history for AI interaction
       const history = [
         lastInput && { role: "user", parts: [{ text: lastInput }] },
         editorContent && {
@@ -807,42 +809,72 @@ export function DataContextProvider({ children }) {
                 html: htmlCode,
                 css: cssCode,
                 js: jsCode,
-                frameworks: framework,
+                frameworks: framework || "css",
               }),
             },
           ],
         },
       ].filter(Boolean);
 
-      const chatSession = genAI
-        .getGenerativeModel({
-          model: "gemini-1.5-flash",
-          systemInstruction: `
-            Generate a JSON response structured as follows, adhering to the provided guidelines:
+      // Initialize chat session with the AI model
+      const chatSession = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        systemInstruction: `
+          Generate a JSON response structured as follows:
           {
             "type": "Specify the script type. Options: ['html'].",
-            "html": "If the selected type is 'html', provide a complete HTML document addressing [problem_description]. Include only valid HTML elements. Do not include any '<link>' tags to reference 'style.css' or '<script>' tags to reference 'script.js'. Additionally, do not include styles within '<style>' tags or scripts within '<script>' tags. All styles should be provided in the 'css' field, and all scripts should be provided in the 'js' field.",
-            "css": "If the type is 'html', provide a separate CSS file addressing [problem_description]. Exclude HTML or JavaScript content.",
-            "js": "If the type is 'html', provide a JavaScript file addressing [problem_description]. Exclude HTML or CSS content.",
-            "frameworks": "For 'html', specify the CSS framework(s) used. Options: 'css', 'tailwind', 'bulma', 'bootstrap', 'uikit', 'purecss'. If no frameworks are used, set this to 'css'. Do not include CDN links for any frameworks.",
-            "Heading": "Provide a concise title summarizing the code's purpose.",
-            "Explanation": "Provide a detailed explanation of how the code works. Ensure the solution is modular, adheres to best practices, and delivers a professional, rich UI experience. Additional CSS frameworks or APIs may be used if necessary."
+            "html": "Provide a complete HTML document without styles or scripts in <style> or <script> tags.",
+            "css": "Provide separate CSS content.",
+            "js": "Provide separate JavaScript content.",
+            "frameworks": "Specify frameworks used. If none, set this to 'css'.",
+            "Heading": "Summarize the code's purpose in one line.",
+            "Explanation": "Explain the code's functionality and purpose."
           }
-          `,
-        })
+        `,
+      });
+
+      // Send prompt to AI model
+      const result = await chatSession
         .startChat({
           history,
           webGenerationConfig,
           safetySettings,
-        });
-      const result = await chatSession.sendMessage(
-        webprompt +
-          `Do not include any '<link>' tags to reference 'style.css' or '<script>' tags to reference 'script.js'. Additionally, do not include styles within '<style>' tags or scripts within '<script>' tags. All styles should be provided in the 'css' field, and all scripts should be provided in the 'js' field.`
-      );
+        })
+        .sendMessage(
+          JSON.stringify({
+            html: htmlCode,
+            css: cssCode,
+            js: jsCode,
+            frameworks: framework || "css",
+          }) +
+            " this is the old codebase , i want you to" +
+            webprompt +
+            `,if framework is not mentioned earlier use ${
+              framework || "css"
+            } and in the response, Do not include any '<link>' tags to reference 'style.css' or '<script>' tags to reference 'script.js'.
+                   Additionally, do not include styles within '<style>' tags or scripts within '<script>' tags. All styles should be provided in the 'css' field, and all scripts should be provided in the 'js' field in the 'html' field `
+          //  and
+          //          give response in JSON Format in this structure
+          //         sample response  {
+          //   "type": "html",
+          //   "html": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Simple Calculator</title>\n</head>\n<body>\n  <div class=\"container mx-auto p-8 bg-white rounded shadow-md mt-16\">\n    <h1 class=\"text-2xl font-bold mb-4 text-center\">Simple Calculator</h1>\n    <input type=\"text\" id=\"display\" class=\"w-full p-2 border border-gray-300 rounded mb-4 text-right text-lg\" readonly>\n    <div class=\"grid grid-cols-4 gap-2\">\n      <button class=\"button bg-gray-200 hover:bg-gray-300\">C</button>\n      <button class=\"button bg-gray-200 hover:bg-gray-300\">&#8592;</button>\n      <button class=\"button bg-gray-200 hover:bg-gray-300\">%</button>\n      <button class=\"button operator bg-orange-500 hover:bg-orange-600 text-white\">&#247;</button>\n      <button class=\"button\">7</button>\n      <button class=\"button\">8</button>\n      <button class=\"button\">9</button>\n      <button class=\"button operator bg-orange-500 hover:bg-orange-600 text-white\">&#215;</button>\n      <button class=\"button\">4</button>\n      <button class=\"button\">5</button>\n      <button class=\"button\">6</button>\n      <button class=\"button operator bg-orange-500 hover:bg-orange-600 text-white\">-</button>\n      <button class=\"button\">1</button>\n      <button class=\"button\">2</button>\n      <button class=\"button\">3</button>\n      <button class=\"button operator bg-orange-500 hover:bg-orange-600 text-white\">+</button>\n      <button class=\"button col-span-2\">0</button>\n      <button class=\"button\">.</button>\n      <button class=\"button operator bg-orange-500 hover:bg-orange-600 text-white\">=</button>\n    </div>\n  </div>\n</body>\n</html>",
+          //   "css": "",
+          //   "js": "const display = document.getElementById('display');\nconst buttons = document.querySelectorAll('.button');\nlet currentInput = '';\n\nbuttons.forEach(button => {\n  button.addEventListener('click', () => {\n    const value = button.textContent;\n    if (value === '=') {\n      try {\n        currentInput = eval(currentInput).toString();\n      } catch (error) {\n        currentInput = 'Error';\n      }\n    } else if (value === 'C') {\n      currentInput = '';\n    } else if (value === '←') {\n      currentInput = currentInput.slice(0, -1);\n    } else {\n      currentInput += value;\n    }\n    display.value = currentInput;\n  });\n});\n\ndocument.addEventListener('keydown', (event) => {\n  const key = event.key;\n  if (/[0-9+\-*/.%]/.test(key)) {\n    currentInput += key;\n    display.value = currentInput;\n  } else if (key === 'Enter') {\n    try {\n      currentInput = eval(currentInput).toString();\n      display.value = currentInput;\n    } catch (error) {\n      display.value = 'Error';\n      currentInput = '';\n    }\n  } else if (key === 'c' || key === 'C'){\n    currentInput = '';\n    display.value = currentInput;\n  } else if (key === 'Backspace'){\n    currentInput = currentInput.slice(0, -1);\n    display.value = currentInput;\n  }\n});",
+          //   "frameworks": "tailwindcss",
+          //   "Heading": "Responsive Calculator with Keyboard Support",
+          //   "Explanation": "This code implements a simple calculator with a responsive UI using Tailwind CSS.  The calculator allows users to input numbers and perform basic arithmetic operations using both the on-screen buttons and the keyboard.  Keyboard support includes number keys, basic operators (+, -, *, /), decimal point (.), Enter key (=), backspace, and 'c' or 'C' for clear."
+          // }`
+        );
+      console.log(result.response);
       const data = await result.response.text();
-      const responseData = extractWebJsonObject(data);
 
-      if (responseData.type == "html") {
+      // Clean the response (remove backticks and other non-JSON content)
+      const responseData = extractJsonObject(data);
+
+      console.log(responseData);
+
+      // Validate response and proceed with updates
+      if (responseData?.type === "html") {
         const updateData = {
           userid: user.uid,
           spaceid: webspaceid,
@@ -853,24 +885,23 @@ export function DataContextProvider({ children }) {
           htmlCode: responseData.html,
           cssCode: responseData.css,
           jsCode: responseData.js,
-          frameworks: responseData.frameworks,
-          heading: responseData.Heading,
-          explanation: responseData.Explanation,
+          frameworks: responseData.frameworks || "css",
+          heading: responseData.Heading || "Generated Content",
+          explanation: responseData.Explanation || "No explanation provided.",
           updatedAt: new Date(),
         };
 
         const response = await UpdateWebExistingSpace(updateData);
-        if (!response) {
-          new Error("Unable to upoad to Cloud");
-        }
+        if (!response) throw new Error("Failed to upload data to the cloud.");
 
-        const updatedSpaces = webspaces.map((item) =>
-          item.spaceid === webspaceid
-            ? { ...updateData, createdAt: item.createdAt }
-            : item
+        // Update state and UI
+        setWebSpaces((prevSpaces) =>
+          prevSpaces.map((item) =>
+            item.spaceid === webspaceid
+              ? { ...updateData, createdAt: item.createdAt }
+              : item
+          )
         );
-
-        setWebSpaces(updatedSpaces);
         setHeading(updateData.heading);
         setExplanation(updateData.explanation);
         setHtmlCode(updateData.htmlCode);
@@ -878,22 +909,18 @@ export function DataContextProvider({ children }) {
         setJsCode(updateData.jsCode);
         setFramework(updateData.frameworks);
         setLastInput(updateData.input);
+
         toast.remove();
         toast.success("Content generated successfully!");
       } else {
-        toast(
-          "This is Space is particular for Vanilla things try creating new space",
-          {
-            icon: "⚠️",
-          }
-        );
+        toast("This space is for vanilla content. Please create a new space.", {
+          icon: "⚠️",
+        });
       }
     } catch (error) {
-      console.error("Error generating content:", error);
+      console.error(error);
       toast.remove();
-      toast.error(
-        "An error occurred while generating web content. Please try again later."
-      );
+      toast.error("Failed to generate content.");
     } finally {
       setIsLoading(false);
     }
@@ -1222,7 +1249,7 @@ export function DataContextProvider({ children }) {
       toast.success("User added successfully.");
     } catch (error) {
       console.error("Error managing user:", error.message);
-      toast.error("Failed to add user. Please try again.");
+      // toast.error("Failed to add user. Please try again.");
     }
   };
 
@@ -1270,7 +1297,7 @@ export function DataContextProvider({ children }) {
       const querySnapshot = await getDocs(cardQuery);
       if (!querySnapshot.empty) {
         const docRef = querySnapshot.docs[0].ref;
-        await addDoc(collection(db, "spaces"), updatedCard);
+        await addDoc(collection(db, "webspaces"), updatedCard);
         await deleteDoc(docRef);
         setWebTrashes((prevCards) =>
           prevCards.filter((ele) => ele.spaceid !== codespace.spaceid)

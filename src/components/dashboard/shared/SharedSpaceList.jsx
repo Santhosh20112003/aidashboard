@@ -56,7 +56,7 @@ function SharedSpaceList() {
       filtered = filtered.filter(
         (space) =>
           space.heading?.toLowerCase().includes(prompt.toLowerCase()) ||
-          space.type?.toLowerCase().includes(prompt.toLowerCase()) ||
+          space.frameworks?.toLowerCase().includes(prompt.toLowerCase()) ||
           space.userid?.toLowerCase().includes(prompt.toLowerCase())
       );
       setFilteredwebData(filtered);
@@ -73,12 +73,12 @@ function SharedSpaceList() {
         <Tabs.List className="text-main font-medium flex items-center justify-center md:justify-between rounded-md w-full gap-2 px-3 md:px-5 pt-3 pb-5" >
           <h1 className="text-2xl hidden md:block">Shared Spaces</h1>
           <div className="w-full  md:justify-end md:w-fit flex gap-3">
-            <input
+            {(sharedcodeSpace.length > 0 || sharedwebSpace.length > 0) && <input
               type="search"
               onChange={(e) => setPrompt(e.target.value)}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-main focus:border-main block w-full pl-3 p-2.5"
               placeholder="Search for spaces.."
-            />
+            />}
             <div className="flex items-center gap-3">
               <Tabs.Trigger
                 onClick={() => { setCurrent("CodeSpace") }}
@@ -162,8 +162,8 @@ function SharedSpaceList() {
           {filteredwebData.length > 0 && filteredwebData.map((space, index) => (
             <div key={space.spaceid} className="relative">
               <img
-                src={LANGUAGE_VERSIONS[space.type]?.banner || "https://via.placeholder.com/50"}
-                alt={space.type}
+                src={LANGUAGE_VERSIONS[space.frameworks]?.banner || "https://via.placeholder.com/50"}
+                alt={space.frameworks}
                 className="h-32 w-full rounded-t-xl object-cover"
               />
               <div className="absolute top-3 right-3 text-sm text-white bg-black/80 px-2 py-1 rounded-md">
@@ -175,8 +175,8 @@ function SharedSpaceList() {
                 <div className="flex items-center justify-between mb-4">
                   <Link to={space.isEditorMode ? `/dashboard/shared/webspace/edit/${space.spaceid}` : `/dashboard/shared/webspace/view/${space.spaceid}`} className="flex items-center">
                     <img
-                      src={LANGUAGE_VERSIONS[space.type]?.image || "https://via.placeholder.com/50"}
-                      alt={space.type}
+                      src={LANGUAGE_VERSIONS[space.frameworks]?.image || "https://via.placeholder.com/50"}
+                      alt={space.frameworks}
                       className="size-10 p-1 rounded-xl object-cover"
                     />
                     <div className="ml-3">
