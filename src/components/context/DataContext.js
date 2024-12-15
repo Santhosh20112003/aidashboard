@@ -79,6 +79,8 @@ export function DataContextProvider({ children }) {
   const [isGenerating, setisGenerating] = useState(false);
   const [spaces, setSpaces] = useState([]);
   const [webspaces, setWebSpaces] = useState([]);
+  const [spacestemplates, setSpacesTemplates] = useState([]);
+  const [webspacestemplates, setWebSpacesTemplates] = useState([]);
   const [codeTrashes, setCodeTrashes] = useState([]);
   const [webTrashes, setWebTrashes] = useState([]);
   const [sharedcodeSpace, setSharedcodeSpace] = useState([]);
@@ -121,29 +123,29 @@ export function DataContextProvider({ children }) {
     console.log("Sorting..");
     setSpaces((spaces) =>
       spaces.sort((a, b) => {
-        const dateA = a.updatedAt?.toDate ? a.updatedAt.toDate() : new Date(0);
-        const dateB = b.updatedAt?.toDate ? b.updatedAt.toDate() : new Date(0);
+        const dateA = a.updatedAt.toDate();
+        const dateB = b.updatedAt.toDate();
         return dateB - dateA;
       })
     );
     setResults((spaces) =>
       spaces.sort((a, b) => {
-        const dateA = a.updatedAt?.toDate ? a.updatedAt.toDate() : new Date(0);
-        const dateB = b.updatedAt?.toDate ? b.updatedAt.toDate() : new Date(0);
+        const dateA = a.updatedAt.toDate();
+        const dateB = b.updatedAt.toDate();
         return dateB - dateA;
       })
     );
   };
 
-  useEffect(() => {
-    SortCodeSpaceByTime();
-  }, [spaces, editorContent]);
+  // useEffect(() => {
+  //   SortCodeSpaceByTime();
+  // }, [spaces, editorContent]);
 
   const SortCodeTrashByTime = () => {
     setCodeTrashes((spaces) =>
       spaces.sort((a, b) => {
-        const dateA = a.updatedAt?.toDate ? a.updatedAt.toDate() : new Date(0);
-        const dateB = b.updatedAt?.toDate ? b.updatedAt.toDate() : new Date(0);
+        const dateA = a.updatedAt.toDate();
+        const dateB = b.updatedAt.toDate();
         return dateB - dateA;
       })
     );
@@ -606,7 +608,7 @@ export function DataContextProvider({ children }) {
       if (!response || !lang) {
         new Error("Unable to upoad to Cloud");
       }
-      setSpaces((lastSpaces) => [...lastSpaces, newData]);
+      setSpaces((lastSpaces) => [newData, ...lastSpaces]);
       setPrompt("");
       navigate(`/dashboard/space/${newData.spaceid}`);
     } catch (error) {
@@ -1682,9 +1684,105 @@ export function DataContextProvider({ children }) {
     }
   };
 
+  const getCodeTemplates = async () => {
+    setIsFetching(true);
+    try {
+      // Fetch and order templates from Firestore
+      const cardsQuery = query(
+        collection(db, "codespacetemplates"),
+        orderBy("heading", "asc")
+      );
+      const snapshot = await getDocs(cardsQuery);
+
+      // Retrieve templates and filter them based on spaces
+      const fetchedTemplates = snapshot.docs.map((doc) => doc.data()) || [];
+      setSpacesTemplates(
+        fetchedTemplates.filter(
+          (template) =>
+            !spaces.some((space) => space.heading === template.heading)
+        )
+      );
+    } catch (error) {
+      console.error("Error fetching code templates:", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  const getWebTemplates = async () => {
+    setIsFetching(true);
+    try {
+      const cardsQuery = query(
+        collection(db, "webspacetemplates"),
+        orderBy("heading", "asc")
+      );
+      const snapshot = await getDocs(cardsQuery);
+      setWebSpacesTemplates(snapshot.docs.map((doc) => doc.data()) || []);
+    } catch (error) {
+      console.error("Error fetching webtemplates:", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
+
+  const handleCodeTemplateAdd = async (item) => {
+    setIsLoading(true);
+    try {
+      const videos = await searchNewYouTube(item.heading);
+      const videoID = videos[0]?.id?.videoId;
+
+      if (!videoID) {
+        throw new Error("No valid video ID found for the given heading.");
+      }
+
+      const newData = {
+        ...item,
+        userid: user.uid,
+        spaceid: uuidv4(),
+        input: item.heading,
+        lastinput: item.heading,
+        videos,
+        videoID,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      await addDoc(collection(db, "spaces"), newData);
+
+      setSpaces((prevSpaces) => [newData, ...prevSpaces]);
+      setSpacesTemplates((prevTemplates) =>
+        prevTemplates.filter((template) => template.heading !== item.heading)
+      );
+
+      navigate(`/dashboard/space/${newData.spaceid}`);
+    } catch (error) {
+      console.error("Error adding code template:", error.message, error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleWebTemplateAdd = (item) => {
+    setIsLoading(true);
+    try {
+    } catch (err) {
+      console.error("Error adding code template:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
+        handleWebTemplateAdd,
+        handleCodeTemplateAdd,
+        getWebTemplates,
+        getCodeTemplates,
+        spacestemplates,
+        webspacestemplates,
+        setSpacesTemplates,
+        setWebSpacesTemplates,
         searchYouTube,
         isOptimized,
         setisOptimized,

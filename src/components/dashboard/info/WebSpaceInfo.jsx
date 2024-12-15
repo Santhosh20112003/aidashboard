@@ -70,15 +70,20 @@ function SpaceInfo() {
         try {
             const newData = { spaceid: webspaceid, userid: user.uid, email: Share.email, isEditorMode: Share.isEditorMode, type: "web", updatedAt: new Date() }
             const updatedShared = [...CodeShared, newData];
+            // console.log(newData)
             const response = await AddNewSharedSpace(newData);
             if (!response) throw new Error("Failed to update cloud");
             setCodeShared(updatedShared);
-            toast.success("Space shared successfully!");
+            toast.success("WebSpace shared successfully!");
         } catch (error) {
             console.error(error);
             toast.error("Unable to share space.");
         } finally {
-            setShare({ email: "" });
+            setShare({
+                email: "",
+                isEditorMode: false
+            })
+            setisEditorMode(false)
             setisSharing(false);
             setisShareOpen(false);
         }
@@ -91,7 +96,7 @@ function SpaceInfo() {
             const response = await RevokeSpaceAccess({ ...item, updatedAt: new Date() });
             if (response) {
                 setCodeShared(updatedShared);
-                toast.success("Access revoked successfully.");
+                toast.success("User Access revoked successfully.");
             }
             else {
                 toast.error("cannot revoke the access.")
@@ -118,7 +123,7 @@ function SpaceInfo() {
             const response = await UpdateSpaceAccess({ ...data, updatedAt: new Date() });
             if (response) {
                 setCodeShared(updatedShared);
-                toast.success("Access mode updated successfully.");
+                toast.success(`${!item.isEditorMode ? 'Editor Mode' : 'Viewer Mode'} applied to the User.`);
             }
             else {
                 toast.error("Access mode cannot update.");
@@ -165,10 +170,10 @@ function SpaceInfo() {
             <img
                 src={LANGUAGE_VERSIONS[framework]?.banner || "https://via.placeholder.com/50"}
                 alt="cover"
-                className="w-full absolute top-0 left-0 z-0 h-80 "
+                className="w-full absolute top-0 object-none md:object-fill left-0 z-0 h-80 "
             />
-            <div className="relative w-full max-w-[90rem] mx-auto mt-24 px-6 md:px-8 bg-white border border-gray-300 rounded-xl overflow-hidden">
-                <div className="flex flex-col gap-5 lg:flex-row items-center justify-between px-6 py-6 md:py-10 border-b border-gray-200">
+            <div className="relative w-full max-w-[90rem] mx-auto mt-24 px-4 md:px-8 bg-white md:border md:border-gray-300 rounded-xl overflow-hidden">
+                <div className="flex flex-col gap-5 md:flex-row items-start md:items-center justify-between py-6 md:py-10 border-b border-gray-200">
                     <div className="flex items-center gap-4">
                         <img
                             src={LANGUAGE_VERSIONS[framework]?.image || "https://via.placeholder.com/50"}
@@ -176,11 +181,11 @@ function SpaceInfo() {
                             className="w-12 p-1 rounded-lg object-cover"
                         />
                         <div>
-                            <h1 className="md:text-2xl font-semibold text-gray-800">{heading}</h1>
-                            <p className="text-sm text-gray-500">{webspaceid}</p>
+                            <h1 title={heading} className="md:text-2xl leading-relaxed line-clamp-1 overflow-hidden font-semibold text-gray-800">{heading}</h1>
+                            <p title={webspaceid} className="text-xs md:text-sm leading-relaxed line-clamp-1 overflow-hidden text-gray-500">{webspaceid}</p>
                         </div>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center w-full sm:w-fit justify-between md:justify-start gap-3">
                         <Link
                             to={`/dashboard/webspace/${webspaceid}`}
                             className="px-4 py-2 text-sm inline-flex items-center justify-center gap-2 font-medium text-white bg-gradient-to-r from-black/80 to-black/70 rounded-lg "
@@ -232,10 +237,10 @@ function SpaceInfo() {
                         </AlertDialog.Root>
                     </div>
                 </div>
-                <div className="p-6">
-                    <div className="flex flex-row items-center justify-between gap-4 mb-6">
-                        <span className="inline-flex items-center gap-3 justify-start space-x-2">
-                            <h1 className="text-xl font-semibold ms-2 text-gray-600">Shared with</h1>
+                <div className="py-6 px-2 md:px-4 md:py-6">
+                    <div className="flex flex-row items-center w-fit md:w-full justify-between gap-4 mb-6">
+                        <span className="inline-flex items-center md:gap-3 justify-start md:space-x-2">
+                            <h1 className="text-xl hidden md:block font-semibold ms-2 text-gray-600">Shared with</h1>
                             <button onClick={() => { setisShareOpen(true) }} className="p-2.5 bg-black/90 active:scale-95 transition-all text-white rounded-lg" >
                                 <FaUserPlus className="text-base" />
                             </button>

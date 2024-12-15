@@ -7,7 +7,7 @@ import { Toaster } from 'react-hot-toast';
 
 function Structure() {
     const { user, logOut } = useUserAuth();
-    const { getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
+    const { getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
 
     useEffect(() => {
         if (!isFetching) {
@@ -35,6 +35,8 @@ function Structure() {
 
     useEffect(() => {
         NewUserCloud(user);
+        getCodeTemplates();
+        getWebTemplates();
     }, [user]);
 
     return (

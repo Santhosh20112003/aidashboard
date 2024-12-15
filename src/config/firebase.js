@@ -14,6 +14,16 @@ const firebaseConfig = {
   measurementId: "G-ZRRYLBVYE0",
 };
 
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCmwvbZJRTqhgJzwEfbkzrB_P5KW2kNAMM",
+//   authDomain: "codespark-db289.firebaseapp.com",
+//   projectId: "codespark-db289",
+//   storageBucket: "codespark-db289.firebasestorage.app",
+//   messagingSenderId: "361931317573",
+//   appId: "1:361931317573:web:0948b1bb9a072768675e2c",
+//   measurementId: "G-10Q41MWKNT",
+// };
+
 const app = initializeApp(firebaseConfig);
 export const storage = getStorage(app);
 export const db = getFirestore(app);

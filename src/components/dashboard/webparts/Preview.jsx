@@ -102,7 +102,7 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework }) => {
                                         sideOffset={10}
                                         side="bottom"
                                     >
-                                        {framework} CSS Framework Added
+                                        {framework} Framework Added
                                         <Tooltip.Arrow className="fill-gray-400" />
                                     </Tooltip.Content>
                                 </Tooltip.Portal>
