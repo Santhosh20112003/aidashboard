@@ -33,7 +33,7 @@ function CodeTrash() {
                             </Dialog.Description>
 
                             <div className="flex justify-start gap-3">
-                                <button disabled={isDeleting} onClick={() => HandleCodeTrashEmpty()} className="px-4 py-2 bg-red-600 disabled:bg-red-400 text-white rounded-md hover:bg-red-700">
+                                <button disabled={isDeleting} onClick={() => HandleCodeTrashEmpty("codespacetrash")} className="px-4 py-2 bg-red-600 disabled:bg-red-400 text-white rounded-md hover:bg-red-700">
                                     Delete
                                 </button>
                                 <button onClick={() => setisDeleteOpen(false)} className="px-4 py-2 bg-main/10 text-main/90 rounded-md hover:bg-main/20">

@@ -119,41 +119,41 @@ export function DataContextProvider({ children }) {
     },
   ];
 
-  const SortCodeSpaceByTime = () => {
-    console.log("Sorting..");
-    setSpaces((spaces) =>
-      spaces.sort((a, b) => {
-        const dateA = a.updatedAt.toDate();
-        const dateB = b.updatedAt.toDate();
-        return dateB - dateA;
-      })
-    );
-    setResults((spaces) =>
-      spaces.sort((a, b) => {
-        const dateA = a.updatedAt.toDate();
-        const dateB = b.updatedAt.toDate();
-        return dateB - dateA;
-      })
-    );
-  };
+  // const SortCodeSpaceByTime = () => {
+  //   console.log("Sorting..");
+  //   setSpaces((spaces) =>
+  //     spaces.sort((a, b) => {
+  //       const dateA = a.updatedAt.toDate();
+  //       const dateB = b.updatedAt.toDate();
+  //       return dateB - dateA;
+  //     })
+  //   );
+  //   setResults((spaces) =>
+  //     spaces.sort((a, b) => {
+  //       const dateA = a.updatedAt.toDate();
+  //       const dateB = b.updatedAt.toDate();
+  //       return dateB - dateA;
+  //     })
+  //   );
+  // };
 
   // useEffect(() => {
   //   SortCodeSpaceByTime();
   // }, [spaces, editorContent]);
 
-  const SortCodeTrashByTime = () => {
-    setCodeTrashes((spaces) =>
-      spaces.sort((a, b) => {
-        const dateA = a.updatedAt.toDate();
-        const dateB = b.updatedAt.toDate();
-        return dateB - dateA;
-      })
-    );
-  };
+  // const SortCodeTrashByTime = () => {
+  //   setCodeTrashes((spaces) =>
+  //     spaces.sort((a, b) => {
+  //       const dateA = a.updatedAt.toDate();
+  //       const dateB = b.updatedAt.toDate();
+  //       return dateB - dateA;
+  //     })
+  //   );
+  // };
 
-  useEffect(() => {
-    SortCodeTrashByTime();
-  }, [codeTrashes]);
+  // useEffect(() => {
+  //   SortCodeTrashByTime();
+  // }, [codeTrashes]);
 
   // useEffect(() => {
   //   setErrorSuggesion("");
@@ -1376,29 +1376,34 @@ export function DataContextProvider({ children }) {
     }
   };
 
-  const fetchUserTrash = async () => {
+  const fetchUserTrash = async (name) => {
     const userTrashQuery = query(
-      collection(db, "codespacetrash"),
+      collection(db, name),
       where("userid", "==", user.uid)
     );
     return await getDocs(userTrashQuery);
   };
 
-  const deleteAllUserTrash = async (snapshot) => {
+  const deleteAllUserTrash = async (snapshot, name) => {
     const batch = writeBatch(db);
     snapshot.forEach((doc) => {
       batch.delete(doc.ref);
     });
+    if (name == "codespacetrash") {
+      setCodeTrashes([]);
+    } else if (name == "webspacetrash") {
+      setWebTrashes([]);
+    }
+
     await batch.commit();
   };
 
-  const HandleCodeTrashEmpty = async () => {
+  const HandleCodeTrashEmpty = async (name) => {
     setisDeleting(true);
     try {
-      const userTrashSnapshot = await fetchUserTrash();
+      const userTrashSnapshot = await fetchUserTrash(name);
       if (!userTrashSnapshot.empty) {
-        await deleteAllUserTrash(userTrashSnapshot);
-        setCodeTrashes([]);
+        await deleteAllUserTrash(userTrashSnapshot, name);
         setisDeleteOpen(false);
       } else {
         console.error("Error: No trash items found for the user.");
@@ -1715,7 +1720,14 @@ export function DataContextProvider({ children }) {
         orderBy("heading", "asc")
       );
       const snapshot = await getDocs(cardsQuery);
-      setWebSpacesTemplates(snapshot.docs.map((doc) => doc.data()) || []);
+      // setWebSpacesTemplates(snapshot.docs.map((doc) => doc.data()) || []);
+      const fetchedTemplates = snapshot.docs.map((doc) => doc.data()) || [];
+      setWebSpacesTemplates(
+        fetchedTemplates.filter(
+          (template) =>
+            !webspaces.some((space) => space.heading === template.heading)
+        )
+      );
     } catch (error) {
       console.error("Error fetching webtemplates:", error);
     } finally {
@@ -1765,6 +1777,7 @@ export function DataContextProvider({ children }) {
     try {
       const newData = {
         ...item,
+        type: "html",
         userid: user.uid,
         spaceid: uuidv4(),
         input: item.heading,

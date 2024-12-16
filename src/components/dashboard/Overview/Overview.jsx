@@ -17,12 +17,19 @@ function Overview() {
       <div className={`grid grid-cols-2 lg:grid-cols-4 ${isClosed ? 'xl:grid-cols-4' : 'xl:grid-cols-5'} lg:grid-rows-5 gap-3`}>
         <div className="col-span-2 lg:col-span-4 row-span-3 py-3 bg-white rounded-lg flex flex-col-reverse md:flex-row items-center justify-center md:gap-5 md:justify-evenly bg-[url('https://dashboard.algolia.com/client-assets/c1c9361fe75370d1b156733e962f7214/514f2ec3798090c6df00dad1592c8166.svg')]">
           <span className="flex items-start justify-center flex-col p-2">
-            <h1 className="lg:text-4xl md:text-3xl text-2xl ms-4 font-medium title-font mb-4 text-start italic text-[#3f3d56]">
-              Welcome <br className="flex md:hidden" />
-              <span className="text-main font-semibold break-words capitalize">
+            <h1 className="lg:text-4xl hidden md:flex md:text-3xl text-2xl ms-4 font-medium title-font mb-4 text-start text-[#3f3d56]">
+              Hello, <br className="flex md:hidden" />
+              🥷<span className="text-main font-semibold break-words capitalize">
                 {user.displayName}
               </span>
-              &nbsp;!
+              &nbsp;
+            </h1>
+            <h1 className="lg:text-4xl md:text-3xl break-words md:hidden text-2xl ms-4 font-medium title-font mb-4 text-start text-[#3f3d56]">
+               {/* <br className="flex md:hidden" /> */}
+              🥷<span className="text-main font-semibold break-words capitalize">
+                {user.displayName}
+              </span>
+              &nbsp;
             </h1>
             <p className="text-[#3f3d56] break-words md:ps-4 ms-4 text-start text-base md:text-lg">
               Check what's happening on your CodeSpark Dashboard.

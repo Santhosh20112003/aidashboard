@@ -91,20 +91,26 @@ function LoadSpace() {
 
     useEffect(() => {
         const loadSpaceData = () => {
-            const res = spaces.find((item) => item.spaceid === id);
-            setOutput(null);
-            setHeading(res?.heading);
-            setSpaceid(res?.spaceid);
-            setInput(res?.input);
-            setLastInput(res?.lastinput);
-            setVideos(res?.videos);
-            setVideoID(res?.videoID);
-            setCodeShared(res?.shared);
-            setEditorContent(res?.code);
-            setExplanation(res?.explanation);
-            setLanguage(res?.language.toLowerCase());
-            setLastInput(res?.input);
-            setData(res || null);
+            try {
+                const res = spaces.find((item) => item.spaceid === id);
+                setOutput(null);
+                setHeading(res?.heading);
+                setSpaceid(res?.spaceid);
+                setInput(res?.input);
+                setLastInput(res?.lastinput);
+                setVideos(res?.videos);
+                setVideoID(res?.videoID);
+                setCodeShared(res?.shared);
+                setEditorContent(res?.code);
+                setExplanation(res?.explanation);
+                setLanguage(res?.language.toLowerCase());
+                setLastInput(res?.input);
+                setData(res || null);
+            }
+            catch (error) {
+                console.log(error);
+                toast.error("Error loading space data");
+            }
         };
 
         loadSpaceData();

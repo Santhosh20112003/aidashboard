@@ -6,15 +6,14 @@ import { useUserAuth } from "../../context/UserAuthContext";
 import { LANGUAGE_VERSIONS } from "../../../constants";
 import "../../../chat.css";
 import * as AlertDialog from "@radix-ui/react-alert-dialog";
-import { BiSolidTerminal } from "react-icons/bi";
 import { FiArrowRight } from "react-icons/fi";
 import { FaCircleArrowLeft, FaUserPlus } from "react-icons/fa6";
 import { HiTrash } from "react-icons/hi";
 import toast, { Toaster } from "react-hot-toast";
 import * as Tooltip from "@radix-ui/react-tooltip";
-import { ParseAIDate, ParseFullDate } from "../../../common/methods";
+import { ParseFullDate } from "../../../common/methods";
 
-function SpaceInfo() {
+function WebSpaceInfo() {
     const { id } = useParams();
     const { user } = useUserAuth();
     const {
@@ -138,20 +137,25 @@ function SpaceInfo() {
 
     useEffect(() => {
         const loadSpaceData = async () => {
-            const res = webspaces.find((item) => item.spaceid === id);
-            setHeading(res?.heading);
-            setWebSpaceid(res?.spaceid);
-            const response = await getSharedSpaces(res?.spaceid, "web");
-            setCodeShared(response);
-            setInput(res?.input);
-            setLastInput(res?.lastinput);
-            setExplanation(res?.explanation);
-            setType(res?.type);
-            setFramework(res?.frameworks);
-            setHtmlCode(res?.htmlCode);
-            setCssCode(res?.cssCode);
-            setJsCode(res?.jsCode);
-            setData(res || null);
+            try {
+                const res = webspaces.find((item) => item.spaceid === id);
+                setHeading(res?.heading);
+                setWebSpaceid(res?.spaceid);
+                const response = await getSharedSpaces(res?.spaceid, "web");
+                setCodeShared(response);
+                setInput(res?.input);
+                setLastInput(res?.lastinput);
+                setExplanation(res?.explanation);
+                setType(res?.type);
+                setFramework(res?.frameworks);
+                setHtmlCode(res?.htmlCode);
+                setCssCode(res?.cssCode);
+                setJsCode(res?.jsCode);
+                setData(res || null);
+            }
+            catch (err) {
+                console.log(err);
+            }
         };
 
         loadSpaceData();
@@ -190,7 +194,7 @@ function SpaceInfo() {
                             to={`/dashboard/webspace/${webspaceid}`}
                             className="px-4 py-2 text-sm inline-flex items-center justify-center gap-2 font-medium text-white bg-gradient-to-r from-black/80 to-black/70 rounded-lg "
                         >
-                            Open Space <FiArrowRight />
+                            Open&nbsp;Space <FiArrowRight />
                         </Link>
 
                         <AlertDialog.Root>
@@ -211,7 +215,7 @@ function SpaceInfo() {
                                         Are you absolutely sure?
                                     </AlertDialog.Title>
                                     <AlertDialog.Description className="text-gray-600 mt-3 mb-5 text-[15px] leading-normal">
-                                        This action cannot be undone. This will move <span className="text-gray-700 font-semibold capitalize" >{Type} WebSpace</span> on <span className="text-gray-700 font-semibold" >{heading}</span> to Trash page you can restore at anytime.
+                                        This action cannot be undone. This will move <span className="text-gray-700 font-semibold uppercase" >{Type} with {framework}</span> WebSpace on <span className="text-gray-700 font-semibold" >{heading}</span> to Trash page you can restore at anytime.
                                     </AlertDialog.Description>
                                     <div className="flex justify-start gap-[25px]">
 
@@ -258,7 +262,7 @@ function SpaceInfo() {
                                             </div>
 
                                             <div className="flex-1 flex flex-col">
-                                                <h1 className="text-xl md:text-2xl font-semibold mb-2 text-gray-800">Share Your {Type[0].toUpperCase() + Type.slice(1)} WebSpace</h1>
+                                                <h1 className="text-xl md:text-2xl font-semibold mb-2 text-gray-800">Share Your {Type?.toUpperCase() + Type?.slice(1)} WebSpace</h1>
                                                 <p className="text-gray-500  font-normal">You can share your WebSpace for <span className="font-semibold text-gray-600" >{heading}</span> with others, so they can access and edit it from their shared space.</p>
 
 
@@ -323,7 +327,7 @@ function SpaceInfo() {
                             </AlertDialog.Root>
                         </span>
                         <button className="rounded-lg uppercase py-2 px-3 bg-gray-200 flex items-center gap-2 text-sm font-medium text-gray-700 hover:bg-gray-300 transition">
-                            {Type}
+                            {Type} with {framework}
                         </button>
                     </div>
                     <div className="grid gap-3 mb-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -410,11 +414,11 @@ function SpaceInfo() {
                     ></div>
                 </div>
             </div>
-            <div className="absolute top-5 left-5 bg-white p-0.5 rounded-full">
+            {/* <div className="absolute top-5 left-5 bg-white p-0.5 rounded-full">
                 <Link to="/dashboard/webspace/list" className="active:scale-95 transition-all" >
                     <FaCircleArrowLeft className="text-3xl shadow-md rounded-full text-black" />
                 </Link>
-            </div>
+            </div> */}
             <div className="absolute top-5 right-5 text-sm text-white bg-black/80 px-2 py-1 rounded-md">
                 {ParseFullDate(data.createdAt)}
             </div>
@@ -423,4 +427,4 @@ function SpaceInfo() {
     );
 }
 
-export default SpaceInfo;
+export default WebSpaceInfo;

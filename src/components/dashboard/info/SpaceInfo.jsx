@@ -138,21 +138,26 @@ function SpaceInfo() {
 
   useEffect(() => {
     const loadSpaceData = async () => {
-      const res = spaces.find((item) => item.spaceid === id);
-      setOutput(null);
-      setHeading(res?.heading);
-      setSpaceid(res?.spaceid);
-      setInput(res?.input);
-      const response = await getSharedSpaces(res?.spaceid, "code");
-      setCodeShared(response);
-      setLastInput(res?.lastinput);
-      setVideos(res?.videos);
-      setVideoID(res?.videoID);
-      setEditorContent(res?.code);
-      setExplanation(res?.explanation);
-      setLanguage(res?.language.toLowerCase());
-      setLastInput(res?.input);
-      setData(res || null);
+      try {
+        const res = spaces.find((item) => item.spaceid === id);
+        setOutput(null);
+        setHeading(res?.heading);
+        setSpaceid(res?.spaceid);
+        setInput(res?.input);
+        const response = await getSharedSpaces(res?.spaceid, "code");
+        setCodeShared(response);
+        setLastInput(res?.lastinput);
+        setVideos(res?.videos);
+        setVideoID(res?.videoID);
+        setEditorContent(res?.code);
+        setExplanation(res?.explanation);
+        setLanguage(res?.language.toLowerCase());
+        setLastInput(res?.input);
+        setData(res || null);
+      }
+      catch (err) {
+        console.log(err)
+      }
     };
 
     loadSpaceData();
@@ -204,7 +209,7 @@ function SpaceInfo() {
               to={`/dashboard/space/${spaceid}`}
               className="px-4 py-2 text-sm inline-flex items-center justify-center gap-2 font-medium text-white bg-gradient-to-r from-black/80 to-black/70 rounded-lg "
             >
-              Open Space <FiArrowRight />
+              Open&nbsp;Space <FiArrowRight />
             </Link>
 
             <AlertDialog.Root>
@@ -423,11 +428,11 @@ function SpaceInfo() {
           ></div>
         </div>
       </div >
-      <div className="absolute top-5 left-5 bg-white p-0.5 rounded-full">
+      {/* <div className="absolute top-5 left-5 bg-white p-0.5 rounded-full">
         <Link to="/dashboard/space/list" className="active:scale-95 transition-all" >
           <FaCircleArrowLeft className="text-3xl shadow-md rounded-full text-black" />
         </Link>
-      </div>
+      </div> */} 
       <div className="absolute top-5 right-5 text-sm text-white bg-black/80 px-2 py-1 rounded-md">
         {ParseFullDate(data.createdAt)}
       </div>

@@ -1,18 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Toaster } from 'react-hot-toast'
-import { BsStars } from 'react-icons/bs'
-import { FaGear } from 'react-icons/fa6'
 import ChatInput from '../webparts/ChatInput'
 import CodePlayground from '../webparts/CodePlayground'
 import Preview from '../webparts/Preview'
-import Console from '../webparts/Console'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useData } from '../../context/DataContext'
-import { useUserAuth } from '../../context/UserAuthContext'
 
 function LoadWebSpace() {
     const { id } = useParams();
-    const { user } = useUserAuth();
     const {
         setHeading,
         setExplanation,
@@ -31,24 +25,28 @@ function LoadWebSpace() {
         setJsCode,
         setCodeShared,
     } = useData();
-    const navigate = useNavigate();
     const [data, setData] = useState(null);
 
     useEffect(() => {
         const loadSpaceData = () => {
-            const res = webspaces.find((item) => item.spaceid === id);
-            setHeading(res?.heading);
-            setWebSpaceid(res?.spaceid);
-            setInput(res?.input);
-            setLastInput(res?.lastinput);
-            setExplanation(res?.explanation);
-            setType(res?.type);
-            setFramework(res?.frameworks);
-            setHtmlCode(res?.htmlCode);
-            setCssCode(res?.cssCode);
-            setJsCode(res?.jsCode);
-            setCodeShared(res?.shared);
-            setData(res || null);
+            try {
+                const res = webspaces.find((item) => item.spaceid === id);
+                setHeading(res?.heading);
+                setWebSpaceid(res?.spaceid);
+                setInput(res?.input);
+                setLastInput(res?.lastinput);
+                setExplanation(res?.explanation);
+                setType(res?.type);
+                setFramework(res?.frameworks);
+                setHtmlCode(res?.htmlCode);
+                setCssCode(res?.cssCode);
+                setJsCode(res?.jsCode);
+                setCodeShared(res?.shared);
+                setData(res || null);
+            }
+            catch (err) {
+                console.log(err);
+            }
         };
 
         loadSpaceData();

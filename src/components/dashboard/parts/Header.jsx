@@ -75,7 +75,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                             <Link
                                                 key={index}
                                                 onClick={() => setOpen(!open)}
-                                                to={`/dashboard/space/info/${item.spaceid}`}
+                                                to={`/dashboard/webspace/info/${item.spaceid}`}
                                                 className="w-full p-3 bg-gray-200 text-black border-2 rounded-lg"
                                             >
                                                 <h1>{item.spaceid}</h1>
@@ -99,9 +99,6 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                     </div>
                                 </div>}
                             </div>
-                            {/* <div className="flex md:hidden items-end p-4 justify-between">
-                                <h1 className="text-2xl font-semibold text-gray-700">CodeSpark</h1>
-                            </div> */}
                         </Dialog.Content>
                     </Dialog.Portal>
                 </Dialog.Root>
@@ -179,7 +176,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                             className="grid grid-cols-1 me-4 px-5 py-5 z-[10000] gap-3 rounded-lg mt-2 dark:bg-main bg-white w-fit border border-gray-200 shadow-lg will-change-[transform,opacity] data-[state=open]:data-[side=top]:animate-slideDownAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade"
                             sideOffset={3}
                         >
-                            <div className="flex flex-col items-center text-gray-700 dark:text-gray-200">
+                            <Link to="/dashboard/profile" className="flex flex-col items-center text-gray-700 dark:text-gray-200">
                                 <img
                                     src={user?.photoURL || 'https://xsgames.co/randomusers/assets/avatars/pixel/51.jpg'}
                                     alt="user_logo"
@@ -187,7 +184,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                 />
                                 <h1 className="mt-2 text-[1rem] font-semibold truncate text-center">{user.displayName}</h1>
                                 <p className="text-[.8rem] text-gray-500 dark:text-gray-400">{user.uid}</p>
-                            </div>
+                            </Link>
 
                             {user.email == AdminEmail && <div className="">
                                 <Link
