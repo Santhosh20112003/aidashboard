@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   GithubAuthProvider,
   FacebookAuthProvider,
+  TwitterAuthProvider,
 } from "firebase/auth";
 import { auth } from "../../config/firebase";
 
@@ -25,6 +26,10 @@ export function UserAuthContextProvider({ children }) {
     const githubAuthProvider = new GithubAuthProvider();
     return signInWithPopup(auth, githubAuthProvider);
   }
+  function TwitterSignIn() {
+    const twitterAuthProvider = new TwitterAuthProvider();
+    return signInWithPopup(auth, twitterAuthProvider);
+  }
   function FacebookSignIn() {
     const facebookAuthProvider = new FacebookAuthProvider();
     return signInWithPopup(auth, facebookAuthProvider);
@@ -42,7 +47,14 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logOut, googleSignIn, GithubSignIn, FacebookSignIn }}
+      value={{
+        user,
+        logOut,
+        TwitterSignIn,
+        googleSignIn,
+        GithubSignIn,
+        FacebookSignIn,
+      }}
     >
       {children}
     </userAuthContext.Provider>
