@@ -1687,14 +1687,12 @@ export function DataContextProvider({ children }) {
   const getCodeTemplates = async () => {
     setIsFetching(true);
     try {
-      // Fetch and order templates from Firestore
       const cardsQuery = query(
         collection(db, "codespacetemplates"),
         orderBy("heading", "asc")
       );
       const snapshot = await getDocs(cardsQuery);
 
-      // Retrieve templates and filter them based on spaces
       const fetchedTemplates = snapshot.docs.map((doc) => doc.data()) || [];
       setSpacesTemplates(
         fetchedTemplates.filter(
