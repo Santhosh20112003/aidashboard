@@ -24,18 +24,18 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
                 <button onClick={() => setOpen(true)} className="active:scale-95 transition-all" >
-                    <TbLayoutSidebarLeftExpand className="size-7 hidden md:block text-gray-600" />
-                    <RxHamburgerMenu className="size-6 md:hidden text-gray-600" />
+                    <TbLayoutSidebarLeftExpand className="size-7 text-gray-600" />
+                    {/* <RxHamburgerMenu className="size-6 md:hidden text-gray-600" /> */}
                 </button>
 
                 <Dialog.Root open={open} >
                     <Dialog.Portal>
                         <Dialog.Overlay onClick={() => { setOpen(!open) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
                         <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-slideDrawer fixed top-0 left-0 w-[75%] max-w-[400px] bg-white focus:outline-none">
-                            <div className="hidden md:flex items-end p-4 justify-between">
+                            <div className="flex items-end p-4 justify-between">
                                 <h1 className="text-2xl font-semibold text-gray-600">Spaces List</h1>
                             </div>
-                            <div className="hidden md:block overflow-auto px-4 pb-4 h-[90vh]">
+                            <div className="block overflow-auto px-4 pb-4 h-[90vh]">
 
                                 {spaces.length > 0 && <div className={` items-end ms-1 flex pb-2 justify-between`}>
                                     <h1 className="text-base font-normal  text-gray-600 ">CodeSpaces</h1>
@@ -99,9 +99,9 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                     </div>
                                 </div>}
                             </div>
-                            <div className="flex md:hidden items-end p-4 justify-between">
+                            {/* <div className="flex md:hidden items-end p-4 justify-between">
                                 <h1 className="text-2xl font-semibold text-gray-700">CodeSpark</h1>
-                            </div>
+                            </div> */}
                         </Dialog.Content>
                     </Dialog.Portal>
                 </Dialog.Root>

@@ -10,7 +10,7 @@ import { LANGUAGE_VERSIONS } from '../../../constants';
 
 function Overview() {
   const { user } = useUserAuth();
-  const { isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
+  const { handleWebTemplateAdd, isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
   const [isClosed, setisClosed] = useState(false);
   return (
     <div className="py-5 px-3 bg-gray-100 min-h-[90vh] w-full">
@@ -235,6 +235,8 @@ function Overview() {
                               <Dialog.Close asChild>
                                 <button
                                   type="button"
+                                  disabled={isLoading}
+                                  onClick={() => handleWebTemplateAdd(item)}
                                   className="bg-black hidden md:block disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
                                 >
                                   Add to My WebSpace
@@ -243,6 +245,8 @@ function Overview() {
                               <Dialog.Close asChild>
                                 <button
                                   type="button"
+                                  disabled={isLoading}
+                                  onClick={() => handleWebTemplateAdd(item)}
                                   className="bg-black md:hidden disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
                                 >
                                   Add Space

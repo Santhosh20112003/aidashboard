@@ -1762,11 +1762,29 @@ export function DataContextProvider({ children }) {
     }
   };
 
-  const handleWebTemplateAdd = (item) => {
+  const handleWebTemplateAdd = async (item) => {
     setIsLoading(true);
     try {
-    } catch (err) {
-      console.error("Error adding code template:", err);
+      const newData = {
+        ...item,
+        userid: user.uid,
+        spaceid: uuidv4(),
+        input: item.heading,
+        lastinput: item.heading,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      await addDoc(collection(db, "webspaces"), newData);
+
+      setWebSpaces((prevSpaces) => [newData, ...prevSpaces]);
+      setWebSpacesTemplates((prevTemplates) =>
+        prevTemplates.filter((template) => template.heading !== item.heading)
+      );
+
+      navigate(`/dashboard/webspace/${newData.spaceid}`);
+    } catch (error) {
+      console.error("Error adding code template:", error.message, error);
     } finally {
       setIsLoading(false);
     }
