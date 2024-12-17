@@ -1,10 +1,12 @@
 import React from 'react'
 import { useUserAuth } from '../../components/context/UserAuthContext'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppName } from '../links';
 
 function Header() {
     const { user } = useUserAuth();
+    const location = useLocation();
+
     return (
         <header class="text-black body-font border-b border-gray-200">
             <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
@@ -13,9 +15,9 @@ function Header() {
                     <span class="ml-2 text-xl">{AppName}</span>
                 </Link >
                 <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
-                    <Link to="" class="mr-5 hover:text-gray-900">Home</Link >
-                    <Link to="" class="mr-5 hover:text-gray-900">Need a Spark?</Link >
-                    <Link to="" class="mr-5 hover:text-gray-900">Contact</Link >
+                    <Link to="/home" class={`mr-5 hover:text-gray-900 ${location.pathname.includes("home") && 'underline underline-offset-2'}`}>Home</Link >
+                    <Link to="/need-spark" class={`mr-5 hover:text-gray-900 ${location.pathname.includes("need-spark") && 'underline underline-offset-2'}`}>Need a Spark?</Link >
+                    <Link to="/contact" class={`mr-5 hover:text-gray-900 ${location.pathname.includes("contact") && 'underline underline-offset-2'}`}>Contact</Link >
                 </nav>
                 {user ? <Link to="/dashboard" class="inline-flex items-center bg-black border-0 py-1 px-3 text-white focus:outline-none hover:bg-black/80 rounded text-base mt-4 md:mt-0">
                     Your Space

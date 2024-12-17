@@ -38,6 +38,10 @@ module.exports = {
           from: { opacity: "0", transform: "translateX(-50%)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        slideEndDrawer: {
+          from: { opacity: "0", transform: "translateX(50%)" },
+          to: { opacity: "1", transform: "translateX(100%)" },
+        },
         enterFromRight: {
           from: { opacity: "0", transform: "translateX(200px)" },
           to: { opacity: "1", transform: "translateX(0)" },
@@ -93,6 +97,7 @@ module.exports = {
       slideUp: "slideUp 300ms ease",
       slideDown: "slideDown 300ms ease",
       slideDrawer: "slideDrawer 200ms ease",
+      slideEndDrawer: "slideEndDrawer 200ms ease",
       scaleIn: "scaleIn 200ms ease",
       scaleOut: "scaleOut 200ms ease",
       fadeIn: "fadeIn 200ms ease",

@@ -2,7 +2,7 @@ import React from 'react'
 import * as Popover from "@radix-ui/react-popover";
 import { TiPlusOutline } from "react-icons/ti";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { IoIosLogOut, IoMdCodeWorking, IoMdLogOut } from "react-icons/io";
+import { IoMdCodeWorking } from "react-icons/io";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useUserAuth } from '../../context/UserAuthContext';
 import { Link, useLocation, useParams } from 'react-router-dom';
@@ -13,7 +13,6 @@ import { PiTerminalWindowFill } from "react-icons/pi";
 import { MdLogout, MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { MdOutlineGroups } from "react-icons/md";
 import { AdminEmail } from '../../../common/links';
-import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
@@ -31,7 +30,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                 <Dialog.Root open={open} >
                     <Dialog.Portal>
                         <Dialog.Overlay onClick={() => { setOpen(!open) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
-                        <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-slideDrawer fixed top-0 left-0 w-[75%] max-w-[400px] bg-white focus:outline-none">
+                        <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft fixed top-0 left-0 w-[75%] max-w-[400px] bg-white focus:outline-none">
                             <div className="flex items-end p-4 justify-between">
                                 <h1 className="text-2xl font-semibold text-gray-600">Spaces List</h1>
                             </div>

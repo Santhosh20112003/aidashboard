@@ -163,19 +163,6 @@ function SpaceInfo() {
     loadSpaceData();
   }, [spaces]);
 
-  useEffect(() => {
-    const SortCodeTrashByTime = () => {
-      setCodeShared((spaces) =>
-        spaces.sort((a, b) => {
-          const dateA = convertToEventDate(a.updatedAt).toDate ? convertToEventDate(a.updatedAt).toDate() : new Date(0);
-          const dateB = convertToEventDate(b.updatedAt).toDate ? convertToEventDate(b.updatedAt).toDate() : new Date(0);
-          return dateB - dateA;
-        })
-      );
-    };
-    SortCodeTrashByTime();
-  }, [CodeShared])
-
   if (!data) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -432,7 +419,7 @@ function SpaceInfo() {
         <Link to="/dashboard/space/list" className="active:scale-95 transition-all" >
           <FaCircleArrowLeft className="text-3xl shadow-md rounded-full text-black" />
         </Link>
-      </div> */} 
+      </div> */}
       <div className="absolute top-5 right-5 text-sm text-white bg-black/80 px-2 py-1 rounded-md">
         {ParseFullDate(data.createdAt)}
       </div>

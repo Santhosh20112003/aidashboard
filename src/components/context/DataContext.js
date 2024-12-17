@@ -99,6 +99,7 @@ export function DataContextProvider({ children }) {
   const [isShareOpen, setisShareOpen] = useState(false);
   const [isFullScreen, setIsFullscreen] = useState(false);
   const [reloadShared, setReloadShared] = useState(false);
+  const [notes, setNotes] = useState({});
 
   const safetySettings = [
     {
@@ -261,12 +262,10 @@ export function DataContextProvider({ children }) {
 
   const UpdateLanguage = async (data) => {
     try {
-      // Validate input
       if (!data || Object.keys(data).length < 1) {
         throw new Error("Object is empty. No language can be updated.");
       }
 
-      // Query user document
       const userDocQuery = query(
         collection(db, "users"),
         where("userid", "==", user.uid)
@@ -281,7 +280,6 @@ export function DataContextProvider({ children }) {
       const docRef = querySnapshot.docs[0].ref;
       const docData = querySnapshot.docs[0].data();
 
-      // Combine new language with existing ones, ensuring no duplicates
       const langSet = new Set([...(docData.lang || []), data.language]);
       const updatedData = { ...docData, lang: Array.from(langSet) };
 
@@ -344,7 +342,6 @@ export function DataContextProvider({ children }) {
         language: responseData.language,
         heading: responseData.heading,
         videos: videoz.items,
-        shared: CodeShared,
         videoID: videoz.items[0]?.id?.videoId,
         explanation: responseData.explanation,
         code: responseData.code,
@@ -593,7 +590,7 @@ export function DataContextProvider({ children }) {
         videoID: videos[0]?.id?.videoId,
         explanation: responseData.explanation,
         code: responseData.code,
-        shared: [],
+        notes: {},
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -704,7 +701,7 @@ export function DataContextProvider({ children }) {
           cssCode: responseData.css,
           jsCode: responseData.js,
           frameworks: responseData.frameworks,
-          shared: [],
+          notes: {},
           heading: responseData.Heading,
           explanation: responseData.Explanation,
           createdAt: new Date(),
@@ -717,67 +714,9 @@ export function DataContextProvider({ children }) {
         setWebSpaces((lastSpaces) => [...lastSpaces, newData]);
         setWebPrompt("");
         navigate(`/dashboard/webspace/${newData.spaceid}`);
-      } else if (responseData.type == "react") {
-        const newData = {
-          userid: user.uid,
-          spaceid: uuidv4(),
-          input: webprompt,
-          lastinput: webprompt,
-          type: responseData.type,
-          code: responseData.code,
-          shared: [],
-          heading: responseData.heading,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        const response = await AddNewWebSpace(newData);
-        if (!response) {
-          new Error("Unable to upoad to Cloud");
-        }
-        setWebSpaces((lastSpaces) => [...lastSpaces, newData]);
-        setWebPrompt("");
-        navigate(`/dashboard/webspace/${newData.spaceid}`);
-      } else if (responseData.type == "angular") {
-        const newData = {
-          userid: user.uid,
-          spaceid: uuidv4(),
-          input: webprompt,
-          lastinput: webprompt,
-          code: responseData.code,
-          type: responseData.type,
-          shared: [],
-          heading: responseData.heading,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-        const response = await AddNewWebSpace(newData);
-        if (!response) {
-          new Error("Unable to upoad to Cloud");
-        }
-        setWebSpaces((lastSpaces) => [...lastSpaces, newData]);
-        setWebPrompt("");
-        navigate(`/dashboard/webspace/${newData.spaceid}`);
-      } else if (responseData.type == "vuejs") {
-        const newData = {
-          userid: user.uid,
-          spaceid: uuidv4(),
-          input: webprompt,
-          lastinput: webprompt,
-          type: responseData.type,
-          code: responseData.code,
-          shared: [],
-          heading: responseData.heading,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        };
-
-        const response = await AddNewWebSpace(newData);
-        if (!response) {
-          new Error("Unable to upoad to Cloud");
-        }
-        setWebSpaces((lastSpaces) => [...lastSpaces, newData]);
-        setWebPrompt("");
-        navigate(`/dashboard/webspace/${newData.spaceid}`);
+      } else {
+        toast.remove();
+        toast.error("Advanced web-related spaces cannot be created now.");
       }
     } catch (error) {
       console.error("Error generating content:", error);
@@ -883,7 +822,6 @@ export function DataContextProvider({ children }) {
           type: Type,
           input,
           lastinput: input,
-          shared: CodeShared,
           htmlCode: responseData.html,
           cssCode: responseData.css,
           jsCode: responseData.js,
@@ -1154,7 +1092,6 @@ export function DataContextProvider({ children }) {
   const getSpaces = async (id) => {
     setIsFetching(true);
     try {
-       
       const cardsQuery = query(
         collection(db, "spaces"),
         where("userid", "==", id),
@@ -1752,6 +1689,7 @@ export function DataContextProvider({ children }) {
         spaceid: uuidv4(),
         input: item.heading,
         lastinput: item.heading,
+        notes: {},
         videos,
         videoID,
         createdAt: new Date(),
@@ -1783,6 +1721,7 @@ export function DataContextProvider({ children }) {
         spaceid: uuidv4(),
         input: item.heading,
         lastinput: item.heading,
+        notes: {},
         createdAt: new Date(),
         updatedAt: new Date(),
       };
@@ -1805,6 +1744,8 @@ export function DataContextProvider({ children }) {
   return (
     <DataContext.Provider
       value={{
+        notes,
+        setNotes,
         handleWebTemplateAdd,
         handleCodeTemplateAdd,
         getWebTemplates,

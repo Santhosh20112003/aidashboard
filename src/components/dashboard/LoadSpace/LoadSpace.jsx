@@ -5,21 +5,19 @@ import YouTubeFrame from "../parts/YouTubeFrame";
 import ChatInput from "../parts/ChatInput";
 import CodeEditor from "../parts/CodeEditor";
 import OutputDisplay from "../parts/OutputDisplay";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BiSolidCopy, BiCopy } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
-import { VscLightbulbSparkle } from "react-icons/vsc";
-import { MdIosShare } from "react-icons/md";
 import { converter } from "../../../common/config";
 import "../../../chat.css";
 import { TbSettingsCode } from "react-icons/tb";
 import { monacoThemes } from "../../../constants";
-import { defineTheme } from "../../../common/defineTheme";
 import { RiFullscreenExitLine, RiFullscreenFill } from "react-icons/ri";
+import { IoMdCloudDone } from "react-icons/io";
+import { IoCloudOfflineSharp } from "react-icons/io5";
 import "./load.css";
-import { SiPrettier } from "react-icons/si";
-import { FaArrowLeft } from "react-icons/fa6";
+import Editor from "./code/Editor";
 
 function LoadSpace() {
     const { id } = useParams();
@@ -59,10 +57,15 @@ function LoadSpace() {
         setCodeShared,
         setOutput,
         isFullScreen,
-        setIsFullscreen
+        setIsFullscreen,
+        setNotes,
+        notes
     } = useData();
+    const [cloudSync, setCloudSync] = useState(false);
     const editorReference = useRef(null);
     const [data, setData] = useState(null);
+    const [isAIOpen, setIsAIOpen] = useState(false);
+    const [isNotesOpen, setIsNotesOpen] = useState(false);
 
     const HandleFullScreen = () => {
         const codespaceElement = document.getElementById("codespace");
@@ -82,8 +85,13 @@ function LoadSpace() {
 
     useEffect(() => {
         const handleFullscreenChange = () => {
-            const isFullscreen = Boolean(document.fullscreenElement);
-            setIsFullscreen(isFullscreen);
+            try {
+                const isFullscreen = Boolean(document.fullscreenElement);
+                setIsFullscreen(isFullscreen);
+            }
+            catch (err) {
+                console.log("Error handling fullscreen change", err)
+            }
         };
 
         document.addEventListener("fullscreenchange", handleFullscreenChange);
@@ -100,6 +108,7 @@ function LoadSpace() {
                 setInput(res?.input);
                 setLastInput(res?.lastinput);
                 setVideos(res?.videos);
+                setNotes(res?.notes);
                 setVideoID(res?.videoID);
                 setCodeShared(res?.shared);
                 setEditorContent(res?.code);
@@ -124,7 +133,7 @@ function LoadSpace() {
     }
 
     return (
-        <div id="codespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
+        <div id="codespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
             <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
                 <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
                 {(explanation && videoID) && (
@@ -221,12 +230,51 @@ function LoadSpace() {
                     copied={copied}
                 />
             </div>
-            <span
-                // onClick={() => setShow(!Show)}
-                className="fixed hidden lg:block bottom-28 right-0 bg-slate-300 text-slate-600 px-3 py-2 rounded-s-full lg:hover:pe-5 transition-all cursor-pointer"
-            >
-                <FaArrowLeft />
-            </span>
+
+            {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+                <p className="-rotate-90">Jarvis</p>
+            </button>}
+
+            {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+                <p className="-rotate-90">Notes</p>
+            </button>}
+
+            {!isFullScreen && <div className="fixed top-0 left-1/2 h-[50px] flex gap-5 -translate-x-1/2">
+                <button onClick={() => setIsAIOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+                    <p className="">Jarvis AI</p>
+                </button>
+
+                <button onClick={() => setIsNotesOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+                    <p className="">Notes</p>
+                </button>
+            </div>}
+
+
+            <Dialog.Root open={isAIOpen} >
+                <Dialog.Portal container={container}>
+                    <Dialog.Overlay onClick={() => { setIsAIOpen(!isAIOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
+                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft fixed top-0 left-0 w-[75%] max-w-[400px] bg-white focus:outline-none">
+
+
+                    </Dialog.Content>
+                </Dialog.Portal>
+            </Dialog.Root>
+
+
+            <Dialog.Root open={isNotesOpen} >
+                <Dialog.Portal container={container}>
+                    <Dialog.Overlay onClick={() => { setIsNotesOpen(!isNotesOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:right-0 right-[-50%] fixed inset-0" />
+                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromRight fixed top-0 right-0 w-[75%] max-w-[600px] bg-white focus:outline-none">
+                        <div className="flex items-end p-4 justify-between">
+                            <h1 className="text-2xl font-semibold text-black">Space Notes</h1>
+                            {cloudSync ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-2xl text-green-600" />}
+                        </div>
+                        <Editor editorData={notes} setCloudSync={setCloudSync} />
+                    </Dialog.Content>
+                </Dialog.Portal>
+            </Dialog.Root>
+
+
         </div >
     );
 }

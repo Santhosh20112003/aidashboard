@@ -26,6 +26,8 @@ import WebViewerMode from './components/dashboard/shared/ViewerMode/WebViewerMod
 import CodeEditorMode from './components/dashboard/shared/EditorMode/CodeEditorMode';
 import WebEditorMode from './components/dashboard/shared/EditorMode/WebEditorMode';
 import CodeViewerSharedMode from './components/dashboard/shared/ViewerMode/CodeViewerMode';
+import Contact from './components/main/contact/Contact';
+import NeedsSpark from './components/main/needSpark/NeedsSpark';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
             <Routes>
               <Route path='' element={<Navigate to="home" />} />
               <Route path='home' element={<Home />} />
+              <Route path='contact' element={<Contact />} />
+              <Route path='need-spark' element={<NeedsSpark />} />
               <Route path='auth' element={<Access />} />
               <Route path='ws/:id' element={<WebspaceVanilla />} />
               <Route path='dashboard' element={
