@@ -10,33 +10,35 @@ function Structure() {
     const { getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
 
     useEffect(() => {
-        if (!isFetching) {
+        if (!isFetching && Object.keys(user).length > 0) {
             getSpaces(user.uid);
         }
     }, [user]);
 
     useEffect(() => {
-        if (!isFetching) {
+        if (!isFetching && Object.keys(user).length > 0) {
             getWebSpaces(user.uid);
         }
     }, [user]);
 
     useEffect(() => {
-        if (!isFetching) {
+        if (!isFetching && Object.keys(user).length > 0) {
             getCodeTrashes(user.uid);
         }
     }, [user]);
 
     useEffect(() => {
-        if (!isFetching) {
+        if (!isFetching && Object.keys(user).length > 0) {
             getWebTrashes(user.uid);
         }
     }, [user]);
 
     useEffect(() => {
-        NewUserCloud(user);
-        getCodeTemplates();
-        getWebTemplates();
+        if (Object.keys(user).length > 0) {
+            NewUserCloud(user);
+            getCodeTemplates();
+            getWebTemplates();
+        }
     }, [user]);
 
     return (

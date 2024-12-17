@@ -19,6 +19,7 @@ import { defineTheme } from "../../../common/defineTheme";
 import { RiFullscreenExitLine, RiFullscreenFill } from "react-icons/ri";
 import "./load.css";
 import { SiPrettier } from "react-icons/si";
+import { FaArrowLeft } from "react-icons/fa6";
 
 function LoadSpace() {
     const { id } = useParams();
@@ -220,7 +221,12 @@ function LoadSpace() {
                     copied={copied}
                 />
             </div>
-            {/* <Toaster position="top-center" /> */}
+            <span
+                // onClick={() => setShow(!Show)}
+                className="fixed hidden lg:block bottom-28 right-0 bg-slate-300 text-slate-600 px-3 py-2 rounded-s-full lg:hover:pe-5 transition-all cursor-pointer"
+            >
+                <FaArrowLeft />
+            </span>
         </div >
     );
 }

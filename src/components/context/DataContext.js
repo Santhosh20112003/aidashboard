@@ -1154,6 +1154,7 @@ export function DataContextProvider({ children }) {
   const getSpaces = async (id) => {
     setIsFetching(true);
     try {
+       
       const cardsQuery = query(
         collection(db, "spaces"),
         where("userid", "==", id),
@@ -1162,7 +1163,7 @@ export function DataContextProvider({ children }) {
       const snapshot = await getDocs(cardsQuery);
       setSpaces(snapshot.docs.map((doc) => doc.data()) || []);
     } catch (error) {
-      console.error("Error fetching spaces:", error);
+      console.error("Error fetching codespaces:", error);
     } finally {
       setIsFetching(false);
     }
@@ -1179,7 +1180,7 @@ export function DataContextProvider({ children }) {
       const snapshot = await getDocs(cardsQuery);
       setWebSpaces(snapshot.docs.map((doc) => doc.data()) || []);
     } catch (error) {
-      console.error("Error web fetching spaces:", error);
+      console.error("Error web fetching webspaces:", error);
     } finally {
       setIsFetching(false);
     }
@@ -1196,7 +1197,7 @@ export function DataContextProvider({ children }) {
       const snapshot = await getDocs(cardsQuery);
       setCodeTrashes(snapshot.docs.map((doc) => doc.data()) || []);
     } catch (error) {
-      console.error("Error fetching spaces:", error);
+      console.error("Error fetching codetrash:", error);
     } finally {
       setIsFetching(false);
     }
@@ -1213,7 +1214,7 @@ export function DataContextProvider({ children }) {
       const snapshot = await getDocs(cardsQuery);
       setWebTrashes(snapshot.docs.map((doc) => doc.data()) || []);
     } catch (error) {
-      console.error("Error fetching spaces:", error);
+      console.error("Error fetching webtrash:", error);
     } finally {
       setIsFetching(false);
     }
