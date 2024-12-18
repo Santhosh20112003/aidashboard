@@ -213,6 +213,8 @@ export function DataContextProvider({ children }) {
           return reject(new Error("Object is empty. No space can be updated."));
         }
 
+        console.log(data);
+
         const userDocQuery = query(
           collection(db, "spaces"),
           where("spaceid", "==", data.spaceid)

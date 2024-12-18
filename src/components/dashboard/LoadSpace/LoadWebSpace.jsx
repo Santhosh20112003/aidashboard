@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ChatInput from '../webparts/ChatInput'
 import CodePlayground from '../webparts/CodePlayground'
 import Preview from '../webparts/Preview'
 import { useParams } from 'react-router-dom'
 import { useData } from '../../context/DataContext';
-import { IoMdCloudDone } from "react-icons/io";
+import { IoMdBookmarks, IoMdCloudDone } from "react-icons/io";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { IoCloudOfflineSharp } from "react-icons/io5";
 import * as Dialog from "@radix-ui/react-dialog";
 import "./load.css";
 import Editor from "./code/Editor";
 import Chat from "./code/Chat";
+import * as Popover from "@radix-ui/react-popover";
 
 function LoadWebSpace() {
     const { id } = useParams();
@@ -22,8 +23,8 @@ function LoadWebSpace() {
         webspaces,
         setInput,
         setWebSpaceid,
+        webspaceid,
         setType,
-        Type,
         input,
         isLoading,
         htmlCode, cssCode, jsCode, framework,
@@ -34,12 +35,18 @@ function LoadWebSpace() {
         setNotes,
         notes,
         isFullScreen,
-        setConversation
+        setConversation,
+        heading,
+        explanation,
+        isCodeOpen
     } = useData();
     const [cloudSync, setCloudSync] = useState(false);
     const [data, setData] = useState(null);
     const [isAIOpen, setIsAIOpen] = useState(false);
     const [isNotesOpen, setIsNotesOpen] = useState(false);
+    const [time, setTime] = useState({ minutes: 0, seconds: 0 });
+    const [isRunning, setIsRunning] = useState(false);
+    const intervalRef = useRef(null);
 
     useEffect(() => {
         setConversation([]);
@@ -78,15 +85,20 @@ function LoadWebSpace() {
     }
 
     return (
-        <div id="webspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
-            <div className={`md:w-1/2 w-full h-full space-y-4`}>
+        <div id="webspace" className="w-full h-[90vh] md:px-4 md:pb-2 px-2 pt-2 bg-white flex gap-4">
+            <div className={`${isCodeOpen ? "md:block hidden" : ""} md:w-1/2 w-full h-full space-y-4`}>
                 <CodePlayground htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
                 <ChatInput input={input} setInput={setInput} handleWebChatSubmission={() => { }} isLoading={isLoading} />
             </div>
-            <div className={`w-1/2 md:block hidden h-full`}>
-                <Preview htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
+            <div className={`${isCodeOpen ? "" : "md:block hidden"} md:w-1/2 w-full h-full `}>
+                <Preview setTime={setTime} intervalRef={intervalRef} setIsRunning={setIsRunning} isRunning={isRunning} htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
                 {/* <Console /> */}
             </div>
+
+            {isFullScreen && <h1 className="text-xl bg-black bg-opacity-70 text-white rounded-lg px-4 py-1 fixed top-5 left-1/2 -translate-x-1/2 font-bold">
+                {String(time.minutes).padStart(2, '0')}:
+                {String(time.seconds).padStart(2, '0')}
+            </h1>}
 
             {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Jarvis</p>
@@ -120,9 +132,38 @@ function LoadWebSpace() {
                     <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft data-[state=close]:animate-exitToLeft fixed top-0 left-0 w-full max-w-[600px] bg-white focus:outline-none">
                         <div className="flex items-end p-4 justify-between">
                             <h1 className="text-2xl ms-2 font-semibold text-black">Jarvis AI</h1>
-                            <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
-                                <GoArrowLeft />
-                            </button>
+                            <div className="flex items-center gap-3">
+                                <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
+                                    <GoArrowLeft />
+                                </button>
+
+                                <Popover.Root>
+                                    <Popover.Trigger asChild>
+                                        <button title="chat data" className="p-2 bg-gray-200 rounded-lg active:scale-90 transition-all">
+                                            <IoMdBookmarks />
+                                        </button>
+                                    </Popover.Trigger>
+                                    <Popover.Portal container={container}>
+                                        <Popover.Content
+                                            className="w-[300px] z-[100000] border rounded bg-white p-5 shadow-md mt-4 will-change-[transform,opacity] data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=top]:animate-slideDownAndFade"
+                                            side="left"
+                                            sideOffset={8}
+                                        >
+                                            <div className="flex flex-col gap-2.5">
+                                                <p className="mb-2.5 text-[15px] font-medium leading-[19px] text-mauve12">
+                                                    Chat Memories
+                                                </p>
+
+                                                <h1 className="text-sm line-clamp-2 p-2 brightness-95 rounded-md bg-gray-200 text-black">{heading}</h1>
+                                                <h1 className="text-sm line-clamp-3 p-2 brightness-95 rounded-md bg-gray-200 text-black">{explanation.slice(0, 100)}...</h1>
+
+                                            </div>
+
+                                            <Popover.Arrow className="fill-gray-200 ms-4" />
+                                        </Popover.Content>
+                                    </Popover.Portal>
+                                </Popover.Root>
+                            </div>
                         </div>
                         <Chat />
                     </Dialog.Content>
@@ -144,7 +185,7 @@ function LoadWebSpace() {
                                 </button>
                             </div>
                         </div>
-                        <Editor editorData={notes} setCloudSync={setCloudSync} />
+                        <Editor editorData={notes} setCloudSync={setCloudSync} Type={'web'} />
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>

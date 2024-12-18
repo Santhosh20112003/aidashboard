@@ -7,19 +7,53 @@ import { Link } from "react-router-dom";
 import { RiFullscreenExitLine, RiFullscreenFill, RiRefreshLine } from "react-icons/ri";
 import * as Tooltip from "@radix-ui/react-tooltip";
 
-const Preview = ({ htmlCode, cssCode, jsCode, framework }) => {
+const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, setIsRunning, intervalRef }) => {
     const { isFullScreen, setIsFullscreen, webspaceid } = useData();
     const [reloadFlag, setReloadFlag] = useState(false);
     const iframeRef = useRef(null);
 
     useEffect(() => {
         const handleFullscreenChange = () => {
-            setIsFullscreen(!!document.fullscreenElement);
+            try {
+                const isFullscreen = Boolean(document.fullscreenElement);
+                setIsFullscreen(isFullscreen);
+
+                if (isFullscreen) {
+                    setIsRunning(true);
+                } else {
+                    setIsRunning(false);
+                    clearInterval(intervalRef.current);
+                    // setTime({ minutes: 0, seconds: 0 }); 
+                }
+            } catch (err) {
+                console.error("Error handling fullscreen change", err);
+            }
         };
 
         document.addEventListener("fullscreenchange", handleFullscreenChange);
+
         return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
     }, [setIsFullscreen]);
+
+    useEffect(() => {
+        if (isRunning) {
+            intervalRef.current = setInterval(() => {
+                setTime((prevTime) => {
+                    let { minutes, seconds } = prevTime;
+                    seconds += 1;
+                    if (seconds === 60) {
+                        minutes += 1;
+                        seconds = 0;
+                    }
+                    return { minutes, seconds };
+                });
+            }, 1000);
+        } else {
+            clearInterval(intervalRef.current);
+        }
+
+        return () => clearInterval(intervalRef.current);
+    }, [isRunning]);
 
     const toggleFullScreen = () => {
         const codespaceElement = document.getElementById("webspace");

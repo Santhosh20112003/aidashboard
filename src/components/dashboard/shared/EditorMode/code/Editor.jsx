@@ -15,43 +15,50 @@ import TextVariantTune from "@editorjs/text-variant-tune";
 import CodeTool from "@editorjs/code";
 import IndentTune from "editorjs-indent-tune";
 import Checklist from "@editorjs/checklist";
-import { useData } from "../../../context/DataContext";
+import { useData } from "../../../../context/DataContext";
 import toast from "react-hot-toast";
 
 function Editor({ editorData, setCloudSync, Type }) {
     const editorRef = useRef(null);
-    const { webspaceid, spaceid, UpdateExistingSpace, UpdateWebExistingSpace, setNotes, explanation } = useData();
+    var data = editorData;
+    const { spaceid, webspaceid, UpdateExistingSpace, UpdateWebExistingSpace, setNotes, explanation } = useData();
     const [editorInstance, setEditorInstance] = useState(null);
 
     useEffect(() => {
-        if (!editorRef.current || editorInstance) return;
-
-        const defaultData = {
-            blocks: [
-                {
-                    id: "M7gnw45_1k",
-                    tunes: {
-                        indentTune: { indentLevel: 0 },
-                        textVariant: "",
-                    },
-                    type: "paragraph",
-                    data: { text: explanation },
-                },
-            ],
-            version: "2.30.7",
-            time: Date.now(),
-        };
-
-        const initializeEditor = () => {
+        if (editorRef.current && !editorInstance) {
             try {
-                const editor = new EditorJS({
+                if (Object.keys(editorData).length === 0) {
+                    data = {
+                        "blocks": [
+                            {
+                                "id": "M7gnw45_1k",
+                                "tunes": {
+                                    "indentTune": {
+                                        "indentLevel": 0
+                                    },
+                                    "textVariant": ""
+                                },
+                                "type": "paragraph",
+                                "data": {
+                                    "text": explanation
+                                }
+                            }
+                        ],
+                        "version": "2.30.7",
+                        "time": 1734474516741
+                    }
+                }
+                const newEditor = new EditorJS({
                     holder: editorRef.current,
                     autofocus: true,
                     tools: {
                         title: { class: Title, shortcut: "alt+h", inlineToolbar: true },
                         delimiter: { class: Delimiter, shortcut: "alt+d" },
                         inlineCode: { class: InlineCode },
-                        checklist: { class: Checklist, inlineToolbar: true },
+                        checklist: {
+                            class: Checklist,
+                            inlineToolbar: true,
+                        },
                         code: { class: CodeTool, shortcut: "alt+c" },
                         list: {
                             class: List,
@@ -81,11 +88,11 @@ function Editor({ editorData, setCloudSync, Type }) {
                         alert: { class: Alert, shortcut: "alt+a" },
                         math: { class: EJLaTeX, shortcut: "alt+m" },
                     },
-                    data: Object.keys(editorData).length ? editorData : defaultData,
+                    data: data,
                     onChange: async () => {
                         try {
                             setCloudSync(true);
-                            const savedData = await editor.save();
+                            const savedData = await newEditor.save();
                             const updatedSpace = {
                                 spaceid: Type === "web" ? webspaceid : spaceid,
                                 updatedAt: new Date(),
@@ -93,13 +100,13 @@ function Editor({ editorData, setCloudSync, Type }) {
                             };
 
                             const response = await (Type === "web" ? UpdateWebExistingSpace(updatedSpace) : UpdateExistingSpace(updatedSpace));
-                            
                             if (!response) throw new Error("Failed to upload to Cloud");
-
                             setNotes(savedData);
+                            console.log("Content successfully updated");
                             setCloudSync(false);
                         } catch (error) {
                             console.error("Error saving content:", error);
+                            toast.remove();
                             toast.error("Failed to save content");
                         }
                     },
@@ -107,20 +114,26 @@ function Editor({ editorData, setCloudSync, Type }) {
                     placeholder: "Let’s write an awesome story!",
                     tunes: ["textVariant", "indentTune"],
                 });
-
-                setEditorInstance(editor);
-            } catch (error) {
+                console.log(editorData);
+                setEditorInstance(newEditor);
+            }
+            catch (error) {
                 console.error("Failed to initialize Editor:", error);
+                toast.remove();
                 toast.error("Failed to initialize Editor");
+            }
+        }
+
+        return () => {
+            try {
+                editorInstance?.destroy()
+            }
+            catch (error) {
+                console.error("Failed to destroy Editor:", error);
             }
         };
 
-        initializeEditor();
-
-        return () => {
-            editorInstance?.destroy?.();
-        };
-    }, [editorInstance, editorData, explanation, setCloudSync, Type, webspaceid, spaceid, UpdateExistingSpace, setNotes]);
+    }, [editorInstance]);
 
     return (
         <div

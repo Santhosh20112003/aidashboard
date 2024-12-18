@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useData } from '../../../context/DataContext';
+import { useData } from '../../../../context/DataContext';
 import toast from "react-hot-toast";
 import { TbShare } from "react-icons/tb";
 import { IoArrowUpCircle, IoCopyOutline } from "react-icons/io5";
@@ -10,10 +10,10 @@ import {
     HarmBlockThreshold,
 } from "@google/generative-ai";
 import showdown from "showdown";
-import { ParseAIDate } from '../../../../common/methods';
-import { useUserAuth } from '../../../context/UserAuthContext';
+import { ParseAIDate } from '../../../../../common/methods';
+import { useUserAuth } from '../../../../context/UserAuthContext';
 import './chat.css';
-import { API_KEY } from '../../../../common/links';
+import { API_KEY } from '../../../../../common/links';
 
 function Creator() {
     const { conversation, setConversation, heading, explanation } = useData();

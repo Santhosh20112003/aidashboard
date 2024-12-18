@@ -3,15 +3,43 @@ import { BsStars } from 'react-icons/bs'
 import { FaGear } from 'react-icons/fa6'
 import * as Dialog from "@radix-ui/react-dialog";
 import { useData } from '../../context/DataContext';
+import { TbDatabaseEdit } from "react-icons/tb";
+import { converter } from "../../../common/config";
+import { BiSolidCopy, BiCopy } from "react-icons/bi";
 
 function ChatInput({ input, setInput, isLoading }) {
-    const { isFullScreen, handleWebChatSubmission } = useData();
-    const container = document.getElementById("codespace");
+    const { isFullScreen, handleWebChatSubmission, heading, explanation, iscopied, copyToClipboard } = useData();
+    const container = document.getElementById("webspace");
     return (
         <div>
-            <textarea value={input}
-                disabled={isLoading}
-                onChange={(e) => setInput(e.target.value)} className={`w-full max-h-[50px] h-[8vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`} placeholder="Type your prompt here..." />
+            <div className="w-full max-h-[50px] flex gap-3 items-center">
+                <textarea value={input} disabled={isLoading} onChange={(e) => setInput(e.target.value)} className={`w-full max-h-[50px] h-[8vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`} placeholder="Type your prompt here..." />
+                <Dialog.Root>
+                    <Dialog.Trigger asChild>
+                        <button
+                            className={`py-3.5 px-3.5 active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
+                            disabled={isLoading}
+                        >
+                            <TbDatabaseEdit className='text-xl' />
+                        </button>
+                    </Dialog.Trigger>
+                    <Dialog.Portal container={container} >
+                        <Dialog.Overlay className="fixed inset-0 bg-black/30 data-[state=open]:animate-overlayShow" />
+                        <Dialog.Content className="fixed left-1/2 overflow-y-auto top-1/2 max-h-[85vh] w-[90vw] max-w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none data-[state=open]:animate-contentShow">
+                            <div className="flex items-center justify-between">
+                                <div className="m-0 text-md font-bold md:text-xl text-center md:text-start mb-3 text-gray-800">
+                                    {heading}
+                                </div>
+                                <button onClick={copyToClipboard}>
+                                    {iscopied ? <BiSolidCopy className="text-gray-600 text-sm" /> : <BiCopy className="text-gray-700 text-sm" />}
+                                </button>
+                            </div>
+                            <hr className="mb-3 bg-gray-600" />
+                            <div className="text-gray-600 jarvis no-tailwindcss text-sm md:text-base" dangerouslySetInnerHTML={{ __html: converter.makeHtml(explanation) }} />
+                        </Dialog.Content>
+                    </Dialog.Portal>
+                </Dialog.Root>
+            </div>
             <div className="flex gap-3 mt-2 max-h-[10vh] items-center">
                 <Dialog.Root>
                     <Dialog.Trigger asChild>

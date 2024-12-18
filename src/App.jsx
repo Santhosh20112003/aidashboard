@@ -28,6 +28,7 @@ import WebEditorMode from './components/dashboard/shared/EditorMode/WebEditorMod
 import CodeViewerSharedMode from './components/dashboard/shared/ViewerMode/CodeViewerMode';
 import Contact from './components/main/contact/Contact';
 import NeedsSpark from './components/main/needSpark/NeedsSpark';
+import Timer from './components/dashboard/LoadSpace/timer/Timer';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               <Route path='contact' element={<Contact />} />
               <Route path='need-spark' element={<NeedsSpark />} />
               <Route path='auth' element={<Access />} />
+              <Route path='timer' element={<Timer />} />
               <Route path='ws/:id' element={<WebspaceVanilla />} />
               <Route path='dashboard' element={
                 <ProtectedRoute>

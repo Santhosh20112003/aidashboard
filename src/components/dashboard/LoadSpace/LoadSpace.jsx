@@ -14,10 +14,11 @@ import "../../../chat.css";
 import { TbSettingsCode } from "react-icons/tb";
 import { monacoThemes } from "../../../constants";
 import { RiFullscreenExitLine, RiFullscreenFill } from "react-icons/ri";
-import { IoMdCloudDone } from "react-icons/io";
+import { IoMdBookmarks, IoMdCloudDone } from "react-icons/io";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { IoCloudOfflineSharp } from "react-icons/io5";
 import "./load.css";
+import * as Popover from "@radix-ui/react-popover";
 import Editor from "./code/Editor";
 import Chat from "./code/Chat";
 
@@ -65,6 +66,9 @@ function LoadSpace() {
         notes,
         setConversation
     } = useData();
+    const [time, setTime] = useState({ minutes: 0, seconds: 0 });
+    const [isRunning, setIsRunning] = useState(false);
+    const intervalRef = useRef(null);
     const [cloudSync, setCloudSync] = useState(false);
     const editorReference = useRef(null);
     const [data, setData] = useState(null);
@@ -96,15 +100,43 @@ function LoadSpace() {
             try {
                 const isFullscreen = Boolean(document.fullscreenElement);
                 setIsFullscreen(isFullscreen);
-            }
-            catch (err) {
-                console.log("Error handling fullscreen change", err)
+
+                if (isFullscreen) {
+                    setIsRunning(true);
+                } else {
+                    setIsRunning(false);
+                    clearInterval(intervalRef.current);
+                    // setTime({ minutes: 0, seconds: 0 }); 
+                }
+            } catch (err) {
+                console.error("Error handling fullscreen change", err);
             }
         };
 
         document.addEventListener("fullscreenchange", handleFullscreenChange);
+
         return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
     }, [setIsFullscreen]);
+
+    useEffect(() => {
+        if (isRunning) {
+            intervalRef.current = setInterval(() => {
+                setTime((prevTime) => {
+                    let { minutes, seconds } = prevTime;
+                    seconds += 1;
+                    if (seconds === 60) {
+                        minutes += 1;
+                        seconds = 0;
+                    }
+                    return { minutes, seconds };
+                });
+            }, 1000);
+        } else {
+            clearInterval(intervalRef.current);
+        }
+
+        return () => clearInterval(intervalRef.current);
+    }, [isRunning]);
 
     useEffect(() => {
         const loadSpaceData = () => {
@@ -238,6 +270,10 @@ function LoadSpace() {
                     copied={copied}
                 />
             </div>
+            {isFullScreen && <h1 className="text-xl bg-black bg-opacity-70 text-white rounded-lg px-4 py-1 fixed top-5 left-1/2 -translate-x-1/2 font-bold">
+                {String(time.minutes).padStart(2, '0')}:
+                {String(time.seconds).padStart(2, '0')}
+            </h1>}
 
             {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Jarvis</p>
@@ -271,9 +307,38 @@ function LoadSpace() {
                     <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft data-[state=close]:animate-exitToLeft fixed top-0 left-0 w-full max-w-[600px] bg-white focus:outline-none">
                         <div className="flex items-end p-4 justify-between">
                             <h1 className="text-2xl ms-2 font-semibold text-black">Jarvis AI</h1>
-                            <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
-                                <GoArrowLeft />
-                            </button>
+                            <div className="flex items-center gap-3">
+                                <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
+                                    <GoArrowLeft />
+                                </button>
+
+                                <Popover.Root>
+                                    <Popover.Trigger asChild>
+                                        <button title="chat data" className="p-2 bg-gray-200 rounded-lg active:scale-90 transition-all">
+                                            <IoMdBookmarks />
+                                        </button>
+                                    </Popover.Trigger>
+                                    <Popover.Portal container={container}>
+                                        <Popover.Content
+                                            className="w-[300px] z-[100000] border rounded bg-white p-5 shadow-md mt-4 will-change-[transform,opacity] data-[state=open]:data-[side=bottom]:animate-slideUpAndFade data-[state=open]:data-[side=left]:animate-slideRightAndFade data-[state=open]:data-[side=right]:animate-slideLeftAndFade data-[state=open]:data-[side=top]:animate-slideDownAndFade"
+                                            side="left"
+                                            sideOffset={8}
+                                        >
+                                            <div className="flex flex-col gap-2.5">
+                                                <p className="mb-2.5 text-[15px] font-medium leading-[19px] text-mauve12">
+                                                    Chat Memories
+                                                </p>
+
+                                                <h1 className="text-sm line-clamp-2 p-2 brightness-95 rounded-md bg-gray-200 text-black">{heading}</h1>
+                                                <h1 className="text-sm line-clamp-3 p-2 brightness-95 rounded-md bg-gray-200 text-black">{explanation.slice(0, 100)}...</h1>
+
+                                            </div>
+
+                                            <Popover.Arrow className="fill-gray-200 ms-4" />
+                                        </Popover.Content>
+                                    </Popover.Portal>
+                                </Popover.Root>
+                            </div>
                         </div>
                         <Chat />
                     </Dialog.Content>
@@ -295,7 +360,7 @@ function LoadSpace() {
                                 </button>
                             </div>
                         </div>
-                        <Editor editorData={notes} setCloudSync={setCloudSync} />
+                        <Editor editorData={notes} setCloudSync={setCloudSync} Type={'code'} />
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>
