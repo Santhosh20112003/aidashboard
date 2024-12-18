@@ -8,7 +8,7 @@ import { RiFullscreenExitLine, RiFullscreenFill, RiRefreshLine } from "react-ico
 import * as Tooltip from "@radix-ui/react-tooltip";
 
 const Preview = ({ html, css, js, framework }) => {
-    const { isFullScreen, setIsFullscreen } = useData();
+    const { isFullScreen, setIsFullscreen, isCodeOpen } = useData();
     const [reloadFlag, setReloadFlag] = useState(false);
     const iframeRef = useRef(null);
 
@@ -19,7 +19,7 @@ const Preview = ({ html, css, js, framework }) => {
 
         document.addEventListener("fullscreenchange", handleFullscreenChange);
         return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    }, [setIsFullscreen]);
+    }, [setIsFullscreen, isCodeOpen]);
 
     const toggleFullScreen = () => {
         const codespaceElement = document.getElementById("sharedwebspace");

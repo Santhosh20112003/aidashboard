@@ -18,7 +18,8 @@ function CodePlayground({ html, css, js, framework, setHtml, setCss, setJs, setF
         isFullScreen,
         theme,
         HandleTheme,
-        handleEditorValidation
+        handleEditorValidation,
+        isCodeOpen
     } = useData();
 
     const files = {
@@ -131,7 +132,7 @@ function CodePlayground({ html, css, js, framework, setHtml, setCss, setJs, setF
             }
         };
         resizeEditor();
-    }, [isFullScreen])
+    }, [isFullScreen, isCodeOpen])
 
     const handleWebChange = (value) => {
         switch (file.language) {
@@ -177,7 +178,7 @@ function CodePlayground({ html, css, js, framework, setHtml, setCss, setJs, setF
                     {Object.keys(files).map((tab) => (
                         <button
                             key={tab}
-                            className={`px-6 py-3 font-normal hover:bg-gray-100 ${activeTab === tab
+                            className={`md:px-6 md:py-3 md:text-base text-sm px-3 py-3 font-normal hover:bg-gray-100 ${activeTab === tab
                                 ? "text-black font-semibold border-b-2 border-black"
                                 : "text-gray-500"
                                 }`}
@@ -189,7 +190,7 @@ function CodePlayground({ html, css, js, framework, setHtml, setCss, setJs, setF
                 </div>
                 <div className="flex items-center gap-3 px-3">
                     <select
-                        className="p-1 bg-gray-50 w-[150px] rounded-md border border-gray-200"
+                        className="p-1 bg-gray-50 w-[100px] md:w-[150px] rounded-md border border-gray-200"
                         onChange={HandleTheme}
                         value={theme}
                     >

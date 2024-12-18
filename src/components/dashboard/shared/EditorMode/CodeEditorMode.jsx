@@ -72,7 +72,8 @@ function CodeEditorMode() {
     setisGenerating,
     isOptimized,
     setNotes,
-    notes
+    notes,
+    isCodeOpen
   } = useData();
   const [cloudSync, setCloudSync] = useState(false);
   const editorReference = useRef(null);
@@ -81,6 +82,9 @@ function CodeEditorMode() {
   const [isNotesOpen, setIsNotesOpen] = useState(false);
   const debounceTimeout = useRef(null);
   const { user } = useUserAuth();
+  const [time, setTime] = useState({ minutes: 0, seconds: 0 });
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
 
   const safetySettings = [
     {
@@ -355,13 +359,46 @@ function CodeEditorMode() {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      const isFullscreen = Boolean(document.fullscreenElement);
-      setIsFullscreen(isFullscreen);
+      try {
+        const isFullscreen = Boolean(document.fullscreenElement);
+        setIsFullscreen(isFullscreen);
+
+        if (isFullscreen) {
+          setIsRunning(true);
+        } else {
+          setIsRunning(false);
+          clearInterval(intervalRef.current);
+          // setTime({ minutes: 0, seconds: 0 }); 
+        }
+      } catch (err) {
+        console.error("Error handling fullscreen change", err);
+      }
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, [setIsFullscreen]);
+
+  useEffect(() => {
+    if (isRunning) {
+      intervalRef.current = setInterval(() => {
+        setTime((prevTime) => {
+          let { minutes, seconds } = prevTime;
+          seconds += 1;
+          if (seconds === 60) {
+            minutes += 1;
+            seconds = 0;
+          }
+          return { minutes, seconds };
+        });
+      }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
+    }
+
+    return () => clearInterval(intervalRef.current);
+  }, [isRunning]);
 
   useEffect(() => {
     const loadSpaceData = () => {
@@ -405,7 +442,7 @@ function CodeEditorMode() {
 
   return (
     <div id="sharedcodespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
-      <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
+      <div className={`${isCodeOpen ? "md:block hidden" : ""} ${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
         <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
         {(explanation && videoID) && (
           <Dialog.Root>
@@ -437,7 +474,7 @@ function CodeEditorMode() {
         )}
         <ChatInputs input={input} setInput={setInput} handleChatSubmission={handleChatSubmission} isLoading={isLoading} videoID={videoID} />
       </div>
-      <div className={`${videoID ? "w-1/2 md:block hidden" : "hidden"} h-full`}>
+      <div className={`${isCodeOpen ? "" : "md:block hidden"} ${videoID ? "md:w-1/2 w-full " : "hidden"} h-full`}>
         <CodeEditor editorReference={editorReference} language={language} editorContent={editorContent} handleChange={handleChange} theme={theme} />
         <div className="flex justify-between mt-4">
           <div className="flex items-center gap-2">
@@ -479,6 +516,11 @@ function CodeEditorMode() {
       {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
         <p className="-rotate-90">Jarvis</p>
       </button>}
+
+      {isFullScreen && <h1 className="text-xl bg-black bg-opacity-70 text-white rounded-lg px-4 py-1 fixed top-5 left-1/2 -translate-x-1/2 font-bold">
+        {String(time.minutes).padStart(2, '0')}:
+        {String(time.seconds).padStart(2, '0')}
+      </h1>}
 
       {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
         <p className="-rotate-90">Notes</p>
@@ -565,7 +607,6 @@ function CodeEditorMode() {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      <Toaster position="top-center" />
     </div >
   );
 }

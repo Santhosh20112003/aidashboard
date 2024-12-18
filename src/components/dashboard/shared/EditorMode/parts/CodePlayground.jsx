@@ -25,8 +25,8 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     handleEditorValidation,
     debounceWebTimeout,
     webspaceid,
-    setWebSpaces,
-    UpdateWebExistingSpace
+    UpdateWebExistingSpace,
+    isCodeOpen
   } = useData();
 
   const files = {
@@ -156,7 +156,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
       }
     };
     resizeEditor();
-  }, [isFullScreen])
+  }, [isFullScreen, isCodeOpen])
 
   const handleWebChange = (value) => {
     switch (file.language) {

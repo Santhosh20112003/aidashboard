@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import ChatInput from './parts/ChatInput'
 import CodePlayground from './parts/CodePlayground'
@@ -44,12 +44,16 @@ function LoadWebSpace() {
     isFullScreen,
     setConversation,
     heading,
-    explanation
+    explanation,
+    isCodeOpen
   } = useData();
   const [cloudSync, setCloudSync] = useState(false);
   const [data, setData] = useState(null);
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
+  const [time, setTime] = useState({ minutes: 0, seconds: 0 });
+  const [isRunning, setIsRunning] = useState(false);
+  const intervalRef = useRef(null);
 
   useEffect(() => {
     setConversation([]);
@@ -95,20 +99,36 @@ function LoadWebSpace() {
 
   return (
     <div id="sharedwebspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
-      <div className={`md:w-1/2 w-full h-full space-y-4`}>
+      <div className={`${isCodeOpen ? "md:block hidden" : ""} md:w-1/2 w-full h-full space-y-4`}>
         <CodePlayground htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
         <ChatInput input={input} setInput={setInput} handleWebChatSubmission={() => { }} isLoading={isLoading} />
       </div>
-      <div className={`w-1/2 md:block hidden h-full`}>
-        <Preview htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
+      <div className={`${isCodeOpen ? "" : "md:block hidden"} md:w-1/2 w-full h-full`}>
+        <Preview setTime={setTime} intervalRef={intervalRef} setIsRunning={setIsRunning} isRunning={isRunning} htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
       </div>
-      {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+
+      {isFullScreen && <h1 className="text-xl bg-black bg-opacity-70 text-white rounded-lg px-4 py-1 fixed top-5 left-1/2 -translate-x-1/2 font-bold">
+        {String(time.minutes).padStart(2, '0')}:
+        {String(time.seconds).padStart(2, '0')}
+      </h1>}
+
+      {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black md:hidden fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
         <p className="-rotate-90">Jarvis</p>
       </button>}
 
-      {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+      {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black md:hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
         <p className="-rotate-90">Notes</p>
       </button>}
+
+      {isFullScreen && <div className="fixed top-0 right-[15%] h-[50px] hidden md:flex gap-5 -translate-x-[15%]">
+        <button onClick={() => setIsAIOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+          <p className="">Jarvis AI</p>
+        </button>
+
+        <button onClick={() => setIsNotesOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+          <p className="">Notes</p>
+        </button>
+      </div>}
 
       {!isFullScreen && <div className="fixed top-0 left-1/2 h-[50px] hidden md:flex gap-5 -translate-x-1/2">
         <button onClick={() => setIsAIOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
@@ -191,7 +211,6 @@ function LoadWebSpace() {
           </Dialog.Content>
         </Dialog.Portal>
       </Dialog.Root>
-      <Toaster />
     </div>
   )
 }
