@@ -20,10 +20,16 @@ export function UserAuthContextProvider({ children }) {
   }
   function googleSignIn() {
     const googleAuthProvider = new GoogleAuthProvider();
+    googleAuthProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
     return signInWithPopup(auth, googleAuthProvider);
   }
   function GithubSignIn() {
     const githubAuthProvider = new GithubAuthProvider();
+    githubAuthProvider.setCustomParameters({
+      prompt: 'select_account'
+    });
     return signInWithPopup(auth, githubAuthProvider);
   }
   function TwitterSignIn() {
