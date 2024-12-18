@@ -125,11 +125,11 @@ function Creator() {
     };
 
     return (
-        <div className='flex w-full h-full md:h-[90%] gap-3 p-3' >
+        <div className='flex w-full h-[90%] gap-3 px-3 pb-5' >
             <div className="h-full w-full bg-white rounded-md text-main">
-                <div className="w-full px-3 pt-2 jarvis-cont overflow-y-auto max-h-[80vh] md:max-h-[90vh] h-auto">
+                <div className={`w-full ${conversation.length == 0 ? 'flex flex-col items-center justify-center' : ''} h-[90%] px-3 pt-2 jarvis-cont overflow-y-auto`}>
                     {conversation.length === 0 ? (
-                        <div className="flex items-center mb-10 justify-center gap-5 flex-col">
+                        <div className="flex items-center justify-center gap-5 flex-col">
                             <img src="https://ik.imagekit.io/vituepzjm/Scribby/QA_hero-rev.webp?updatedAt=1725384607039" alt="Logo" className="h-48" />
                             <p className="text-xl text-center text-main font-bold">
                                 Hello {user?.displayName?.length > 20
@@ -142,16 +142,14 @@ function Creator() {
                             <div key={index} className={` text-main jarvis space-y-3`}>
                                 {msg.user ? (
                                     <div className="bg-main/10 p-3 rounded-xl md:ms-5">
-                                        <div className="flex items-center justify-between pb-3">
+                                        <div className="flex items-center justify-between">
                                             <span className="inline-flex items-center justify-center gap-2">
                                                 <img
                                                     src={user.photoURL}
                                                     alt="jarvis"
                                                     className="w-6 h-6 rounded-full bg-main"
                                                 />
-                                                <h1 className="text-base font-semibold text-main">{user?.displayName?.length > 10
-                                                    ? `${user.displayName.slice(0, 10)}..`
-                                                    : user.displayName}</h1>
+                                                <h1 className="text-base hidden md:block font-semibold line-clamp-1 text-main">{user.displayName}</h1>
 
                                             </span>
                                             {msg.timestamp && (
@@ -170,14 +168,14 @@ function Creator() {
                                 ) : null}
                                 <div className="bg-main/10 p-3 rounded-xl md:me-5">
                                     <div className="message-container">
-                                        <div className="flex items-center justify-between pb-3">
+                                        <div className="flex items-center justify-between">
                                             <span className="inline-flex items-center justify-center gap-2">
                                                 <img
                                                     src="https://ik.imagekit.io/vituepzjm/Jarvis.png"
                                                     alt="jarvis"
                                                     className="w-6 h-6 rounded-full p-1 bg-main"
                                                 />
-                                                <h1 className="text-base font-semibold text-main">Jarvis AI</h1>
+                                                <h1 className="text-base hidden md:block font-semibold text-main">Jarvis AI</h1>
                                             </span>
                                             <div className="message-actions flex items-center justify-end gap-3 p-3">
                                                 <button

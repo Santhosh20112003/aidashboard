@@ -15,6 +15,7 @@ import { TbSettingsCode } from "react-icons/tb";
 import { monacoThemes } from "../../../constants";
 import { RiFullscreenExitLine, RiFullscreenFill } from "react-icons/ri";
 import { IoMdCloudDone } from "react-icons/io";
+import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { IoCloudOfflineSharp } from "react-icons/io5";
 import "./load.css";
 import Editor from "./code/Editor";
@@ -61,13 +62,18 @@ function LoadSpace() {
         isFullScreen,
         setIsFullscreen,
         setNotes,
-        notes
+        notes,
+        setConversation
     } = useData();
     const [cloudSync, setCloudSync] = useState(false);
     const editorReference = useRef(null);
     const [data, setData] = useState(null);
     const [isAIOpen, setIsAIOpen] = useState(false);
     const [isNotesOpen, setIsNotesOpen] = useState(false);
+
+    useEffect(() => {
+        setConversation([]);
+    }, []);
 
     const HandleFullScreen = () => {
         const codespaceElement = document.getElementById("codespace");
@@ -262,9 +268,12 @@ function LoadSpace() {
             <Dialog.Root open={isAIOpen} >
                 <Dialog.Portal container={container}>
                     <Dialog.Overlay onClick={() => { setIsAIOpen(!isAIOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
-                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft fixed top-0 left-0 w-[75%] max-w-[600px] bg-white focus:outline-none">
+                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft data-[state=close]:animate-exitToLeft fixed top-0 left-0 w-full max-w-[600px] bg-white focus:outline-none">
                         <div className="flex items-end p-4 justify-between">
-                            <h1 className="text-2xl font-semibold text-black">Jarvis AI</h1>
+                            <h1 className="text-2xl ms-2 font-semibold text-black">Jarvis AI</h1>
+                            <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
+                                <GoArrowLeft />
+                            </button>
                         </div>
                         <Chat />
                     </Dialog.Content>
@@ -274,12 +283,17 @@ function LoadSpace() {
             <Dialog.Root open={isNotesOpen} >
                 <Dialog.Portal container={container}>
                     <Dialog.Overlay onClick={() => { setIsNotesOpen(!isNotesOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:right-0 right-[-50%] fixed inset-0" />
-                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromRight fixed top-0 right-0 w-[75%] max-w-[600px] bg-white focus:outline-none">
+                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromRight fixed top-0 right-0 w-full max-w-[600px] bg-white focus:outline-none">
                         <div className="flex items-end p-4 justify-between">
                             <h1 className="text-2xl font-semibold text-black">Space Notes</h1>
-                            <button className="mb-[0.2rem]">
-                                {cloudSync ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-xl md:text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-xl md:text-2xl text-green-600" />}
-                            </button>
+                            <div className="flex items-center gap-3">
+                                <button className=" p-1.5 bg-gray-100 rounded-lg active:scale-90 transition-all">
+                                    {cloudSync ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-xl md:text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-xl md:text-2xl text-green-600" />}
+                                </button>
+                                <button onClick={() => setIsNotesOpen(!isNotesOpen)} className="p-2 bg-gray-200 md:hidden rounded-lg active:scale-90 transition-all">
+                                    <GoArrowRight />
+                                </button>
+                            </div>
                         </div>
                         <Editor editorData={notes} setCloudSync={setCloudSync} />
                     </Dialog.Content>
