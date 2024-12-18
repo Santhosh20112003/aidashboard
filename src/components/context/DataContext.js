@@ -97,9 +97,11 @@ export function DataContextProvider({ children }) {
   const debounceTimeout = useRef(null);
   const debounceWebTimeout = useRef(null);
   const [isShareOpen, setisShareOpen] = useState(false);
+  const [isCodeOpen, setisCodeOpen] = useState(false);
   const [isFullScreen, setIsFullscreen] = useState(false);
   const [reloadShared, setReloadShared] = useState(false);
   const [notes, setNotes] = useState({});
+  const [conversation, setConversation] = useState([]);
 
   const safetySettings = [
     {
@@ -1744,6 +1746,10 @@ export function DataContextProvider({ children }) {
   return (
     <DataContext.Provider
       value={{
+        conversation,
+        setConversation,
+        isCodeOpen,
+        setisCodeOpen,
         notes,
         setNotes,
         handleWebTemplateAdd,

@@ -5,7 +5,7 @@ import { useData } from "../../context/DataContext";
 const CodeEditor = ({ editorReference, language, editorContent, handleChange, theme }) => {
     const debounceTimeout = useRef(null);
     const latestContent = useRef(editorContent);
-    const { Loading, isGenerating, handleEditorValidation, isFullScreen } = useData();
+    const { isCodeOpen, Loading, isGenerating, handleEditorValidation, isFullScreen } = useData();
 
     const DEBOUNCE_TIME = 3000;
 
@@ -43,7 +43,7 @@ const CodeEditor = ({ editorReference, language, editorContent, handleChange, th
 
     useEffect(() => {
         resizeEditor(); // Ensure layout on fullscreen toggle
-    }, [isFullScreen]);
+    }, [isFullScreen, isCodeOpen]);
 
     const editorOptions = {
         automaticLayout: false,

@@ -18,7 +18,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
     const { user } = useUserAuth();
     const location = useLocation();
-    const { spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
+    const { setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
     return (
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
@@ -120,8 +120,8 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
             </div>
             <div className="flex items-center gap-2 md:gap-3">
 
-                {location.pathname.includes("space") && <button className="p-2 active:scale-95 transition-all" >
-                    <IoMdCodeWorking className="text-2xl md:hidden" />
+                {location.pathname.includes("space") && <button onClick={() => { setisCodeOpen(!isCodeOpen) }} className="p-2 md:hidden active:scale-95 transition-all" >
+                    <IoMdCodeWorking className="text-2xl" />
                 </button>}
 
                 {(location.pathname.includes("shared") && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <button disabled={isLoading} onClick={() => { setReloadShared(!reloadShared) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 transition-all" >

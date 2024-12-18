@@ -18,10 +18,12 @@ import { IoMdCloudDone } from "react-icons/io";
 import { IoCloudOfflineSharp } from "react-icons/io5";
 import "./load.css";
 import Editor from "./code/Editor";
+import Chat from "./code/Chat";
 
 function LoadSpace() {
     const { id } = useParams();
     const {
+        isCodeOpen,
         setHeading,
         setVideos,
         setVideoID,
@@ -133,8 +135,8 @@ function LoadSpace() {
     }
 
     return (
-        <div id="codespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
-            <div className={`${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
+        <div id="codespace" className="w-full h-[90vh] px-2 md:px-4 md:pb-2 pt-2 bg-white flex gap-4">
+            <div className={`${isCodeOpen ? "md:block hidden" : ""} ${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
                 <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
                 {(explanation && videoID) && (
                     <Dialog.Root>
@@ -166,19 +168,19 @@ function LoadSpace() {
                 )}
                 <ChatInput input={input} setInput={setInput} handleChatSubmission={handleChatSubmission} isLoading={isLoading} videoID={videoID} />
             </div>
-            <div className={`${videoID ? "w-1/2 md:block hidden" : "hidden"} h-full`}>
+            <div className={`${isCodeOpen ? "" : "md:block hidden"} ${videoID ? "md:w-1/2 w-full " : "hidden"} h-full`}>
                 <CodeEditor editorReference={editorReference} language={language} editorContent={editorContent} handleChange={handleChange} theme={theme} />
                 <div className="flex justify-between mt-4">
                     <div className="flex items-center gap-2">
                         <button
                             onClick={handleCodeExecute}
                             disabled={isLoading || isOutputLoading}
-                            className="flex active:scale-95 transition-all items-center justify-center py-1 px-4 bg-black text-white font-medium rounded-lg hover:bg-black/85"
+                            className="flex md:text-base text-sm active:scale-95 transition-all items-center justify-center py-1 px-2.5 md:px-4 bg-black text-white font-medium rounded-lg hover:bg-black/85"
                         >
-                            <FaPlay className="mr-2" /> Run Code
+                            <FaPlay className="mr-2 md:text-base text-sm" /> Run Code
                         </button>
                         <button disabled={isGenerating} onClick={handleOptimizer} className="disabled:opacity-50 disabled:animate-bounce p-1 bg-black rounded-md active:scale-95 transition-all" >
-                            <TbSettingsCode className="text-[1.4rem] text-white" />
+                            <TbSettingsCode className="text-[1.2rem] md:text-[1.4rem] text-white" />
                             {/* <VscLightbulbSparkle className="text-xl text-black" /> */}
                         </button>
                         {/* <button className="ms-3" onClick={() => {
@@ -193,10 +195,10 @@ function LoadSpace() {
                     <div className="flex items-center gap-3">
                         <button onClick={() => HandleFullScreen()}
                             className={`bg-gray-200 p-1.5 rounded-md active:scale-90 transition-all`} >
-                            {isFullScreen ? <RiFullscreenExitLine className="text-xl text-gray-700" /> : <RiFullscreenFill className="text-xl text-gray-700" />}
+                            {isFullScreen ? <RiFullscreenExitLine className="text-base md:text-xl text-gray-700" /> : <RiFullscreenFill className="text-base md:text-xl text-gray-700" />}
                         </button>
                         <select
-                            className="p-1 bg-gray-100 w-[150px] rounded-md border border-gray-300 focus:ring-0"
+                            className="p-0.5 md:p-1 bg-gray-100 w-[100px] md:w-[150px] rounded-md border border-gray-300 focus:ring-0"
                             onChange={(e) => HandleTheme(e)}
                             value={theme}
                         >
@@ -231,15 +233,15 @@ function LoadSpace() {
                 />
             </div>
 
-            {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+            {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Jarvis</p>
             </button>}
 
-            {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+            {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Notes</p>
             </button>}
 
-            {!isFullScreen && <div className="fixed top-0 left-1/2 h-[50px] flex gap-5 -translate-x-1/2">
+            {!isFullScreen && <div className="fixed top-0 left-1/2 h-[50px] hidden md:flex gap-5 -translate-x-1/2">
                 <button onClick={() => setIsAIOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
                     <p className="">Jarvis AI</p>
                 </button>
@@ -249,17 +251,25 @@ function LoadSpace() {
                 </button>
             </div>}
 
+            {!isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black md:hidden fixed top-36 right-0 text-white py-4 rounded-s-lg lg:active:pe-2 shadow transition-all cursor-pointer">
+                <p className="-rotate-90 text-xs">Jarvis</p>
+            </button>}
+
+            {!isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black md:hidden fixed top-36 left-0 text-white py-4 rounded-e-lg lg:active:ps-2 shadow transition-all cursor-pointer">
+                <p className="rotate-90 text-xs">Notes</p>
+            </button>}
 
             <Dialog.Root open={isAIOpen} >
                 <Dialog.Portal container={container}>
                     <Dialog.Overlay onClick={() => { setIsAIOpen(!isAIOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
-                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft fixed top-0 left-0 w-[75%] max-w-[400px] bg-white focus:outline-none">
-
-
+                    <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft fixed top-0 left-0 w-[75%] max-w-[600px] bg-white focus:outline-none">
+                        <div className="flex items-end p-4 justify-between">
+                            <h1 className="text-2xl font-semibold text-black">Jarvis AI</h1>
+                        </div>
+                        <Chat />
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>
-
 
             <Dialog.Root open={isNotesOpen} >
                 <Dialog.Portal container={container}>
@@ -267,14 +277,14 @@ function LoadSpace() {
                     <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromRight fixed top-0 right-0 w-[75%] max-w-[600px] bg-white focus:outline-none">
                         <div className="flex items-end p-4 justify-between">
                             <h1 className="text-2xl font-semibold text-black">Space Notes</h1>
-                            {cloudSync ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-2xl text-green-600" />}
+                            <button className="mb-[0.2rem]">
+                                {cloudSync ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-xl md:text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-xl md:text-2xl text-green-600" />}
+                            </button>
                         </div>
                         <Editor editorData={notes} setCloudSync={setCloudSync} />
                     </Dialog.Content>
                 </Dialog.Portal>
             </Dialog.Root>
-
-
         </div >
     );
 }
