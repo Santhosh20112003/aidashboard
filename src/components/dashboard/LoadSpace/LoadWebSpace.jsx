@@ -6,12 +6,130 @@ import { useParams } from 'react-router-dom'
 import { useData } from '../../context/DataContext';
 import { IoMdBookmarks, IoMdCloudDone } from "react-icons/io";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
-import { IoCloudOfflineSharp } from "react-icons/io5";
+import { IoCloudOfflineSharp, IoPlayForward } from "react-icons/io5";
 import * as Dialog from "@radix-ui/react-dialog";
 import "./load.css";
 import Editor from "./code/Editor";
 import Chat from "./code/Chat";
 import * as Popover from "@radix-ui/react-popover";
+import Joyride from 'react-joyride'
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+
+const steps = [
+    {
+        title: "Welcome to WebSpace!",
+        spotlightPadding: 5,
+        placement: 'center',
+        target: 'body',
+        content: "Get ready to build! This tour will show you WebSpace's key features. Click 'Next' to begin."
+    },
+    {
+        target: '.editor-t',
+        title: 'Web Editor',
+        spotlightPadding: 5,
+        placement: 'right',
+        content: "Write and edit your HTML, CSS, and JavaScript code here.  This editor supports syntax highlighting and autocompletion."
+    },
+    {
+        target: '.code-t',
+        title: 'Code Editor Tabs',
+        spotlightPadding: 5,
+        content: "Easily switch between your HTML, CSS, and JavaScript code using these convenient tabs."
+    },
+    {
+        target: '.mode-t',
+        title: 'Customize Your Workspace',
+        spotlightPadding: 5,
+        placement: 'bottom',
+        content: "Choose a UI mode to optimize your workflow. Select the layout that best suits your preferences."
+    },
+    {
+        target: '.formatter-t',
+        title: 'Code Formatter',
+        spotlightPadding: 5,
+        content: "Automatically format your code for readability and consistency."
+    },
+    {
+        target: '.frameworks-t',
+        title: 'Add Frameworks',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Easily add popular frameworks to your project without manual integration. Just select from the list."
+    },
+    {
+        target: '.input-t',
+        title: 'AI Prompt Input',
+        spotlightPadding: 5,
+        content: "Enter your web development prompt here. WebSpace AI will generate the code you need."
+    },
+    {
+        target: '.data-t',
+        title: 'Interactive Explanations & Headings',
+        spotlightPadding: 5,
+        content: "Find in-depth explanations and helpful headings here."
+    },
+    {
+        target: '.button-t',
+        title: 'Generate Code',
+        spotlightPadding: 5,
+        placement: 'left',
+        content: "Click 'Generate' to submit your prompt and create documents."
+    },
+    {
+        target: '.jarvis-t',
+        title: 'AI Assistance (Jarvis)',
+        spotlightPadding: 5,
+        content: "Get coding help from Jarvis, your AI coding assistant. Ask a question!"
+    },
+    {
+        target: '.notes-t',
+        title: 'Add Notes',
+        spotlightPadding: 5,
+        content: "Take notes directly within your WebSpace."
+    },
+    {
+        target: '.preview-t',
+        title: 'Live Web Preview',
+        spotlightPadding: 5,
+        placement: 'left',
+        content: "See a live preview of your webpage as you code."
+    },
+    {
+        target: '.framework-t',
+        title: 'Frameworks Added',
+        spotlightPadding: 5,
+        placement: 'bottom',
+        content: "View the frameworks included in your webspace."
+    },
+    {
+        target: '.refresh-t',
+        title: 'Refresh Preview',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Refresh the web preview to see your latest changes."
+    },
+    {
+        target: '.focusmode-t',
+        title: 'Focus Mode',
+        spotlightPadding: 5,
+        placement: 'bottom',
+        content: "Minimize distractions with fullscreen mode and a timer."
+    },
+    {
+        target: '.share-t',
+        title: 'Share Your Work',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Share your hosted web preview link via social media or other platforms."
+    },
+    {
+        title: "Start Building!",
+        spotlightPadding: 5,
+        placement: 'center',
+        target: 'body',
+        content: "You're all set! Start building amazing websites with WebSpace!"
+    }
+];
 
 function LoadWebSpace() {
     const { id } = useParams();
@@ -40,6 +158,7 @@ function LoadWebSpace() {
         explanation,
         isCodeOpen
     } = useData();
+    const [tour, setTour] = useState(false);
     const [cloudSync, setCloudSync] = useState(false);
     const [data, setData] = useState(null);
     const [isAIOpen, setIsAIOpen] = useState(false);
@@ -69,6 +188,10 @@ function LoadWebSpace() {
                 setJsCode(res?.jsCode);
                 setCodeShared(res?.shared);
                 setData(res || null);
+                // if (!localStorage.getItem("webspacetour")) {
+                setTour(true);
+                // localStorage.setItem("webspacetour", true);
+                // }
             }
             catch (err) {
                 console.log(err);
@@ -84,6 +207,54 @@ function LoadWebSpace() {
         return <div className="w-full h-screen flex items-center justify-center">Loading or no space found...</div>;
     }
 
+    function Tooltip({
+        backProps,
+        continuous,
+        index,
+        isLastStep,
+        primaryProps,
+        skipProps,
+        step,
+        tooltipProps,
+    }) {
+        return (
+            <div
+                {...tooltipProps}
+                className={`bg-white border-none ${(isLastStep || index == 0) ? 'w-[300px] md:w-[500px]' : 'max-w-[420px] min-w-[350px]'} overflow-hidden rounded-xl px-1 py-2`}
+            >
+                {index == 0 && <div className="px-4 py-2" >
+                    <img src="https://ik.imagekit.io/vituepzjm/1_o0rSx2Gw0T8zFK0SwU9Yew.jpg?updatedAt=1734734174635" alt="banner" className="w-full grayscale h-52 object-cover rounded-lg" />
+                </div>}
+                <div className="px-4 pb-6">
+                    {step.title && (
+                        <h3 className="text-black font-semibold text-lg">{step.title}</h3>
+                    )}
+                    {step.content && <p className="text-gray-600" >{step.content}</p>}
+                </div>
+
+                <div className="bg-primary-100 py-2 px-4">
+                    <div className={`${isLastStep ? 'justify-end' : 'justify-between'} flex `}>
+                        {!isLastStep && (
+                            <button {...skipProps} className="text-base py-1 px-2.5 rounded-md bg-black text-white">
+                                <IoPlayForward />
+                            </button>
+                        )}
+                        <div className={`flex gap-2`}>
+                            {index > 0 && (
+                                <button {...backProps} className="text-xl p-2 rounded-md text-white bg-black">
+                                    <FaArrowLeft />
+                                </button>
+                            )}
+                            <button {...primaryProps} className={`${isLastStep ? 'text-lg px-3 py-1' : 'text-xl p-2'}  rounded-md text-white bg-black`}>
+                                {!isLastStep ? <FaArrowRight /> : 'close'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div id="webspace" className="w-full h-[90vh] md:px-4 md:pb-2 px-2 pt-2 bg-white flex gap-4">
             <div className={`${isCodeOpen ? "md:block hidden" : ""} md:w-1/2 w-full h-full space-y-4`}>
@@ -95,34 +266,49 @@ function LoadWebSpace() {
                 {/* <Console /> */}
             </div>
 
+            <Joyride
+                run={tour}
+                continuous
+                steps={steps}
+                showSkipButton
+                tooltipComponent={Tooltip}
+                styles={{
+                    options: {
+                        zIndex: 2000000,
+                    },
+                    overlay: {
+                        backgroundColor: '#21212150',
+                    },
+                }} />
+
             {isFullScreen && <h1 className="text-xl bg-black bg-opacity-70 text-white rounded-lg px-4 py-1 fixed top-5 left-1/2 -translate-x-1/2 font-bold">
                 {String(time.minutes).padStart(2, '0')}:
                 {String(time.seconds).padStart(2, '0')}
             </h1>}
 
-            {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+            {isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black jarvis-t hidden md:block fixed top-24 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Jarvis</p>
             </button>}
 
-            {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
+            {isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 notes-t bg-black hidden md:block fixed top-48 right-0 text-white py-5 rounded-s-lg lg:active:pe-3 shadow transition-all cursor-pointer">
                 <p className="-rotate-90">Notes</p>
             </button>}
 
             {!isFullScreen && <div className="fixed top-0 left-1/2 h-[50px] hidden md:flex gap-5 -translate-x-1/2">
-                <button onClick={() => setIsAIOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+                <button onClick={() => setIsAIOpen(true)} className=" bg-black jarvis-t h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
                     <p className="">Jarvis AI</p>
                 </button>
 
-                <button onClick={() => setIsNotesOpen(true)} className=" bg-black h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
+                <button onClick={() => setIsNotesOpen(true)} className=" bg-black notes-t h-fit text-white px-5 py-1 rounded-b-lg lg:active:pt-3 shadow transition-all cursor-pointer">
                     <p className="">Notes</p>
                 </button>
             </div>}
 
-            {!isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 bg-black md:hidden fixed top-36 right-0 text-white py-4 rounded-s-lg lg:active:pe-2 shadow transition-all cursor-pointer">
+            {!isFullScreen && <button onClick={() => setIsAIOpen(true)} className="z-50 jarvis-t bg-black md:hidden fixed top-36 right-0 text-white py-4 rounded-s-lg lg:active:pe-2 shadow transition-all cursor-pointer">
                 <p className="-rotate-90 text-xs">Jarvis</p>
             </button>}
 
-            {!isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 bg-black md:hidden fixed top-36 left-0 text-white py-4 rounded-e-lg lg:active:ps-2 shadow transition-all cursor-pointer">
+            {!isFullScreen && <button onClick={() => setIsNotesOpen(true)} className="z-50 notes-t bg-black md:hidden fixed top-36 left-0 text-white py-4 rounded-e-lg lg:active:ps-2 shadow transition-all cursor-pointer">
                 <p className="rotate-90 text-xs">Notes</p>
             </button>}
 

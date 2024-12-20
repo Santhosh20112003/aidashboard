@@ -6,6 +6,8 @@ import { Frameworks } from "../../../constants";
 import { Link } from "react-router-dom";
 import { RiFullscreenExitLine, RiFullscreenFill, RiRefreshLine } from "react-icons/ri";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { MdIosShare } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, setIsRunning, intervalRef }) => {
     const { isFullScreen, setIsFullscreen, webspaceid } = useData();
@@ -103,7 +105,7 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, set
     }, [htmlCode, cssCode, jsCode, framework, reloadFlag]);
 
     return (
-        <div className="h-full w-full bg-gray-50 border rounded shadow flex flex-col">
+        <div className="h-full preview-t w-full bg-gray-50 border rounded shadow flex flex-col">
             {/* Header Section */}
             <div className="px-2 py-2 flex w-full items-center justify-between gap-2 border-b bg-gray-100 text-gray-600 font-semibold">
                 <div className="flex items-center gap-2">
@@ -114,7 +116,7 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, set
                         <Tooltip.Provider>
                             <Tooltip.Root>
                                 <Tooltip.Trigger asChild>
-                                    <Link target="_blank" to={Frameworks[framework]?.link}>
+                                    <Link target="_blank" className="framework-t" to={Frameworks[framework]?.link}>
                                         <Avatar.Root className="inline-flex size-8 select-none items-center justify-center overflow-hidden rounded-md align-middle">
                                             <Avatar.Image
                                                 src={Frameworks[framework]?.image}
@@ -145,13 +147,13 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, set
                     )}
                     <button
                         onClick={() => setReloadFlag((prev) => !prev)}
-                        className="p-2 bg-gray-200 rounded-md transition-all active:scale-95"
+                        className="p-2 refresh-t bg-gray-200 rounded-md transition-all active:scale-95"
                     >
                         <RiRefreshLine className="text-gray-700 text-lg transition-transform active:rotate-90" />
                     </button>
                     <button
                         onClick={toggleFullScreen}
-                        className="bg-gray-200 p-2 rounded-md active:scale-90 transition-all"
+                        className="bg-gray-200 focusmode-t p-2 rounded-md active:scale-90 transition-all"
                     >
                         {isFullScreen ? (
                             <RiFullscreenExitLine className="text-lg text-gray-700" />
@@ -159,11 +161,34 @@ const Preview = ({ htmlCode, cssCode, jsCode, framework, setTime, isRunning, set
                             <RiFullscreenFill className="text-lg text-gray-700" />
                         )}
                     </button>
-                    <Link target="_blank" to={`/ws/${webspaceid}`}
-                        className="bg-gray-200 p-2 rounded-md active:scale-90 transition-all"
+                    <button onClick={async () => {
+                        try {
+                            if (navigator.share) {
+                                await navigator.share({
+                                    title: 'Check out my WebSpace!', // Add a title for better sharing
+                                    text: 'I created this awesome WebSpace, check it out!', // Add some text for context
+                                    url: `${window.origin}/ws/${webspaceid}`,
+                                });
+                            } else {
+                                toast.error("Sharing not supported on this device.", {
+                                    position: "top-center",
+                                    icon: "❌",
+                                });
+                            }
+                        } catch (error) {
+                            // Handle errors more gracefully.
+                            if (error.name === 'AbortError') {
+                                toast.error("Sharing cancelled.", { position: "top-center", icon: "⚠️" });
+                            } else {
+                                toast.error(`Sharing failed: ${error.message}`, { position: "top-center", icon: "⚠️" });
+                                console.error('Sharing failed:', error); // Log the error to the console for debugging
+                            }
+                        }
+                    }}
+                        className="bg-gray-200 share-t p-2 rounded-md active:scale-90 transition-all"
                     >
-                        Live
-                    </Link>
+                        <MdIosShare />
+                    </button>
                 </div>
             </div>
 

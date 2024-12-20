@@ -13,11 +13,11 @@ function ChatInput({ input, setInput, isLoading }) {
     return (
         <div>
             <div className="w-full max-h-[50px] flex gap-3 items-center">
-                <textarea value={input} disabled={isLoading} onChange={(e) => setInput(e.target.value)} className={`w-full max-h-[50px] h-[8vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`} placeholder="Type your prompt here..." />
+                <textarea value={input} disabled={isLoading} onChange={(e) => setInput(e.target.value)} className={`w-full input-t max-h-[50px] h-[8vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`} placeholder="Type your prompt here..." />
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
                         <button
-                            className={`py-3.5 px-3.5 active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
+                            className={`py-3.5 data-t px-3.5 active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
                             disabled={isLoading}
                         >
                             <TbDatabaseEdit className='text-xl' />
@@ -40,7 +40,7 @@ function ChatInput({ input, setInput, isLoading }) {
                     </Dialog.Portal>
                 </Dialog.Root>
             </div>
-            <div className="flex gap-3 mt-2 max-h-[10vh] items-center">
+            <div className="flex button-t gap-3 mt-2 max-h-[10vh] items-center">
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
                         <button

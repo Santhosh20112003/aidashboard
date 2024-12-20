@@ -26,107 +26,107 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 const steps = [
     {
-      title: "Welcome to CodeSpace!",
-      spotlightPadding: 5,
-      placement: 'center',
-      target: 'body',
-      content: "Get ready to build! This tour will show you CodeSpace's key features. Click 'Next' to begin."
+        title: "Welcome to CodeSpace!",
+        spotlightPadding: 5,
+        placement: 'center',
+        target: 'body',
+        content: "Get ready to build! This tour will show you CodeSpace's key features. Click 'Next' to begin."
     },
     {
-      target: '.video-t',
-      title: 'Integrated Video Tutorials',
-      spotlightPadding: 5,
-      placement: 'right',
-      content: "Learn the ropes with our built-in video tutorials. Watch quick guides to get started quickly."
+        target: '.video-t',
+        title: 'Integrated Video Tutorials',
+        spotlightPadding: 5,
+        placement: 'right',
+        content: "Learn the ropes with our built-in video tutorials. Watch quick guides to get started quickly."
     },
     {
-      target: '.swap-t',
-      title: 'YouTube Video Swapping',
-      spotlightPadding: 5,
-      content: "Swap YouTube videos upto 5 videos to personalize your learning."
+        target: '.swap-t',
+        title: 'YouTube Video Swapping',
+        spotlightPadding: 5,
+        content: "Swap YouTube videos upto 5 videos to personalize your learning."
     },
     {
-      target: '.explanation-t',
-      title: 'Interactive Explanations',
-      spotlightPadding: 5,
-      placement: 'right',
-      content: "Find in-depth explanations here. Check out the helpful menu above!"
+        target: '.explanation-t',
+        title: 'Interactive Explanations',
+        spotlightPadding: 5,
+        placement: 'right',
+        content: "Find in-depth explanations here. Check out the helpful menu above!"
     },
     {
-      target: '.input-t',
-      title: 'AI Prompt Input',
-      spotlightPadding: 5,
-      content: "Enter your coding prompt here. CodeSpace will help generate the code you need."
+        target: '.input-t',
+        title: 'AI Prompt Input',
+        spotlightPadding: 5,
+        content: "Enter your coding prompt here. CodeSpace will help generate the code you need."
     },
     {
-      target: '.button-t',
-      title: 'Generate Button',
-      spotlightPadding: 5,
-      placement: 'top',
-      content: "Click 'Generate' to submit your prompt to the AI and generate content."
+        target: '.button-t',
+        title: 'Generate Button',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Click 'Generate' to submit your prompt to the AI and generate content."
     },
     {
-      target: '.jarvis-t',
-      title: 'AI Assistance (Jarvis)',
-      spotlightPadding: 5,
-      content: "Get coding help from Jarvis, our AI assistant. Try asking a question!"
+        target: '.jarvis-t',
+        title: 'AI Assistance (Jarvis)',
+        spotlightPadding: 5,
+        content: "Get coding help from Jarvis, our AI assistant. Try asking a question!"
     },
     {
-      target: '.notes-t',
-      title: 'Add Notes',
-      spotlightPadding: 5,
-      content: "Take notes directly within your CodeSpace."
+        target: '.notes-t',
+        title: 'Add Notes',
+        spotlightPadding: 5,
+        content: "Take notes directly within your CodeSpace."
     },
     {
-      target: '.editor-t',
-      title: 'Code Editor',
-      spotlightPadding: 5,
-      placement: 'left',
-      content: "Write and edit your code here. This editor supports syntax highlighting, autocompletion, and more."
+        target: '.editor-t',
+        title: 'Code Editor',
+        spotlightPadding: 5,
+        placement: 'left',
+        content: "Write and edit your code here. This editor supports syntax highlighting, autocompletion, and more."
     },
     {
-      target: '.run-t',
-      title: 'Run Your Code',
-      spotlightPadding: 5,
-      placement: 'top',
-      content: "Execute your code with a single click!"
+        target: '.run-t',
+        title: 'Run Your Code',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Execute your code with a single click!"
     },
     {
-      target: '.optimizer-t',
-      title: 'Code Optimization Tool',
-      spotlightPadding: 5,
-      placement: 'bottom',
-      content: "Improve your code's performance. Use our built-in tools to optimize your code."
+        target: '.optimizer-t',
+        title: 'Code Optimization Tool',
+        spotlightPadding: 5,
+        placement: 'bottom',
+        content: "Improve your code's performance. Use our built-in tools to optimize your code."
     },
     {
-      target: '.focusmode-t',
-      title: 'Focus Mode',
-      spotlightPadding: 5,
-      placement: 'top',
-      content: "Enhance your concentration with Focus Mode. Minimize distractions by going fullscreen and setting a timer."
+        target: '.focusmode-t',
+        title: 'Focus Mode',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "Enhance your concentration with Focus Mode. Minimize distractions by going fullscreen and setting a timer."
     },
     {
-      target: '.mode-t',
-      title: 'Editor UI Modes',
-      spotlightPadding: 5,
-      placement: 'bottom',
-      content: "Choose from different UI modes to optimize your coding workflow. Select the layout that best suits your preferences."
+        target: '.mode-t',
+        title: 'Editor UI Modes',
+        spotlightPadding: 5,
+        placement: 'bottom',
+        content: "Choose from different UI modes to optimize your coding workflow. Select the layout that best suits your preferences."
     },
     {
-      target: '.output-t',
-      title: 'Output & Error Reporting',
-      spotlightPadding: 5,
-      placement: 'top',
-      content: "This area displays your code's output and any errors. Check here for debugging information."
+        target: '.output-t',
+        title: 'Output & Error Reporting',
+        spotlightPadding: 5,
+        placement: 'top',
+        content: "This area displays your code's output and any errors. Check here for debugging information."
     },
     {
-      title: "Start Building!",
-      spotlightPadding: 5,
-      placement: 'center',
-      target: 'body',
-      content: "You're all set! Start learning amazing things with CodeSpace!"
+        title: "Start Building!",
+        spotlightPadding: 5,
+        placement: 'center',
+        target: 'body',
+        content: "You're all set! Start learning amazing things with CodeSpace!"
     }
-  ];
+];
 
 function LoadSpace() {
     const { id } = useParams();

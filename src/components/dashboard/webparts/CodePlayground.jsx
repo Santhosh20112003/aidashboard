@@ -114,7 +114,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
         return (
             <Popover.Root>
                 <Popover.Trigger asChild>
-                    <button className="cursor-pointer active:scale-95 transition-all">
+                    <button className="cursor-pointer frameworks-t active:scale-95 transition-all">
                         <RiSettingsLine className="text-xl text-black/80" />
                     </button>
                 </Popover.Trigger>
@@ -252,10 +252,10 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     return (
         <div
             className={`${isFullScreen ? "h-[83vh]" : "h-[70vh]"
-                } bg-gray-100 border border-gray-100 rounded-md`}
+                } bg-gray-100 border editor-t border-gray-100 rounded-md`}
         >
             <div className="flex items-center justify-between border-b h-[50px] bg-slate-50">
-                <div className="flex">
+                <div className="flex code-t">
                     {Object.keys(files).map((tab) => (
                         <button
                             key={tab}
@@ -271,7 +271,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
                 </div>
                 <div className="flex items-center gap-3 px-3">
                     <select
-                        className="p-1 bg-gray-50 w-[100px] md:w-[150px] rounded-md border border-gray-200"
+                        className="p-1 mode-t bg-gray-50 w-[100px] md:w-[150px] rounded-md border border-gray-200"
                         onChange={HandleTheme}
                         value={theme}
                     >
@@ -283,7 +283,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
                             </option>
                         ))}
                     </select>
-                    <button className="ms-3" onClick={() => {
+                    <button className="ms-3 formatter-t" onClick={() => {
                         editorRef.current.getAction('editor.action.formatDocument').run()
                     }} >
                         <SiPrettier />
