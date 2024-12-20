@@ -29,7 +29,7 @@ function WebNewChat() {
                     className="w-full py-3 active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black"
                     disabled={isWebLoading}
                 >
-                    <BsStars /> Generate Your CodeSpace
+                    <BsStars /> Generate Your WebSpace
                 </button>
                 {isWebLoading && <FaGear className="text-3xl animate-spin text-black" />}
             </div>

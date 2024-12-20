@@ -6,7 +6,9 @@ import { HiMiniXMark, HiOutlineGlobeAlt } from "react-icons/hi2";
 import { PiTerminalWindowFill } from 'react-icons/pi';
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from 'react-router-dom';
+import { FaPlusSquare, FaRegPlusSquare } from "react-icons/fa";
 import { LANGUAGE_VERSIONS } from '../../../constants';
+import { FaPlus } from 'react-icons/fa6';
 
 function Overview() {
   const { user } = useUserAuth();
@@ -25,7 +27,7 @@ function Overview() {
               &nbsp;
             </h1>
             <h1 className="lg:text-4xl md:text-3xl break-words md:hidden text-2xl ms-4 font-medium title-font mb-4 text-start text-[#3f3d56]">
-               {/* <br className="flex md:hidden" /> */}
+              {/* <br className="flex md:hidden" /> */}
               🥷<span className="text-main font-semibold break-words capitalize">
                 {user.displayName}
               </span>
@@ -34,6 +36,16 @@ function Overview() {
             <p className="text-[#3f3d56] break-words md:ps-4 ms-4 text-start text-base md:text-lg">
               Check what's happening on your CodeSpark Dashboard.
             </p>
+            <div className="hidden mt-8 ms-4 ps-4 lg:flex items-center justify-center gap-5">
+              <Link to="/dashboard/space/new" class="inline-flex items-center bg-black border-0 px-4 gap-2 py-2.5 text-white focus:outline-none hover:bg-black/80 rounded-full text-sm mt-4 md:mt-0">
+                <FaPlus />
+                CodeSpace
+              </Link>
+              <Link to="/dashboard/webspace/new" class="inline-flex items-center bg-black border-0 px-4 gap-2 py-2.5 text-white focus:outline-none hover:bg-black/80 rounded-full text-sm mt-4 md:mt-0">
+                <FaPlus />
+                WebSpace
+              </Link>
+            </div>
           </span>
           <span className=" flex">
             {(spaces.length !== 0 && webspaces.length !== 0) ?

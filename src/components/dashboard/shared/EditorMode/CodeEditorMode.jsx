@@ -441,7 +441,7 @@ function CodeEditorMode() {
   }
 
   return (
-    <div id="sharedcodespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex space-x-4">
+    <div id="sharedcodespace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
       <div className={`${isCodeOpen ? "md:block hidden" : ""} ${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
         <YouTubeFrame videoID={videoID} onSwap={onSwap} videos={videos} />
         {(explanation && videoID) && (

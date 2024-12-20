@@ -169,7 +169,7 @@ function WebTrash() {
               alt="Nothing to show"
               className="w-32 mb-6"
             />
-            <h2 className="text-xl italic text-gray-600">No CodeSpaces are available in the Trash.</h2>
+            <h2 className="text-xl italic text-gray-600">No WebSpaces are available in the Trash.</h2>
           </div>
         )}
       </div>

@@ -9,7 +9,7 @@ const ChatInput = ({ input, setInput, handleChatSubmission, isLoading, videoID }
     return (
         <div>
             <textarea
-                className={`w-full ${isLoading ? "opacity-50" : ""} ${isFullScreen ? " max-h-[120px] h-[10vh]" : "h-[80vh]"}  ${videoID ? " max-h-[50px] h-[8vh]" : "h-[80vh]"} px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
+                className={`w-full ${isLoading ? "opacity-50" : ""} ${isFullScreen ? " max-h-[120px] h-[10vh]" : " max-h-[50px] h-[8vh]"} px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
                 placeholder="Type your prompt here..."
                 value={input}
                 disabled={isLoading}

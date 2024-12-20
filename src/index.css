@@ -17,6 +17,38 @@
   border: 0;
   z-index: 1;
 }
+/* 
+.home22-intro:before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  display: block;
+  background: #212121;
+  border-radius: 50%;
+  box-shadow: 0 0 500px 200px #212121;
+  z-index: -1;
+  right: 0;
+  top: 100%;
+  transform: translate(-80%, -80%);
+  opacity: 0.2;
+}
+
+.home22-intro:after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  display: block;
+  background: #212121;
+  border-radius: 50%;
+  box-shadow: 0 0 500px 200px #212121;
+  z-index: -1;
+  right: 0;
+  top: 50%;
+  transform: translate(80%, -80%);
+  opacity: 0.2;
+} */
 
 .no-tailwindcss-codeeditor {
   all: unset !important;
@@ -30,6 +62,12 @@
 .monaco-editor .overflow-guard {
   border-radius: 5px !important;
 } */
+
+p {
+  font-weight: unset !important;
+  margin: 0;
+  padding: 0.2em 0;
+}
 
 .ce-inline-tool--link .icon--link {
   background-color: #79b7f5;

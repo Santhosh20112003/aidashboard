@@ -895,7 +895,7 @@ export function DataContextProvider({ children }) {
         toast.remove();
         toast.success("Video swapped successfully!");
       } else {
-        toast("Same video selected, no swap performed.");
+        // toast("Same video selected, no swap performed.");
       }
     } catch (error) {
       toast.remove();

@@ -132,7 +132,7 @@ function Login() {
                                 Google
                             </button>
                         </div>
-                        <p className="text-sm mx-2 text-center text-white">*by signing into the CodeSpark you accept the Terms of Service</p>
+                        <p className="text-sm mx-2 text-center font-normal text-white">*by signing into the CodeSpark you accept <Link to="/terms-of-use" className="underline underline-offset-2" >Privacy Policy</Link> </p>
                     </div>
                 </span>
             </div>
