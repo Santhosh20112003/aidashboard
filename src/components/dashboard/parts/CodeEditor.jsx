@@ -67,7 +67,7 @@ const CodeEditor = ({ editorReference, language, editorContent, handleChange, th
 
     return (
         <div
-            className={`${isFullScreen ? 'h-[60vh] pt-1' : 'h-[55vh]'} rounded-lg`}
+            className={`${isFullScreen ? 'h-[60vh] pt-1' : 'h-[55vh]'} editor-t rounded-lg`}
             style={{
                 position: "relative",
                 overflow: "hidden",

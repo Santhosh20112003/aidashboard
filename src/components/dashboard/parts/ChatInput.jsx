@@ -9,7 +9,7 @@ const ChatInput = ({ input, setInput, handleChatSubmission, isLoading, videoID }
     return (
         <div>
             <textarea
-                className={`w-full ${isLoading ? "opacity-50" : ""} ${isFullScreen ? " max-h-[120px] h-[10vh]" : " max-h-[50px] h-[8vh]"} px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
+                className={`input-t w-full ${isLoading ? "opacity-50" : ""} ${isFullScreen ? " max-h-[120px] h-[10vh]" : " max-h-[50px] h-[8vh]"} px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
                 placeholder="Type your prompt here..."
                 value={input}
                 disabled={isLoading}
@@ -19,7 +19,7 @@ const ChatInput = ({ input, setInput, handleChatSubmission, isLoading, videoID }
                 <Dialog.Root>
                     <Dialog.Trigger asChild>
                         <button
-                            className={`w-full ${isFullScreen ? 'py-4' : 'py-3'} active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
+                            className={`w-full button-t ${isFullScreen ? 'py-4' : 'py-3'} active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
                             disabled={isLoading}
                         >
                             <BsStars /> Generate Contents

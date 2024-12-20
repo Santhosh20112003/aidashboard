@@ -11,7 +11,7 @@ const OutputDisplay = ({ output, isOutputLoading, handleCopy, copied }) => {
     const container = document.getElementById("codespace");
 
     return (
-        <div className={`bg-black/90 overflow-auto ${isFullScreen ? 'h-[30vh]' : 'h-[25vh]'} mt-3 rounded-lg`}>
+        <div className={`bg-black/90 output-t overflow-auto ${isFullScreen ? 'h-[30vh]' : 'h-[25vh]'} mt-3 rounded-lg`}>
             <div className="px-3 flex justify-between items-center pt-2 mb-2">
                 <h1 className="text-lg font-medium text-gray-100">Output:</h1>
                 <div className="flex items-center justify-center gap-3 me-3">
