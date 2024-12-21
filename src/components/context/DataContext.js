@@ -102,6 +102,7 @@ export function DataContextProvider({ children }) {
   const [reloadShared, setReloadShared] = useState(false);
   const [notes, setNotes] = useState({});
   const [conversation, setConversation] = useState([]);
+  const [newOpen, setNewOpen] = useState(false);
 
   const safetySettings = [
     {
@@ -1748,6 +1749,8 @@ export function DataContextProvider({ children }) {
   return (
     <DataContext.Provider
       value={{
+        newOpen,
+        setNewOpen,
         conversation,
         setConversation,
         isCodeOpen,

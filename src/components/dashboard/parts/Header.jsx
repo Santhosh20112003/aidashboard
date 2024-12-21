@@ -18,7 +18,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
     const { user } = useUserAuth();
     const location = useLocation();
-    const { setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
+    const {setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
     return (
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
@@ -128,11 +128,9 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-base transition-all group-active:animate-spin text-main" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path><path d="M20 4v5h-5"></path></svg>
                 </button>}
 
-                <Popover.Root>
+                {/* <Popover.Root>
                     <Popover.Trigger asChild>
-                        <button className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
-                            <TiPlusOutline className="text-lg md:text-base" />  <p className="hidden sm:block">New Space</p>
-                        </button>
+                        
                     </Popover.Trigger>
                     <Popover.Portal >
                         <Popover.Content sideOffset={10} side="bottom" className="me-[4rem] z-[1000] rounded-lg p-2 flex items-center justify-center gap-2 bg-white w-[300px] border border-main/20 shadow-lg">
@@ -151,7 +149,11 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                             <Popover.Arrow className="fill-main/30 " />
                         </Popover.Content>
                     </Popover.Portal>
-                </Popover.Root>
+                </Popover.Root> */}
+
+                <button onClick={() => setNewOpen(true)} className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
+                    <TiPlusOutline className="text-lg md:text-base" />  <p className="hidden sm:block">New Space</p>
+                </button>
 
                 <Popover.Root>
                     <Popover.Trigger asChild>

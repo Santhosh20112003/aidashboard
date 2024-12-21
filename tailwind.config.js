@@ -54,6 +54,10 @@ module.exports = {
           from: { opacity: "0", transform: "translateX(-200px)" },
           to: { opacity: "1", transform: "translateX(0)" },
         },
+        enterFromBottom: {
+          from: { opacity: "0", transform: "translateY(-200px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
         exitToRight: {
           from: { opacity: "1", transform: "translateX(0)" },
           to: { opacity: "0", transform: "translateX(200px)" },
@@ -61,6 +65,10 @@ module.exports = {
         exitToLeft: {
           from: { opacity: "1", transform: "translateX(0)" },
           to: { opacity: "0", transform: "translateX(-200px)" },
+        },
+        exitToBottom: {
+          from: { opacity: "0", transform: "translateY(200px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
         },
         scaleIn: {
           from: { opacity: "0", transform: "rotateX(-10deg) scale(0.9)" },
@@ -106,6 +114,8 @@ module.exports = {
       enterFromRight: "enterFromRight 250ms ease",
       exitToLeft: "exitToLeft 250ms ease",
       exitToRight: "exitToRight 250ms ease",
+      enterFromBottom: "enterFromBottom 250ms ease",
+      exitToBottom: "exitToBottom 250ms ease",
       spin: "spin 1s linear infinite",
       pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) alternate infinite",
       bounce: "bounce 2s cubic-bezier(0.8, 0, 1, 1) alternate infinite",

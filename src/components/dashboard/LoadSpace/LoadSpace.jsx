@@ -8,7 +8,7 @@ import OutputDisplay from "../parts/OutputDisplay";
 import toast from "react-hot-toast";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BiSolidCopy, BiCopy } from "react-icons/bi";
-import { FaArrowCircleLeft, FaArrowCircleRight, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import { converter } from "../../../common/config";
 import "../../../chat.css";
 import { TbSettingsCode } from "react-icons/tb";

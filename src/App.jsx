@@ -30,6 +30,8 @@ import Contact from './components/main/contact/Contact';
 import NeedsSpark from './components/main/needSpark/NeedsSpark';
 import Timer from './components/dashboard/LoadSpace/timer/Timer';
 import Terms from './components/terms-and-use/Terms';
+import CodeTemplates from './components/dashboard/templates/CodeTemplates';
+import WebTemplates from './components/dashboard/templates/WebTemplates';
 
 function App() {
   return (
@@ -53,6 +55,14 @@ function App() {
                 <Route path='space/new' element={
                   <ProtectedRoute>
                     <NewChat />
+                  </ProtectedRoute>} />
+                <Route path='space/templates' element={
+                  <ProtectedRoute>
+                    <CodeTemplates />
+                  </ProtectedRoute>} />
+                <Route path='webspace/templates' element={
+                  <ProtectedRoute>
+                    <WebTemplates />
                   </ProtectedRoute>} />
                 <Route path='shared/list' element={
                   <ProtectedRoute>

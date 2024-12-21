@@ -170,14 +170,14 @@ export const LANGUAGE_VERSIONS = {
     version: "",
     comment: "//",
     image:
-      "https://ik.imagekit.io/vituepzjm/Frameworks/css-3.svg?updatedAt=1733771166475",
+      "https://ik.imagekit.io/vituepzjm/logos/Official_CSS_Logo.svg-removebg-preview.png?updatedAt=1734819203747",
     banner: "https://ik.imagekit.io/vituepzjm/banners/30.png",
   },
   tailwindcss: {
     version: "",
     comment: "//",
     image:
-      "https://ik.imagekit.io/vituepzjm/Frameworks/images.png?updatedAt=1733771319537",
+      "https://ik.imagekit.io/vituepzjm/logos/png-transparent-tailwind-css-hd-logo-thumbnail-removebg-preview.png?updatedAt=1734818588005",
     banner: "https://ik.imagekit.io/vituepzjm/banners/25.png",
   },
   bulma: {
@@ -186,6 +186,34 @@ export const LANGUAGE_VERSIONS = {
     image:
       "https://ik.imagekit.io/vituepzjm/Frameworks/bulma-io.png?updatedAt=1733087434805",
     banner: "https://ik.imagekit.io/vituepzjm/banners/28.png",
+  },
+  threejs: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/images-removebg-preview%20(1).png?updatedAt=1734821352598",
+  },
+  gsap: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/png-transparent-gsap-greensock-hd-logo-thumbnail-removebg-preview.png?updatedAt=1734820874948",
+  },
+  chartjs: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/Chart.js_logo.svg-removebg-preview.png?updatedAt=1734821022176",
+  },
+  aframe: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/aframe.png?updatedAt=1734821492268",
+  },
+  jquery: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/png-transparent-jquery-plain-wordmark-logo-icon-thumbnail-removebg-preview.png?updatedAt=1734821699050",
+  },
+  tensorflowjs: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/images-removebg-preview%20(2).png?updatedAt=1734821805867",
+  },
+  leafletjs: {
+    image:
+      "https://ik.imagekit.io/vituepzjm/logos/png-transparent-leaflet-javascript-library-web-browser-plug-in-software-framework-others-leaf-rss-map-removebg-preview.png?updatedAt=1734821858101",
   },
   bootstrap: {
     version: "",
@@ -198,14 +226,14 @@ export const LANGUAGE_VERSIONS = {
     version: "",
     comment: "//",
     image:
-      "https://ik.imagekit.io/vituepzjm/Frameworks/ui2.png?updatedAt=1733087922800",
+      "https://ik.imagekit.io/vituepzjm/logos/uikit-icon-1768x2048-15mc115n.png?updatedAt=1734818784731",
     banner: "https://ik.imagekit.io/vituepzjm/banners/26.png",
   },
   purecss: {
     version: "",
     comment: "//",
     image:
-      "https://ik.imagekit.io/vituepzjm/Frameworks/unnamed.png?updatedAt=1733087828514",
+      "https://ik.imagekit.io/vituepzjm/logos/unnamed-removebg-preview.png?updatedAt=1734819022060",
     banner: "https://ik.imagekit.io/vituepzjm/banners/29.png",
   },
 };

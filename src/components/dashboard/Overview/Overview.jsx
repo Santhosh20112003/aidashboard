@@ -6,7 +6,6 @@ import { HiMiniXMark, HiOutlineGlobeAlt } from "react-icons/hi2";
 import { PiTerminalWindowFill } from 'react-icons/pi';
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from 'react-router-dom';
-import { FaPlusSquare, FaRegPlusSquare } from "react-icons/fa";
 import { LANGUAGE_VERSIONS } from '../../../constants';
 import { FaPlus } from 'react-icons/fa6';
 
@@ -38,11 +37,11 @@ function Overview() {
             </p>
             <div className="hidden mt-8 ms-4 ps-4 lg:flex items-center justify-center gap-5">
               <Link to="/dashboard/space/new" class="inline-flex items-center bg-black border-0 px-4 gap-2 py-2.5 text-white focus:outline-none hover:bg-black/80 rounded-full text-sm mt-4 md:mt-0">
-                <FaPlus />
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M20.4668 8.69379L20.7134 8.12811C21.1529 7.11947 21.9445 6.31641 22.9323 5.87708L23.6919 5.53922C24.1027 5.35653 24.1027 4.75881 23.6919 4.57612L22.9748 4.25714C21.9616 3.80651 21.1558 2.97373 20.7238 1.93083L20.4706 1.31953C20.2942 0.893489 19.7058 0.893489 19.5293 1.31953L19.2761 1.93083C18.8442 2.97373 18.0384 3.80651 17.0252 4.25714L16.308 4.57612C15.8973 4.75881 15.8973 5.35653 16.308 5.53922L17.0677 5.87708C18.0555 6.31641 18.8471 7.11947 19.2866 8.12811L19.5331 8.69379C19.7136 9.10792 20.2864 9.10792 20.4668 8.69379ZM5.79993 16H7.95399L8.55399 14.5H11.4459L12.0459 16H14.1999L10.9999 8H8.99993L5.79993 16ZM9.99993 10.8852L10.6459 12.5H9.35399L9.99993 10.8852ZM15 16V8H17V16H15ZM3 3C2.44772 3 2 3.44772 2 4V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V11H20V19H4V5H14V3H3Z"></path></svg>
                 CodeSpace
               </Link>
               <Link to="/dashboard/webspace/new" class="inline-flex items-center bg-black border-0 px-4 gap-2 py-2.5 text-white focus:outline-none hover:bg-black/80 rounded-full text-sm mt-4 md:mt-0">
-                <FaPlus />
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="16px" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M20.4668 8.69379L20.7134 8.12811C21.1529 7.11947 21.9445 6.31641 22.9323 5.87708L23.6919 5.53922C24.1027 5.35653 24.1027 4.75881 23.6919 4.57612L22.9748 4.25714C21.9616 3.80651 21.1558 2.97373 20.7238 1.93083L20.4706 1.31953C20.2942 0.893489 19.7058 0.893489 19.5293 1.31953L19.2761 1.93083C18.8442 2.97373 18.0384 3.80651 17.0252 4.25714L16.308 4.57612C15.8973 4.75881 15.8973 5.35653 16.308 5.53922L17.0677 5.87708C18.0555 6.31641 18.8471 7.11947 19.2866 8.12811L19.5331 8.69379C19.7136 9.10792 20.2864 9.10792 20.4668 8.69379ZM5.79993 16H7.95399L8.55399 14.5H11.4459L12.0459 16H14.1999L10.9999 8H8.99993L5.79993 16ZM9.99993 10.8852L10.6459 12.5H9.35399L9.99993 10.8852ZM15 16V8H17V16H15ZM3 3C2.44772 3 2 3.44772 2 4V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V11H20V19H4V5H14V3H3Z"></path></svg>
                 WebSpace
               </Link>
             </div>
@@ -126,10 +125,10 @@ function Overview() {
         {/* <div className="row-span-2 bg-white p-3 rounded-lg row-start-4">6</div> */}
       </div>
       <div className="md:px-6 mt-14">
-        <div className="mb-6 flex items-center justify-center md:justify-between w-full">
-          <h1 className="text-xl ms-2 md:text-2xl font-semibold">Recomended CodeSpaces</h1>
-          <Link to="/dashboard/space/new" className="active:scale-95 transition-all items-center border-2 gap-3 border-black px-2 py-1 text-black font-semibold focus:outline-none rounded-lg text-sm hidden md:inline-flex">
-            Blank CodeSpace
+        <div className="mb-6 flex items-center justify-between w-full">
+          <h1 className="text-xl ms-2 md:text-2xl line-clamp-1 font-semibold me-2">Recomended CodeSpaces</h1>
+          <Link to="/dashboard/space/templates" className="active:scale-95 transition-all items-center border-2 gap-3 border-black px-2 py-1 text-black font-semibold focus:outline-none rounded-lg text-sm inline-flex">
+            View&nbsp;all
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -207,10 +206,10 @@ function Overview() {
         </div>
       </div>
       <div className="md:px-6 mt-14">
-        <div className="mb-6 flex items-center justify-center md:justify-between w-full">
-          <h1 className="text-xl ms-2 md:text-2xl font-semibold">Recomended WebSpaces</h1>
-          <Link to="/dashboard/webspace/new" className="active:scale-95 transition-all items-center border-2 gap-3 border-black px-2 py-1 text-black font-semibold focus:outline-none rounded-lg text-sm hidden md:inline-flex">
-            Blank WebSpace
+        <div className="mb-6 flex items-center justify-between w-full">
+          <h1 className="text-xl ms-2 md:text-2xl line-clamp-1 font-semibold me-2">Recomended WebSpaces</h1>
+          <Link to="/dashboard/webspace/templates" className="active:scale-95 transition-all items-center border-2 gap-3 border-black px-2 py-1 text-black font-semibold focus:outline-none rounded-lg text-sm inline-flex">
+            View&nbsp;all
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
