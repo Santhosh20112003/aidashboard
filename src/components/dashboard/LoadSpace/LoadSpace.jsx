@@ -263,9 +263,9 @@ function LoadSpace() {
                 setLanguage(res?.language.toLowerCase());
                 setLastInput(res?.input);
                 setData(res || null);
-                if (!localStorage.getItem("codespacetour")) {
+                if (!sessionStorage.getItem("codespacetour")) {
                     setTour(true);
-                    localStorage.setItem("codespacetour", true);
+                    sessionStorage.setItem("codespacetour", true);
                 }
             }
             catch (error) {

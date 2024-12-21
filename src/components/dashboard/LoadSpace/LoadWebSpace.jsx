@@ -188,10 +188,10 @@ function LoadWebSpace() {
                 setJsCode(res?.jsCode);
                 setCodeShared(res?.shared);
                 setData(res || null);
-                // if (!localStorage.getItem("webspacetour")) {
-                setTour(true);
-                // localStorage.setItem("webspacetour", true);
-                // }
+                if (!sessionStorage.getItem("webspacetour")) {
+                    setTour(true);
+                    sessionStorage.setItem("webspacetour", true);
+                }
             }
             catch (err) {
                 console.log(err);
