@@ -152,6 +152,7 @@ function WebSpaceInfo() {
                 setCssCode(res?.cssCode);
                 setJsCode(res?.jsCode);
                 setData(res || null);
+                console.log(res)
             }
             catch (err) {
                 console.log(err);

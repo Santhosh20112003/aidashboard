@@ -214,8 +214,6 @@ export function DataContextProvider({ children }) {
           return reject(new Error("Object is empty. No space can be updated."));
         }
 
-        console.log(data);
-
         const userDocQuery = query(
           collection(db, "spaces"),
           where("spaceid", "==", data.spaceid)
@@ -716,7 +714,7 @@ export function DataContextProvider({ children }) {
         if (!response) {
           new Error("Unable to upoad to Cloud");
         }
-        setWebSpaces((lastSpaces) => [...lastSpaces, newData]);
+        setWebSpaces((lastSpaces) => [newData, ...lastSpaces]);
         setWebPrompt("");
         navigate(`/dashboard/webspace/${newData.spaceid}`);
       } else {
@@ -811,13 +809,10 @@ export function DataContextProvider({ children }) {
           //   "Explanation": "This code implements a simple calculator with a responsive UI using Tailwind CSS.  The calculator allows users to input numbers and perform basic arithmetic operations using both the on-screen buttons and the keyboard.  Keyboard support includes number keys, basic operators (+, -, *, /), decimal point (.), Enter key (=), backspace, and 'c' or 'C' for clear."
           // }`
         );
-      console.log(result.response);
       const data = await result.response.text();
 
       // Clean the response (remove backticks and other non-JSON content)
       const responseData = extractJsonObject(data);
-
-      console.log(responseData);
 
       // Validate response and proceed with updates
       if (responseData?.type === "html") {
@@ -1540,7 +1535,6 @@ export function DataContextProvider({ children }) {
   const getSharedSpaces = async (id, type) => {
     try {
       setIsLoading(true);
-      console.log(id);
       const sharedSpacesQuery = query(
         collection(db, "sharedspaces"),
         where("spaceid", "==", id),
@@ -1746,9 +1740,55 @@ export function DataContextProvider({ children }) {
     }
   };
 
+  const handleNewWebSpaceAdd = async (item) => {
+    setIsLoading(true);
+    try {
+      const newData = {
+        ...item,
+        userid: user.uid,
+        spaceid: uuidv4(),
+        notes: {},
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      await addDoc(collection(db, "webspaces"), newData);
+      setWebSpaces((prevSpaces) => [newData, ...prevSpaces]);
+      setIsLoading(false);
+      navigate(`/dashboard/webspace/${newData.spaceid}`);
+      setNewOpen(false);
+    } catch (error) {
+      console.error("Error adding code template:", error.message, error);
+      setIsLoading(false);
+    }
+  };
+
+  const handleNewSpaceAdd = async (item) => {
+    setIsLoading(true);
+    try {
+      const newData = {
+        ...item,
+        userid: user.uid,
+        spaceid: uuidv4(),
+        notes: {},
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      await addDoc(collection(db, "spaces"), newData);
+      setSpaces((prevSpaces) => [newData, ...prevSpaces]);
+      setIsLoading(false);
+      navigate(`/dashboard/space/${newData.spaceid}`);
+      setNewOpen(false);
+    } catch (error) {
+      console.error("Error adding code template:", error.message, error);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
+        handleNewSpaceAdd,
+        handleNewWebSpaceAdd,
         newOpen,
         setNewOpen,
         conversation,

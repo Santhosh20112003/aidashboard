@@ -154,6 +154,7 @@ function SpaceInfo() {
         setLanguage(res?.language.toLowerCase());
         setLastInput(res?.input);
         setData(res || null);
+        console.log(res)
       }
       catch (err) {
         console.log(err)
@@ -161,7 +162,7 @@ function SpaceInfo() {
     };
 
     loadSpaceData();
-  }, [spaces]);
+  }, [id, spaces]);
 
   if (!data) {
     return (

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import Header from '../parts/Header'
 import { useData } from '../../context/DataContext';
 import { useUserAuth } from '../../context/UserAuthContext';
@@ -12,7 +12,8 @@ import { LANGUAGE_VERSIONS } from '../../../constants';
 
 function Structure() {
     const { user, logOut } = useUserAuth();
-    const { setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
+    const { handleNewSpaceAdd, isLoading, handleNewWebSpaceAdd, setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
+    const location = useLocation();
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
@@ -67,7 +68,7 @@ function Structure() {
                             </div>
                             <Tabs.Root
                                 className="flex w-full flex-col"
-                                defaultValue="codespace"
+                                defaultValue={location.pathname.includes("webspace") ? "webspace" : "codespace"}
                             >
                                 <Tabs.List
                                     className="flex items-center justify-start gap-3 mb-5"
@@ -91,7 +92,7 @@ function Structure() {
                                     value="codespace"
                                 >
                                     <div className="w-full max-h-[40vh] md:max-h-[50vh] pe-2 pb-2 overflow-y-auto grid md:grid-cols-3 grid-cols-1 gap-3">
-                                        <Link to={"/dashboard/space/new"} onClick={() => setNewOpen(!newOpen)} className="flex items-center md:col-span-2 gap-2 p-4 rounded-md group bg-black/5 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/10 cursor-pointer transition-all">
+                                        <Link to={"/dashboard/space/new"} disabled={isLoading} onClick={() => setNewOpen(!newOpen)} className="flex items-center md:col-span-2 gap-2 p-4 rounded-md group bg-black/5 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/10 cursor-pointer transition-all">
                                             <img
                                                 src={"https://ik.imagekit.io/vituepzjm/Jarvis.png"}
                                                 alt="language-logo"
@@ -103,7 +104,7 @@ function Structure() {
                                             </div>
                                         </Link>
                                         {codespacelist.map((item, index) => (
-                                            <button key={index} onClick={() => setNewOpen(!newOpen)} className="flex items-center gap-2 p-4 rounded-md group bg-black/0 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/5 cursor-pointer transition-all">
+                                            <button key={index} disabled={isLoading} onClick={() => handleNewSpaceAdd(item.data)} className="flex disabled:cursor-not-allowed disabled:opacity-60 items-center gap-2 p-4 rounded-md group bg-black/0 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/5 cursor-pointer transition-all">
                                                 <img
                                                     src={LANGUAGE_VERSIONS[item.language]?.image || "https://via.placeholder.com/50"}
                                                     alt="language-logo"
@@ -122,7 +123,7 @@ function Structure() {
                                     value="webspace"
                                 >
                                     <div className="w-full max-h-[40vh] md:max-h-[50vh] pe-2 pb-2 overflow-y-auto grid md:grid-cols-3 grid-cols-1 gap-3">
-                                        <Link to={"/dashboard/webspace/new"} onClick={() => setNewOpen(!newOpen)} className="flex items-center md:col-span-2 gap-2 p-4 rounded-md group bg-black/5 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/10 cursor-pointer transition-all">
+                                        <Link disabled={isLoading} to={"/dashboard/webspace/new"} onClick={() => setNewOpen(!newOpen)} className="flex items-center md:col-span-2 gap-2 p-4 rounded-md group bg-black/5 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/10 cursor-pointer transition-all">
                                             <img
                                                 src={"https://ik.imagekit.io/vituepzjm/Jarvis.png"}
                                                 alt="language-logo"
@@ -134,7 +135,7 @@ function Structure() {
                                             </div>
                                         </Link>
                                         {webspacelist.map((item, index) => (
-                                            <button key={index} onClick={() => setNewOpen(!newOpen)} className="flex items-center gap-2 p-4 rounded-md group bg-black/0 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/5 cursor-pointer transition-all">
+                                            <button key={index} disabled={isLoading} onClick={() => handleNewWebSpaceAdd(item.data)} className="flex disabled:cursor-not-allowed disabled:opacity-60 items-center gap-2 p-4 rounded-md group bg-black/0 active:scale-95 hover:border-black/10 border border-transparent hover:bg-black/5 cursor-pointer transition-all">
                                                 <img
                                                     src={LANGUAGE_VERSIONS[item.language]?.image || "https://via.placeholder.com/50"}
                                                     alt="language-logo"

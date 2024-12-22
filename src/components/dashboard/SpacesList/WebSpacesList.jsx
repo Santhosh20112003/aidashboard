@@ -20,7 +20,7 @@ const WebSpacesList = () => {
         handleDeleteWebSpace,
         isWebSpaceDeleting,
         webresults,
-        setWebResults
+        setWebResults, setNewOpen
     } = useData();
 
 
@@ -197,12 +197,11 @@ const WebSpacesList = () => {
                     <p className="text-sm text-gray-500 mt-2 text-center">
                         Create a new WebSpace to organize your projects and collaborate efficiently.
                     </p>
-                    <Link
-                        to="/dashboard/webspace/new"
+                    <button onClick={() => setNewOpen(true)}
                         className="mt-6 px-5 py-2 bg-black text-white rounded-lg shadow hover:bg-black/80 transition"
                     >
                         Create a WebSpace
-                    </Link>
+                    </button>
                 </div>}
             </div>
             <Toaster />

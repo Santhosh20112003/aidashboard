@@ -19,7 +19,8 @@ const SpacesList = () => {
         spaces,
         handleDeleteCodeSpace,
         isCodeSpaceDeleting,
-        results, setResults
+        results, setResults,
+        setNewOpen
     } = useData();
 
     const availableLangs = getUniqueLanguages(spaces);
@@ -48,7 +49,7 @@ const SpacesList = () => {
     const renderSpaceCard = (space) => (
         <div key={space.spaceid} className="">
             <img
-                src={LANGUAGE_VERSIONS[space.language]?.banner || "https://via.placeholder.com/50"}
+                src={LANGUAGE_VERSIONS[space.language.toLowerCase()]?.banner || "https://via.placeholder.com/50"}
                 alt={space.language}
                 className="h-32 w-full rounded-t-xl object-cover"
             />
@@ -57,7 +58,7 @@ const SpacesList = () => {
                 <div className="flex items-center justify-between mb-4">
                     <Link to={`/dashboard/space/info/${space.spaceid}`} className="flex items-center">
                         <img
-                            src={LANGUAGE_VERSIONS[space.language]?.image || "https://via.placeholder.com/50"}
+                            src={LANGUAGE_VERSIONS[space.language.toLowerCase()]?.image || "https://via.placeholder.com/50"}
                             alt={space.language}
                             className="size-10 p-1 rounded-xl object-cover"
                         />
@@ -194,12 +195,12 @@ const SpacesList = () => {
                     <p className="text-sm text-gray-500 mt-2 text-center">
                         Create a new CodeSpace to organize your projects and collaborate efficiently.
                     </p>
-                    <Link
-                        to="/dashboard/space/new"
+                    <button
+                        onClick={() => setNewOpen(true)}
                         className="mt-6 px-5 py-2 bg-black text-white rounded-lg shadow hover:bg-black/80 transition"
                     >
                         Create a CodeSpace
-                    </Link>
+                    </button>
                 </div>}
             </div>
             <Toaster />

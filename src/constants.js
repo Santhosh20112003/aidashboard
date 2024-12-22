@@ -101,6 +101,12 @@ export const LANGUAGE_VERSIONS = {
     image: "https://ik.imagekit.io/vituepzjm/logos/RScript",
     banner: "https://ik.imagekit.io/vituepzjm/banners/11.png",
   },
+  r: {
+    version: "4.1.1",
+    comment: "#",
+    image: "https://ik.imagekit.io/vituepzjm/logos/RScript",
+    banner: "https://ik.imagekit.io/vituepzjm/banners/11.png",
+  },
   ruby: {
     version: "3.0.1",
     comment: "#",
