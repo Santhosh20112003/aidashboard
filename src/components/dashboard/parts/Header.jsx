@@ -18,7 +18,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
     const { user } = useUserAuth();
     const location = useLocation();
-    const {setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
+    const { setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
     return (
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
@@ -105,18 +105,24 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                     <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
                     <h1 className=" text-xl ms-2 font-semibold"><p className="hidden md:block">CodeSpark</p></h1>
                 </Link>
-                {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/space/list" className="text-black" >
+                {/* {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/space/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
                 </Link>}
                 {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/webspace/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
-                </Link>}
-                {(location.pathname.includes('dashboard/webspace/list') || location.pathname.includes('dashboard/space/new') || location.pathname.includes('dashboard/trash/codespace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/space/list" className="text-black" >
+                </Link>} */}
+                {/* {(location.pathname.includes('dashboard/webspace/list') || location.pathname.includes('dashboard/space/new') || location.pathname.includes('dashboard/trash/codespace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/space/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
                 </Link>}
                 {(location.pathname.includes('dashboard/space/list') || location.pathname.includes('dashboard/webspace/new') || location.pathname.includes('dashboard/trash/webspace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/webspace/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
-                </Link>}
+                </Link>} */}
+                <Link to="/dashboard/space/list" className="text-black" >
+                    <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
+                </Link>
+                <Link to="/dashboard/webspace/list" className="text-black" >
+                    <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
+                </Link>
             </div>
             <div className="flex items-center gap-2 md:gap-3">
 

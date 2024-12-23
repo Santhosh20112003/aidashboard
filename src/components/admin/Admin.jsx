@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useUserAuth } from "../context/UserAuthContext";
-import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../config/firebase";
@@ -10,9 +10,11 @@ import { getAdminLanguages, ParseAIDate } from "../../common/methods";
 import * as Popover from "@radix-ui/react-popover";
 import { FaFilter } from "react-icons/fa6";
 import { PiEmptyBold } from "react-icons/pi";
+import { useData } from "../context/DataContext";
 
 function Admin() {
     const { user } = useUserAuth();
+    const { setisRestoring, setSpaces, isRestoring } = useData();
     const [data, setData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +35,10 @@ function Admin() {
 
             const codeDocs = codesnapshot.docs.map((doc) => ({ setting: "code", ...doc.data() }));
             const webDocs = websnapshot.docs.map((doc) => ({ setting: "web", ...doc.data() }));
-            const combinedData = [...codeDocs, ...webDocs]
+            const combinedData = [...codeDocs, ...webDocs].sort(
+                (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+            );
+
             setData(combinedData);
             setFilteredData(combinedData);
         } catch (error) {
@@ -42,6 +47,70 @@ function Admin() {
             toast.error("Error fetching admin data.");
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const HandleAdminCodeSpaceRestore = async (codespace) => {
+        try {
+            setisRestoring(true);
+            const updatedCard = {
+                ...codespace,
+                updatedAt: new Date(),
+            };
+            const cardQuery = query(
+                collection(db, "hiddencodespace"),
+                where("spaceid", "==", codespace.spaceid)
+            );
+            const querySnapshot = await getDocs(cardQuery);
+            if (!querySnapshot.empty) {
+                const docRef = querySnapshot.docs[0].ref;
+                await addDoc(collection(db, "spaces"), updatedCard);
+                await deleteDoc(docRef);
+                setData((prevCards) =>
+                    prevCards.filter((ele) => ele.spaceid !== codespace.spaceid)
+                );
+                setFilteredData((prevCards) =>
+                    prevCards.filter((ele) => ele.spaceid !== codespace.spaceid)
+                );
+            } else {
+                console.error("Error: codespace not found.");
+            }
+        } catch (error) {
+            console.error("Error deleting codespace:", error);
+        } finally {
+            setisRestoring(false);
+        }
+    };
+
+    const HandleAdminWebSpaceRestore = async (webspace) => {
+        try {
+            setisRestoring(true);
+            const updatedCard = {
+                ...webspace,
+                updatedAt: new Date(),
+            };
+            const cardQuery = query(
+                collection(db, "hiddenwebspace"),
+                where("spaceid", "==", webspace.spaceid)
+            );
+            const querySnapshot = await getDocs(cardQuery);
+            if (!querySnapshot.empty) {
+                const docRef = querySnapshot.docs[0].ref;
+                await addDoc(collection(db, "webspaces"), updatedCard);
+                await deleteDoc(docRef);
+                setData((prevCards) =>
+                    prevCards.filter((ele) => ele.spaceid !== webspace.spaceid)
+                );
+                setFilteredData((prevCards) =>
+                    prevCards.filter((ele) => ele.spaceid !== webspace.spaceid)
+                );
+            } else {
+                console.error("Error: webspace not found.");
+            }
+        } catch (error) {
+            console.error("Error restoring webspace:", error);
+        } finally {
+            setisRestoring(false);
         }
     };
 
@@ -58,25 +127,30 @@ function Admin() {
         getDetails();
     }, [user, navigate]);
 
+    // Filter Data
     const filterData = () => {
         let filtered = data;
         if (searchTerm) {
             filtered = filtered.filter(
                 (space) =>
-                    space.heading?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    space.language?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    space.type?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    space.userid?.toLowerCase().includes(searchTerm.toLowerCase())
+                    (typeof space.heading === "string" && space.heading.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (typeof space.language === "string" && space.language.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (typeof space.frameworks === "string" && space.frameworks.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                    (typeof space.userid === "string" && space.userid.toLowerCase().includes(searchTerm.toLowerCase()))
             );
         }
 
         if (searchLang) {
             filtered = filtered.filter(
-                (space) => space.language === searchLang || space.type === searchLang
+                (space) =>
+                    (typeof space.language === "string" && space.language === searchLang) ||
+                    (typeof space.frameworks === "string" && space.frameworks === searchLang)
             );
         }
 
-        setFilteredData(filtered);
+        setFilteredData(
+            filtered.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+        );
     };
 
     useEffect(() => {
@@ -141,20 +215,38 @@ function Admin() {
             </div>}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {filteredData.map((item) => (
-                    <div key={item.spaceid} className="">
+                    <div key={item.spaceid} className="relative">
                         <img
-                            src={item.language ? LANGUAGE_VERSIONS[item.language]?.banner : LANGUAGE_VERSIONS[item.type]?.banner}
-                            alt={item.language ? item.language : item.type}
-                            className="h-24 w-full rounded-t-xl object-cover"
+                            src={item.language ? LANGUAGE_VERSIONS[item.language]?.banner : LANGUAGE_VERSIONS[item.frameworks]?.banner}
+                            alt={item.language ? item.language : item.frameworks}
+                            className="h-36 w-full rounded-t-xl object-cover"
                         />
+
+                        <button disabled={isRestoring} onClick={() => {
+                            const { setting, ...rest } = item;
+
+                            if (item.setting == "web") {
+                                HandleAdminWebSpaceRestore(rest)
+                            }
+                            else if (item.setting == "code") {
+                                HandleAdminCodeSpaceRestore(rest)
+                            }
+                            else {
+                                toast.remove();
+                                toast.error(`Unable to remove this typed ${setting}`);
+                            }
+                        }} className="absolute px-3 py-1 bg-black text-white rounded-md text-sm bg-opacity-80 active:scale-95 transition-all top-2 right-2">
+                            Retrieve
+                        </button>
+
                         <div className="relative block px-5 pb-5 pt-3 bg-white shadow-md rounded-b-lg border border-gray-200 hover:shadow-lg transform transition-all duration-300"
                         >
                             <div className="flex items-center justify-between mb-4">
                                 <div className="flex items-center">
                                     <img
-                                        src={item.language ? LANGUAGE_VERSIONS[item.language]?.image : LANGUAGE_VERSIONS[item.type]?.image}
-                                        alt={item.language ? item.language : item.type}
-                                        className="size-10 p-1 rounded-xl object-cover"
+                                        src={item.language ? LANGUAGE_VERSIONS[item.language]?.image : LANGUAGE_VERSIONS[item.frameworks]?.image}
+                                        alt={item.language ? item.language : item.frameworks}
+                                        className={item.language ? 'size-10 p-1 rounded-xl object-cover' : 'w-8 object-cover'}
                                     />
                                     <div className="ml-3">
                                         <h2 className="text-[0.9rem] font-semibold text-gray-700 group-hover:text-gray-900">

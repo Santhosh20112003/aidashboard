@@ -36,10 +36,10 @@ const SpacesList = () => {
             filtered = filtered.filter(
                 (space) =>
                     space.heading.toLowerCase().includes(searchPrompt.toLowerCase()) ||
-                    space.language.toLowerCase().includes(searchPrompt.toLowerCase())
+                    space?.language.toLowerCase().includes(searchPrompt.toLowerCase())
             );
         } else if (promptLang?.trim()) {
-            filtered = filtered.filter((space) => space.language === promptLang);
+            filtered = filtered.filter((space) => space?.language === promptLang);
         }
 
         setResults(filtered);
@@ -49,8 +49,8 @@ const SpacesList = () => {
     const renderSpaceCard = (space) => (
         <div key={space.spaceid} className="">
             <img
-                src={LANGUAGE_VERSIONS[space.language.toLowerCase()]?.banner || "https://via.placeholder.com/50"}
-                alt={space.language}
+                src={LANGUAGE_VERSIONS[space?.language.toLowerCase()]?.banner || "https://via.placeholder.com/50"}
+                alt={space?.language}
                 className="h-32 w-full rounded-t-xl object-cover"
             />
             <div className="relative hover:shadow-lg transform transition-all duration-300 block px-5 pb-5 pt-3 bg-white shadow-md rounded-b-lg border border-gray-200 "
@@ -58,8 +58,8 @@ const SpacesList = () => {
                 <div className="flex items-center justify-between mb-4">
                     <Link to={`/dashboard/space/info/${space.spaceid}`} className="flex items-center">
                         <img
-                            src={LANGUAGE_VERSIONS[space.language.toLowerCase()]?.image || "https://via.placeholder.com/50"}
-                            alt={space.language}
+                            src={LANGUAGE_VERSIONS[space?.language.toLowerCase()]?.image || "https://via.placeholder.com/50"}
+                            alt={space?.language}
                             className="size-10 p-1 rounded-xl object-cover"
                         />
                         <div className="ml-3">
@@ -88,7 +88,7 @@ const SpacesList = () => {
                                 <AlertDialog.Description className="text-gray-600 mt-3 mb-5 text-[15px] leading-normal">
                                     This action cannot be undone. This will move{" "}
                                     <span className="text-gray-700 font-semibold capitalize">
-                                        {space.language} CodeSpace
+                                        {space?.language} CodeSpace
                                     </span>{" "}
                                     on <span className="text-gray-700 font-semibold">{space.heading}</span> to the Trash
                                     page. You can restore it anytime.

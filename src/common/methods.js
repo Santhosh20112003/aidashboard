@@ -165,15 +165,17 @@ export function getUniqueWebLanguages(dataArray) {
 }
 
 export function getAdminLanguages(dataArray) {
+  console.log(dataArray);
   const langset = new Set();
   dataArray.forEach((item) => {
     if (item.language) {
       langset.add(item.language);
     }
-    if (item.type && item.type !== "code") {
-      langset.add(item.type);
+    if (item.frameworks && item.frameworks !== "code") {
+      langset.add(item.frameworks);
     }
   });
+  console.log(langset);
   return Array.from(langset);
 }
 
