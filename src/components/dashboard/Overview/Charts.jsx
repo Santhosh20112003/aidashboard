@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 import { useData } from '../../context/DataContext';
+import { Link } from 'react-router-dom';
 
 const Charts = () => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -9,16 +10,16 @@ const Charts = () => {
     const data = [];
 
     if (spaces.length > 0) {
-        data.push({ name: 'CodeSpaces', value: spaces.length });
+        data.push({ name: 'CodeSpaces', value: spaces.length, link: '/dashboard/space/list' });
     }
     if (webspaces.length > 0) {
-        data.push({ name: 'WebSpaces', value: webspaces.length });
+        data.push({ name: 'WebSpaces', value: webspaces.length, link: '/dashboard/webspace/list' });
     }
     if (codeTrashes.length > 0) {
-        data.push({ name: 'CodeTrashes', value: codeTrashes.length });
+        data.push({ name: 'CodeTrashes', value: codeTrashes.length, link: '/dashboard/trash/codespace' });
     }
     if (webTrashes.length > 0) {
-        data.push({ name: 'WebTrashes', value: webTrashes.length });
+        data.push({ name: 'WebTrashes', value: webTrashes.length, link: '/dashboard/trash/webspace' });
     }
     const onPieEnter = (_, index) => {
         setActiveIndex(index);
@@ -37,29 +38,31 @@ const Charts = () => {
         } = props;
 
         return (
-            <g>
-                <text className="text-4xl font-extrabold text-center" x={cx} y={cy - 10} dy={8} textAnchor="middle" fill={fill}>
-                    {payload.value}<tspan className='text-lg font-medium' x={cx} dy="1.5em" fill='#373A3C'>{payload.name}</tspan>
-                </text>
-                <Sector
-                    cx={cx}
-                    cy={cy}
-                    innerRadius={innerRadius}
-                    outerRadius={outerRadius}
-                    startAngle={startAngle}
-                    endAngle={endAngle}
-                    fill="#212121"
-                />
-                <Sector
-                    cx={cx}
-                    cy={cy}
-                    startAngle={startAngle}
-                    endAngle={endAngle}
-                    innerRadius={outerRadius + 6}
-                    outerRadius={outerRadius + 10}
-                    fill="#212121"
-                />
-            </g>
+            <Link to={payload.link} >
+                <g>
+                    <text className="text-4xl font-extrabold text-center" x={cx} y={cy - 10} dy={8} textAnchor="middle" fill={fill}>
+                        {payload.value}<tspan className='text-lg font-medium' x={cx} dy="1.5em" fill='#373A3C'>{payload.name}</tspan>
+                    </text>
+                    <Sector
+                        cx={cx}
+                        cy={cy}
+                        innerRadius={innerRadius}
+                        outerRadius={outerRadius}
+                        startAngle={startAngle}
+                        endAngle={endAngle}
+                        fill="#212121"
+                    />
+                    <Sector
+                        cx={cx}
+                        cy={cy}
+                        startAngle={startAngle}
+                        endAngle={endAngle}
+                        innerRadius={outerRadius + 6}
+                        outerRadius={outerRadius + 10}
+                        fill="#212121"
+                    />
+                </g>
+            </Link>
         );
     };
 

@@ -11,8 +11,11 @@ import { FaPlus } from 'react-icons/fa6';
 
 function Overview() {
   const { user } = useUserAuth();
-  const { handleWebTemplateAdd, isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
+  const { isWebTemplateOpen, setIsWebTemplateOpen, isTemplateOpen, setIsTemplateOpen, handleWebTemplateAdd, isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
   const [isClosed, setisClosed] = useState(false);
+  const [currentWeb, setcurrentWeb] = useState({});
+  const [currentCode, setcurrentCode] = useState({});
+
   return (
     <div className="py-5 px-3 bg-gray-100 min-h-[90vh] w-full">
       <div className={`grid grid-cols-2 lg:grid-cols-4 ${isClosed ? 'xl:grid-cols-4' : 'xl:grid-cols-5'} lg:grid-rows-5 gap-3`}>
@@ -135,60 +138,60 @@ function Overview() {
           {
             spacestemplates.slice(0, 6).map((item, index) => (
               <div key={index} className="block bg-white p-4 rounded-lg shadow hover:shadow-md transition">
-                <Dialog.Root >
-                  <Dialog.Trigger asChild>
-                    <img src={LANGUAGE_VERSIONS[item.language]?.banner || "https://via.placeholder.com/50"} alt={item.language} className="w-full h-32 cursor-pointer shadow-md rounded-lg mb-3 active:scale-95 transition-all" />
-                  </Dialog.Trigger>
+                <img onClick={() => {
+                  setcurrentCode(item);
+                  setIsTemplateOpen(true)
+                }} src={LANGUAGE_VERSIONS[item.language]?.banner || "https://via.placeholder.com/50"} alt={item.language} className="w-full h-32 cursor-pointer shadow-md rounded-lg mb-3 active:scale-95 transition-all" />
+                <Dialog.Root open={isTemplateOpen} >
                   <Dialog.Portal>
-                    <Dialog.Overlay className="fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow" />
+                    <Dialog.Overlay onClick={() => setIsTemplateOpen(false)} className="fixed inset-0 bg-black/10 data-[state=open]:animate-overlayShow" />
                     <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[80vh] w-[90vw] max-w-[1000px] transform -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white shadow-md focus:outline-none p-6 z-50">
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="flex-1 flex justify-center items-center">
                           <img
-                            src={LANGUAGE_VERSIONS[item.language]?.banner || "https://via.placeholder.com/50"}
-                            alt={item.language}
+                            src={LANGUAGE_VERSIONS[currentCode.language]?.banner || "https://via.placeholder.com/50"}
+                            alt={currentCode.language}
                             className="rounded-lg w-full h-36 md:h-72 object-center object-cover"
                           />
                         </div>
 
                         <div className="flex-1 flex flex-col">
                           <h1 className="text-xl md:text-2xl font-semibold mb-3 text-gray-800">Add this to Your CodeSpace</h1>
-                          <h2 className="text-lg font-medium line-clamp-1 text-gray-800">{item.heading}</h2>
-                          <p className="text-gray-500 line-clamp-4 font-normal mb-3">{item.explanation}</p>
+                          <h2 className="text-lg font-medium line-clamp-1 text-gray-800">{currentCode.heading}</h2>
+                          <p className="text-gray-500 line-clamp-4 font-normal mb-3">{currentCode.explanation}</p>
                           <div className="flex items-center justify-start gap-3">
                             <h1 className="text-sm rounded px-2 py-1 border border-black text-black">5 videos</h1>
-                            <h2 className="text-sm rounded-md px-3 py-1 uppercase bg-black text-white">{item.language}</h2>
+                            <h2 className="text-sm rounded-md px-3 py-1 uppercase bg-black text-white">{currentCode.language}</h2>
                           </div>
                           <div className="flex flex-col mt-4 gap-4">
                             <div className="mt-6 flex justify-end gap-4">
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  className="bg-gray-200 text-gray-800 rounded-lg px-6 py-2"
-                                >
-                                  Cancel
-                                </button>
-                              </Dialog.Close>
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  disabled={isLoading}
-                                  onClick={() => handleCodeTemplateAdd(item)}
-                                  className="bg-black hidden md:block disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
-                                >
-                                  Add to My CodeSpace
-                                </button>
-                              </Dialog.Close>
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  disabled={isLoading}
-                                  onClick={() => handleCodeTemplateAdd(item)}
-                                  className="bg-black md:hidden disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
-                                >
-                                  Add Space
-                                </button>
-                              </Dialog.Close>
+
+                              <button
+                                onClick={() => setIsTemplateOpen(false)}
+                                type="button"
+                                className="bg-gray-200 text-gray-800 rounded-lg px-6 py-2"
+                              >
+                                Cancel
+                              </button>
+
+
+                              <button
+                                type="button"
+                                disabled={isLoading}
+                                onClick={() => handleCodeTemplateAdd(currentCode)}
+                                className="bg-black hidden md:block disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
+                              >
+                                Add to My CodeSpace
+                              </button>
+
+                              <button
+                                type="button"
+                                disabled={isLoading}
+                                onClick={() => handleCodeTemplateAdd(currentCode)}
+                                className="bg-black md:hidden disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
+                              >
+                                Add Space
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -216,60 +219,59 @@ function Overview() {
           {
             webspacestemplates.slice(0, 6).map((item, index) => (
               <div key={index} className="block bg-white p-4 rounded-lg shadow hover:shadow-md transition">
-                <Dialog.Root >
-                  <Dialog.Trigger asChild>
-                    <img src={LANGUAGE_VERSIONS[item.frameworks]?.banner || "https://via.placeholder.com/50"} alt={item.frameworks} className="w-full h-32 cursor-pointer shadow-md rounded-lg mb-3 active:scale-95 transition-all" />
-                  </Dialog.Trigger>
+                <img onClick={() => {
+                  setcurrentWeb(item);
+                  setIsWebTemplateOpen(true)
+                }} src={LANGUAGE_VERSIONS[item.frameworks]?.banner || "https://via.placeholder.com/50"} alt={item.frameworks} className="w-full h-32 cursor-pointer shadow-md rounded-lg mb-3 active:scale-95 transition-all" />
+                <Dialog.Root open={isWebTemplateOpen} >
                   <Dialog.Portal>
-                    <Dialog.Overlay className="fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow" />
+                    <Dialog.Overlay onClick={() => setIsWebTemplateOpen(false)} className="fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow" />
                     <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[80vh] w-[90vw] max-w-[1000px] transform -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white shadow-md focus:outline-none p-6 z-50">
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="flex-1 flex justify-center items-center">
                           <img
-                            src={LANGUAGE_VERSIONS[item.frameworks]?.banner || "https://via.placeholder.com/50"}
-                            alt={item.frameworks}
+                            src={LANGUAGE_VERSIONS[currentWeb.frameworks]?.banner || "https://via.placeholder.com/50"}
+                            alt={currentWeb.frameworks}
                             className="rounded-lg w-full h-36 md:h-72 object-center object-cover"
                           />
                         </div>
 
                         <div className="flex-1 flex flex-col">
                           <h1 className="text-xl md:text-2xl font-semibold mb-3 text-gray-800">Add this to Your WebSpace</h1>
-                          <h2 className="text-lg font-medium line-clamp-1 text-gray-800">{item.heading}</h2>
-                          <p className="text-gray-500 line-clamp-4 font-normal mb-3">{item.explanation}</p>
+                          <h2 className="text-lg font-medium line-clamp-1 text-gray-800">{currentWeb.heading}</h2>
+                          <p className="text-gray-500 line-clamp-4 font-normal mb-3">{currentWeb.explanation}</p>
                           <div className="flex items-center justify-start gap-3">
                             <h1 className="text-sm rounded px-2 py-1 border border-black text-black">5 videos</h1>
-                            <h2 className="text-sm rounded-md px-3 py-1 uppercase bg-black text-white">{item.frameworks}</h2>
+                            <h2 className="text-sm rounded-md px-3 py-1 uppercase bg-black text-white">{currentWeb.frameworks}</h2>
                           </div>
                           <div className="flex flex-col mt-4 gap-4">
                             <div className="mt-6 flex justify-end gap-4">
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  className="bg-gray-200 text-gray-800 rounded-lg px-6 py-2"
-                                >
-                                  Cancel
-                                </button>
-                              </Dialog.Close>
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  disabled={isLoading}
-                                  onClick={() => handleWebTemplateAdd(item)}
-                                  className="bg-black hidden md:block disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
-                                >
-                                  Add to My WebSpace
-                                </button>
-                              </Dialog.Close>
-                              <Dialog.Close asChild>
-                                <button
-                                  type="button"
-                                  disabled={isLoading}
-                                  onClick={() => handleWebTemplateAdd(item)}
-                                  className="bg-black md:hidden disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
-                                >
-                                  Add Space
-                                </button>
-                              </Dialog.Close>
+
+                              <button
+                                type="button"
+                                onClick={() => setIsWebTemplateOpen(false)}
+                                className="bg-gray-200 text-gray-800 rounded-lg px-6 py-2"
+                              >
+                                Cancel
+                              </button>
+
+                              <button
+                                type="button"
+                                disabled={isLoading}
+                                onClick={() => handleWebTemplateAdd(currentWeb)}
+                                className="bg-black hidden md:block disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
+                              >
+                                Add to My WebSpace
+                              </button>
+
+                              <button
+                                type="button"
+                                disabled={isLoading}
+                                onClick={() => handleWebTemplateAdd(currentWeb)}
+                                className="bg-black md:hidden disabled:opacity-60 disabled:cursor-not-allowed text-white rounded-lg px-6 py-2"
+                              >
+                                Add Space
+                              </button>
                             </div>
                           </div>
                         </div>

@@ -12,32 +12,32 @@ import { LANGUAGE_VERSIONS } from '../../../constants';
 
 function Structure() {
     const { user, logOut } = useUserAuth();
-    const { handleNewSpaceAdd, isLoading, handleNewWebSpaceAdd, setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
+    const { reloadSpaces, handleNewSpaceAdd, isLoading, handleNewWebSpaceAdd, setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
     const location = useLocation();
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
             getSpaces(user.uid);
         }
-    }, [user]);
+    }, [user, reloadSpaces]);
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
             getWebSpaces(user.uid);
         }
-    }, [user]);
+    }, [user, reloadSpaces]);
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
             getCodeTrashes(user.uid);
         }
-    }, [user]);
+    }, [user, reloadSpaces]);
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
             getWebTrashes(user.uid);
         }
-    }, [user]);
+    }, [user, reloadSpaces]);
 
     useEffect(() => {
         if (Object.keys(user).length > 0) {
@@ -99,7 +99,7 @@ function Structure() {
                                                 className="size-10 p-1 rounded-lg object-cover bg-main"
                                             />
                                             <div>
-                                                <h1 className="text-base leading-[1.2rem] text-start line-clamp-1 overflow-hidden font-medium text-black"> <span className="hidden md:inline-flex">Create</span> CodeSpace with AI</h1>
+                                                <h1 className="text-base leading-[1.2rem] text-start line-clamp-1 overflow-hidden font-medium text-black"> <span className="hidden md:inline-flex">Create</span> CodeSpace with AI ✨</h1>
                                                 <p className="text-sm  leading-[1.2rem] text-start ms-1 line-clamp-1 overflow-hidden text-black/70">create your customised dahboard with jarvis ai</p>
                                             </div>
                                         </Link>
@@ -130,7 +130,7 @@ function Structure() {
                                                 className="size-10 p-1 rounded-lg object-cover bg-main"
                                             />
                                             <div>
-                                                <h1 className="text-base leading-[1.2rem] text-start line-clamp-1 overflow-hidden font-medium text-black"> <span className="hidden md:inline-flex">Create</span> WebSpace with AI</h1>
+                                                <h1 className="text-base leading-[1.2rem] text-start line-clamp-1 overflow-hidden font-medium text-black"> <span className="hidden md:inline-flex">Create</span> WebSpace with AI ✨</h1>
                                                 <p className="text-sm  leading-[1.2rem] text-start ms-1 line-clamp-1 overflow-hidden text-black/70">create your customised dahboard with jarvis ai</p>
                                             </div>
                                         </Link>

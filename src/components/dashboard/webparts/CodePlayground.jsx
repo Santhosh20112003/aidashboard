@@ -179,6 +179,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     }, [isFullScreen, isCodeOpen])
 
     const handleWebChange = (value) => {
+        console.log(JSON.stringify(value))
         switch (file.language) {
             case "html":
                 setHtmlCode(value || "");
@@ -240,6 +241,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
                 emmetHTML(window.monaco);
                 emmetCSS(window.monaco);
                 editorRef.current = editor;
+                editorRef.current.getAction('editor.action.formatDocument').run()
                 editor.layout();
             }}
             loading={<Loading />}

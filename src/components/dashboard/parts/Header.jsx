@@ -7,9 +7,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useUserAuth } from '../../context/UserAuthContext';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { useData } from "../../context/DataContext";
-import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { LuUserSquare2 } from "react-icons/lu";
-import { PiTerminalWindowFill } from "react-icons/pi";
 import { MdLogout, MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { MdOutlineGroups } from "react-icons/md";
 import { AdminEmail } from '../../../common/links';
@@ -18,7 +16,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
     const { user } = useUserAuth();
     const location = useLocation();
-    const { setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, setReloadShared, reloadShared } = useData();
+    const { reloadSpaces, setReloadSpaces, setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, isFetching, setReloadShared, reloadShared } = useData();
     return (
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
@@ -40,7 +38,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                     <h1 className="text-base font-normal  text-gray-600 ">CodeSpaces</h1>
                                     <Link onClick={() => { setOpen(!open) }} to="/dashboard/space/list" className='text-sm text-gray-600  mb-1 underline underline-offset-2' >see all</Link>
                                 </div>}
-                                <div className={`w-full flex gap-3 min-h-[20vh] flex-col ${(spaces.length == 0 && webspaces.length == 0) ? 'hidden' : 'block'} `}>
+                                <div className={`w-full flex gap-3 min-h-[20vh] flex-col ${(spaces.length === 0 && webspaces.length === 0) ? 'hidden' : 'block'} `}>
                                     {spaces.length > 0 && spaces.slice(0, 3).map((item, index) => (
                                         item.spaceid !== id ? (
                                             <Link
@@ -105,29 +103,33 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                     <img src="https://ik.imagekit.io/vituepzjm/codespark.png?updatedAt=1731938834198" alt="codespark" className="h-7" />
                     <h1 className=" text-xl ms-2 font-semibold"><p className="hidden md:block">CodeSpark</p></h1>
                 </Link>
-                {/* {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/space/list" className="text-black" >
+                {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/space/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
                 </Link>}
                 {(location.pathname.includes('dashboard/home') || location.pathname.includes('dashboard/profile')) && <Link to="/dashboard/webspace/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
-                </Link>} */}
-                {/* {(location.pathname.includes('dashboard/webspace/list') || location.pathname.includes('dashboard/space/new') || location.pathname.includes('dashboard/trash/codespace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/space/list" className="text-black" >
+                </Link>}
+                {(location.pathname.includes('dashboard/webspace/list') || location.pathname.includes('dashboard/space/new') || location.pathname.includes('dashboard/trash/codespace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/space/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
                 </Link>}
                 {(location.pathname.includes('dashboard/space/list') || location.pathname.includes('dashboard/webspace/new') || location.pathname.includes('dashboard/trash/webspace') || location.pathname.includes('dashboard/shared') && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <Link to="/dashboard/webspace/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
-                </Link>} */}
-                <Link to="/dashboard/space/list" className="text-black" >
+                </Link>}
+                {/* <Link to="/dashboard/space/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">CodeSpaces</p>
                 </Link>
                 <Link to="/dashboard/webspace/list" className="text-black" >
                     <p className="hidden sm:block text-base underline underline-offset-2">WebSpaces</p>
-                </Link>
+                </Link> */}
             </div>
             <div className="flex items-center gap-2 md:gap-3">
 
                 {location.pathname.includes("space") && <button onClick={() => { setisCodeOpen(!isCodeOpen) }} className="p-2 md:hidden active:scale-95 transition-all" >
                     <IoMdCodeWorking className="text-2xl" />
+                </button>}
+
+                {!location.pathname.includes("shared") && <button disabled={isFetching} onClick={() => { setReloadSpaces(!reloadSpaces) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:brightness-75 disabled:cursor-not-allowed active:scale-95 transition-all" >
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-base transition-all group-active:animate-spin text-main" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path><path d="M20 4v5h-5"></path></svg>
                 </button>}
 
                 {(location.pathname.includes("shared") && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <button disabled={isLoading} onClick={() => { setReloadShared(!reloadShared) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 transition-all" >
