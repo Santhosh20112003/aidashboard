@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useData } from "../../context/DataContext";
 import YouTubeFrame from "../parts/YouTubeFrame";
 import ChatInput from "../parts/ChatInput";

@@ -3,7 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import ChatInput from './parts/ChatInput'
 import CodePlayground from './parts/CodePlayground'
 import Preview from './parts/Preview'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useData } from '../../../context/DataContext'
 import { useUserAuth } from '../../../context/UserAuthContext'
 import * as Popover from "@radix-ui/react-popover";
