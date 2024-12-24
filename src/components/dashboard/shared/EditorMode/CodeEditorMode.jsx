@@ -549,7 +549,7 @@ function CodeEditorMode() {
           <Dialog.Overlay onClick={() => { setIsAIOpen(!isAIOpen) }} className="bg-blackA6 z-[1000] data-[state=open]:left-0 left-[-50%] fixed inset-0" />
           <Dialog.Content className="z-[10000] h-screen data-[state=open]:animate-enterFromLeft data-[state=close]:animate-exitToLeft fixed top-0 left-0 w-full max-w-[600px] bg-white focus:outline-none">
             <div className="flex items-end p-4 justify-between">
-              <h1 className="text-2xl ms-2 font-semibold text-black">Jarvis AI</h1>
+              <Link to="https://aijarvis.vercel.app/v1" className="text-2xl ms-2 font-semibold text-black">Jarvis AI</Link>
               <div className="flex items-center gap-3">
                 <button onClick={() => setIsAIOpen(!isAIOpen)} className="p-2 md:hidden bg-gray-200 rounded-lg active:scale-90 transition-all">
                   <GoArrowLeft />

@@ -225,7 +225,7 @@ function Overview() {
                 }} src={LANGUAGE_VERSIONS[item.frameworks]?.banner || "https://via.placeholder.com/50"} alt={item.frameworks} className="w-full h-32 cursor-pointer shadow-md rounded-lg mb-3 active:scale-95 transition-all" />
                 <Dialog.Root open={isWebTemplateOpen} >
                   <Dialog.Portal>
-                    <Dialog.Overlay onClick={() => setIsWebTemplateOpen(false)} className="fixed inset-0 bg-blackA6 data-[state=open]:animate-overlayShow" />
+                    <Dialog.Overlay onClick={() => setIsWebTemplateOpen(false)} className="fixed inset-0 bg-black/10 data-[state=open]:animate-overlayShow" />
                     <Dialog.Content className="fixed top-1/2 left-1/2 max-h-[80vh] w-[90vw] max-w-[1000px] transform -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white shadow-md focus:outline-none p-6 z-50">
                       <div className="flex flex-col md:flex-row gap-6">
                         <div className="flex-1 flex justify-center items-center">
