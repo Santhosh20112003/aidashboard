@@ -125,7 +125,7 @@ function Creator() {
         }
 
         if (conversation.length > 3) {
-            toast.error("can't exceed 3 Development Purposes Only.", {
+            toast.error("Can't exceed 3 chats Trial Purpose.", {
                 position: "top-center",
                 icon: "✏️",
             });

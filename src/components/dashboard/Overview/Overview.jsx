@@ -7,7 +7,6 @@ import { PiTerminalWindowFill } from 'react-icons/pi';
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from 'react-router-dom';
 import { LANGUAGE_VERSIONS } from '../../../constants';
-import { FaPlus } from 'react-icons/fa6';
 
 function Overview() {
   const { user } = useUserAuth();

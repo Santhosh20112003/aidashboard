@@ -1,15 +1,24 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Header from '../../../common/parts/Header'
 import Footer from '../../../common/parts/Footer'
 import { useUserAuth } from '../../context/UserAuthContext';
 import { Link } from 'react-router-dom';
 import Chat from "./Chat";
 import { Toaster } from 'react-hot-toast';
+import * as Dialog from "@radix-ui/react-dialog";
+import Editors from './Editor';
+import { BsStars } from 'react-icons/bs';
+import { Editor } from "@monaco-editor/react";
+import { FaPlay } from 'react-icons/fa6';
+import { TbSettingsCode } from 'react-icons/tb';
+import { RiFullscreenExitLine } from 'react-icons/ri';
+import WebSpace from './WebSpace';
 
 function NeedsSpark() {
   const { user } = useUserAuth();
-  const buttonText = user ? "Go to your Space" : "Access Your Scribby Now";
-  const buttonLink = user ? "/dashboard/overview" : "/access-now";
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [theme, setTheme] = useState("dark");
+
   return (
     <div>
       <Header />
@@ -145,12 +154,153 @@ function NeedsSpark() {
               <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
               <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
             </ul>
-            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+            <Link to='/dashboard/space/new' class="flex md:hidden justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">Try Now</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </Link>
+
+            <Dialog.Root >
+              <Dialog.Trigger asChild>
+                <button class="hidden md:flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+                  <span class="text-white">Try Now</span>
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/10 data-[state=open]:animate-overlayShow" />
+                <Dialog.Content className="fixed top-1/2 left-1/2 w-[90%] h-[90%] transform -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white shadow-md focus:outline-none z-50">
+                  <div className="w-full h-[90vh] p-5 bg-white rounded-lg flex gap-4">
+                    <div className={`w-1/2 space-y-4 my-first-step`}>
+                      <div className={`h-[40vh] relative`}>
+                        <iframe
+                          className="w-full video-t h-full mb-2 rounded-md shadow-lg"
+                          src={`https://www.youtube.com/embed/kNE3vq1g2e8`}
+                          title="YouTube video player"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                      <div className={`p-4 explanation-t cursor-pointer hover:brightness-75 active:scale-[99%] transition-all bg-gray-100 h-[25vh] overflow-y-auto rounded-lg border border-gray-300`}>
+                        <div className="flex items-center mb-3 justify-between">
+                          <h3 className="text-lg font-semibold  text-black">Palindrome Checker in Java</h3>
+                          <h3 className="text-sm px-2 pb-0.5 pt-1 uppercase rounded-md bg-black font-semibold  text-gray-100">JAVA</h3>
+                        </div>
+                        <div className="jarvis no-tailwindcss">
+                          The Java code efficiently checks if a given string is a palindrome. It first preprocesses the input string by converting it to lowercase and removing non-alphanumeric characters. This ensures case-insensitive and punctuation-insensitive palindrome detection. Then, it uses two pointers, one at the beginning and one at the end of the string, to compare characters symmetrically. If a mismatch is found, it's not a palindrome; otherwise, the pointers move towards the center until they meet, confirming the palindrome.
+                        </div>
+                      </div>
+                      <div className="">
+                        <textarea
+                          className={`input-t w-full max-h-[50px] h-[8vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
+                          placeholder="Type your prompt here..."
+                        />
+                        <button
+                          className={`w-full button-t py-3 active:scale-[99%] transition-all flex items-center justify-center gap-2 bg-black text-white font-semibold rounded-lg hover:bg-black`}
+                        >
+                          <BsStars /> Generate Contents
+                        </button>
+                      </div>
+                    </div>
+                    <div className={`w-1/2 h-full my-other-step`}>
+                      <div
+                        className={` editor-t rounded-lg`}
+                        style={{
+                          position: "relative",
+                          overflow: "hidden",
+                          height: "50vh",
+                        }}
+                      >
+                        <Editor
+                          language={'java'}
+                          value={`import java.lang.Character;
+
+public class Palindrome {
+    public static boolean isPalindrome(String text) {
+        // Optimized: Perform processing and comparison in one pass
+        int left = 0;
+        int right = text.length() - 1;
+        char leftChar, rightChar;
+        while (left < right) {
+            leftChar = Character.toLowerCase(text.charAt(left));
+            rightChar = Character.toLowerCase(text.charAt(right));
+
+            //Skip non-alphanumeric characters. Further improved efficiency by using a single conditional check within the loop.
+            while (left < right && !Character.isLetterOrDigit(leftChar)) {
+                left++;
+                leftChar = Character.toLowerCase(text.charAt(left)); // Update leftChar after incrementing left
+            }
+            while (left < right && !Character.isLetterOrDigit(rightChar)) {
+                right--;
+                rightChar = Character.toLowerCase(text.charAt(right)); // Update rightChar after decrementing right
+            }
+
+            if (leftChar != rightChar) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        String text1 = "Racecar";
+        String text2 = "hello";
+        String text3 = "A man, a plan, a canal: Panama";
+        System.out.println(text1 + " is a palindrome: " + isPalindrome(text1));
+        System.out.println(text2 + " is a palindrome: " + isPalindrome(text2));
+        System.out.println(text3 + " is a palindrome: " + isPalindrome(text3));
+    }
+}`}
+                          theme={theme}
+                        />
+                      </div>
+                      <div className="flex justify-between mt-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            className="flex run-t md:text-base text-sm active:scale-95 transition-all items-center justify-center py-1 px-2.5 md:px-4 bg-black text-white font-medium rounded-lg hover:bg-black/85"
+                          >
+                            <FaPlay className="mr-2 md:text-base text-sm" /> Run Code
+                          </button>
+                          <button className=" optimizer-t disabled:opacity-50 disabled:animate-bounce p-1 bg-black rounded-md active:scale-95 transition-all" >
+                            <TbSettingsCode className="text-[1.2rem] md:text-[1.4rem] text-white" />
+                          </button>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <button
+                            className={`bg-gray-200 p-1.5 rounded-md focusmode-t active:scale-90 transition-all`} >
+                            <RiFullscreenExitLine className="text-base md:text-xl text-gray-700" />
+                          </button>
+                          <select
+                            onChange={(e) => setTheme(e.target.value)}
+                            value={theme}
+                            className="p-0.5 md:p-1 bg-gray-100 w-[100px] mode-t md:w-[150px] rounded-md border border-gray-300 focus:ring-0"
+                          >
+                            <option value="vs-light">Light mode</option>
+                            <option value="vs-dark">Dark mode</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div className={`bg-black/90 output-t overflow-auto h-[25vh] mt-3 rounded-lg`}>
+                        <div className="px-3 flex justify-between items-center pt-2 mb-2">
+                          <h1 className="text-lg font-medium text-gray-100">Output:</h1>
+
+                        </div>
+                        <hr />
+                        <p className="text-lg p-3 text-gray-200">Racecar is a palindrome: true <br />
+                          hello is a palindrome: false <br />
+                          A man, a plan, a canal: Panama is a palindrome: true</p>
+                      </div>
+                    </div>
+                  </div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
           </div>
           <div class="lg:max-w-xl lg:w-full h-80 md:w-1/2 w-full">
             <iframe class="object-cover w-full h-full lg:-ml-12 object-center rounded" src="https://www.youtube.com/embed/0SBxcD-Qow4?si=-UmDzWvLeohoVTS5" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -169,12 +319,29 @@ function NeedsSpark() {
               <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
               <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
             </ul>
-            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+            <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">Try Now</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </Link>
+
+            <Dialog.Root >
+              <Dialog.Trigger asChild>
+                <button class="hidden md:flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+                  <span class="text-white">Try Now</span>
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/10 data-[state=open]:animate-overlayShow" />
+                <Dialog.Content className="fixed top-1/2 left-1/2 w-[90%] h-[90%] transform -translate-x-1/2 -translate-y-1/2 rounded-lg bg-white shadow-md focus:outline-none z-50">
+                  <WebSpace />
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
           </div>
         </div>
       </section>
@@ -191,12 +358,12 @@ function NeedsSpark() {
               <Link to='https://aijarvis.vercel.app' class="flex justify-center items-center bg-main ps-5 pe-5 py-3 rounded-md gap-2">
                 <span class="text-white">OG Jarvis AI</span>
               </Link>
-              <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
-                <span class="text-white">Try Now</span>
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+              <h1 class="flex justify-center items-center bg-white ps-5 pe-3 py-3 rounded-md gap-2">
+                <span class="text-black">Try Now</span>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
                   <path d="M5 12h14M12 5l7 7-7 7"></path>
                 </svg>
-              </Link>
+              </h1>
             </div>
           </div>
           <div class="lg:max-w-xl lg:w-full h-[60vh] md:h-[80vh] shadow border border-black rounded-md md:w-1/2 w-full">
@@ -223,12 +390,28 @@ function NeedsSpark() {
               <li>Alert</li>
               <li>Math</li>
             </ul>
-            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-gray-200 ps-5 pe-3 py-3 rounded-md gap-2">
+            <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-gray-200 ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-black">Try Now</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </Link>
+            <Dialog.Root open={isEditorOpen} onOpenChange={setIsEditorOpen} >
+              <Dialog.Trigger asChild>
+                <button class="md:flex hidden justify-center items-center bg-gray-200 ps-5 pe-3 py-3 rounded-md gap-2">
+                  <span class="text-black">Try Now</span>
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                  </svg>
+                </button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-black/10 data-[state=open]:animate-overlayShow" />
+                <Dialog.Content className="fixed top-1/2 left-1/2 w-[90%] h-[90%] transform -translate-x-1/2 -translate-y-1/2  bg-white shadow-md focus:outline-none rounded-lg z-50">
+                  <Editors />
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
           </div>
         </div>
       </section>
@@ -241,8 +424,8 @@ function NeedsSpark() {
             <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black">SPACE TRASH </h1>
             <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-main">Build Your Topic Website</h1>
             <p className="mb-8 text-black/70 line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque reiciendis architecto consectetur, illo facilis nobis atque officia voluptatem nisi ex corrupti excepturi, a quis quaerat quasi laudantium consequatur nesciunt doloremque nihil dicta. Reiciendis sed facere impedit quod quam deleniti consequuntur quas laudantium provident distinctio inventore asperiores vero unde, aperiam neque.</p>
-            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
-              <span class="text-white">Try Now</span>
+            <Link to='/dashboard/trash/codespace' class="flex justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
+              <span class="text-white">See Yours</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
