@@ -4,6 +4,7 @@ import Footer from '../../../common/parts/Footer'
 import { useUserAuth } from '../../context/UserAuthContext';
 import { Link } from 'react-router-dom';
 import Chat from "./Chat";
+import { Toaster } from 'react-hot-toast';
 
 function NeedsSpark() {
   const { user } = useUserAuth();
@@ -198,7 +199,7 @@ function NeedsSpark() {
               </Link>
             </div>
           </div>
-          <div class="lg:max-w-xl lg:w-full h-[80vh] shadow border border-black rounded-md md:w-1/2 w-full">
+          <div class="lg:max-w-xl lg:w-full h-[60vh] md:h-[80vh] shadow border border-black rounded-md md:w-1/2 w-full">
             <Chat />
           </div>
         </div>
@@ -272,11 +273,11 @@ function NeedsSpark() {
           </div>
         </div>
         <div className="w-full hidden md:flex">
-          <Link to="/dashboard/shared/list" className="w-1/2 flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image_126.webp')] bg-gray-200">
-            <h1 className="master-mind text-7xl text-white font-bold">EDITOR MODE</h1>
+          <Link to="/dashboard/shared/list" className="w-1/2 group flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image_126.webp')] bg-gray-200">
+            <h1 className="master-mind text-7xl group-hover:scale-90 transition-all text-white font-bold">EDITOR MODE</h1>
           </Link>
-          <Link to="/dashboard/shared/list" className="w-1/2 flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image-15.webp')] bg-gray-200">
-            <h1 className="master-mind text-7xl text-black font-bold">VIEWER MODE</h1>
+          <Link to="/dashboard/shared/list" className="w-1/2 group flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image-15.webp')] bg-gray-200">
+            <h1 className="master-mind text-7xl group-hover:scale-90 transition-all text-black font-bold">VIEWER MODE</h1>
           </Link>
         </div>
       </section>
@@ -301,6 +302,7 @@ function NeedsSpark() {
         </div>
       </section>
       <Footer />
+      <Toaster />
     </div>
   )
 }

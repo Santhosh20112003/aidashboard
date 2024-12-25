@@ -28,7 +28,7 @@ function Header() {
                                         <button onClick={() => { setIsHamOpen(!isHamOpen) }} className="md:hidden text-lg active:scale-90 transition-all">
                                             <IoMdClose />
                                         </button>
-                                        <Link to="" onClick={() => { setIsHamOpen(!isHamOpen) }} class="flex title-font font-medium items-center text-gray-900 ">
+                                        <Link to="/" onClick={() => { setIsHamOpen(!isHamOpen) }} class="flex title-font font-medium items-center text-gray-900 ">
                                             <img src={require("../../assets/logo192.png")} alt="Logo" className="size-8 md:size-10" />
                                             <span class="ml-1 md:ml-2 text-lg md:text-xl">{AppName}</span>
                                         </Link >
@@ -58,7 +58,7 @@ function Header() {
                             </Dialog.Content>
                         </Dialog.Portal>
                     </Dialog.Root>
-                    <Link to="" class="flex title-font font-medium items-center text-gray-900 ">
+                    <Link to="/" class="flex title-font font-medium items-center text-gray-900 ">
                         <img src={require("../../assets/logo192.png")} alt="Logo" className="size-8 md:size-10" />
                         <span class="ml-1 md:ml-2 text-lg md:text-xl">{AppName}</span>
                     </Link >

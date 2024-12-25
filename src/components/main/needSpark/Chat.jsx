@@ -123,6 +123,14 @@ function Creator() {
             });
             return;
         }
+
+        if (conversation.length > 3) {
+            toast.error("can't exceed 3 Development Purposes Only.", {
+                position: "top-center",
+                icon: "✏️",
+            });
+            return;
+        }
         handleChatSubmission(prompt);
     };
 
@@ -151,7 +159,7 @@ function Creator() {
                                                     alt="jarvis"
                                                     className="w-6 h-6 rounded-md bg-main"
                                                 />}
-                                                <h1 className="text-base hidden md:block font-semibold line-clamp-1 text-main">{user ? user?.displayName : 'Guest User'}</h1>
+                                                <h1 className="text-base block font-semibold line-clamp-1 text-main">{user ? user?.displayName : 'Guest User'}</h1>
 
                                             </span>
                                             {msg.timestamp && (
@@ -177,7 +185,7 @@ function Creator() {
                                                     alt="jarvis"
                                                     className="w-6 h-6 rounded-md p-1 bg-main"
                                                 />
-                                                <h1 className="text-base hidden md:block font-semibold text-main">Jarvis AI</h1>
+                                                <h1 className="text-base block font-semibold text-main">Jarvis AI</h1>
                                             </span>
                                             <div className="message-actions flex items-center justify-end gap-3">
                                                 <button
