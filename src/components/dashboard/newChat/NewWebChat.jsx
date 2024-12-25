@@ -12,11 +12,11 @@ function WebNewChat() {
             <textarea
                 className={`w-full ${isWebLoading ? "opacity-50" : ""} h-[80vh] px-4 py-2  border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-black`}
                 placeholder={
-                    "Briefly describe your Web statement or problem name.\n\n" +
+                    "Briefly describe your UI needs or component name.\n\n" +
                     "- What specific issue are you facing?\n" +
                     "- Include any key details or context.\n\n" +
                     "Example:\n" +
-                    "Explain about the palindrome in java."
+                    "Create a Caluculator with Tailwindcss"
                 }
                 autoFocus={true}
                 value={webprompt}
