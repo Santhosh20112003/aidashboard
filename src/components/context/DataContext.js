@@ -103,6 +103,7 @@ export function DataContextProvider({ children }) {
   const [isTemplateOpen, setIsTemplateOpen] = useState(false);
   const [isWebTemplateOpen, setIsWebTemplateOpen] = useState(false);
   const [reloadSpaces, setReloadSpaces] = useState(false);
+  const [isHamOpen, setIsHamOpen] = useState(false);
 
   const safetySettings = [
     {
@@ -1782,6 +1783,8 @@ export function DataContextProvider({ children }) {
   return (
     <DataContext.Provider
       value={{
+        isHamOpen,
+        setIsHamOpen,
         reloadSpaces,
         setReloadSpaces,
         isWebTemplateOpen,

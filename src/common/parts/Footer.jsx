@@ -1,157 +1,96 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { AppName } from '../links'
+import { Link } from 'react-router-dom';
+import { useUserAuth } from '../.././components/context/UserAuthContext';
 
 function Footer() {
+    const { user } = useUserAuth();
     return (
-        <footer class="text-black body-font">
-            <div class="container px-5 py-24 mx-auto">
-                <div class="flex flex-wrap md:text-left text-center -mb-10 -mx-4">
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
+        <footer className="text-gray-600 body-font">
+            <div className="px-5 py-8 bg-main/5 mx-auto">
+                <div className="flex flex-wrap md:text-left text-center">
+                    <div className="lg:w-1/5  w-full px-4">
+                        <h2 className="title-font text-main tracking-widest text-sm font-bold mb-3">
+                            LINKS
+                        </h2>
+                        <nav className="list-none mb-5">
                             <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
+                                {user ? <Link onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }} to="/dashboard" className="text-main/80 hover:text-main">Your Space</Link> : <Link onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }} to="/getaccess" className="text-main/80 hover:text-main">Get Access</Link>}
                             </li>
                             <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
-                            </li>
-                        </nav>
-                    </div>
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
+                                <Link onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }} to="https://santechh.vercel.app" className="text-main/80 hover:text-main">SanTech</Link>
                             </li>
                         </nav>
                     </div>
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
+                    <div className="lg:w-1/5  w-full px-4">
+                        <h2 className="title-font font-bold text-main tracking-widest text-sm mb-3">
+                            COMPANY
+                        </h2>
+                        <nav className="list-none mb-5 ">
                             <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
+                                <Link onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }} to="/need-spark" className="text-main/80 lg:hover:text-main">Need Spark?</Link>
                             </li>
                             <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
-                            </li>
-                        </nav>
-                    </div>
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
+                                <Link onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }} to="/terms-of-use" className="text-main/80 hover:text-main">Terms Of Use</Link>
                             </li>
                         </nav>
                     </div>
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
-                            </li>
-                        </nav>
-                    </div>
-                    <div class="lg:w-1/6 md:w-1/2 w-full px-4">
-                        <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
-                        <nav class="list-none mb-10">
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">First Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Second Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Third Link</Link >
-                            </li>
-                            <li>
-                                <Link to="" class="text-gray-600 hover:text-gray-800">Fourth Link</Link >
-                            </li>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-200">
-                <div class="container px-5 py-8 flex flex-wrap mx-auto items-center">
-                    <div class="flex md:flex-no-wrap flex-wrap justify-center md:justify-start">
-                        <input class="sm:w-64 w-40 bg-gray-100 rounded sm:mr-4 mr-2 border border-gray-400 focus:outline-none focus:border-black text-base py-2 px-4" placeholder="Placeholder" type="text" />
-                        <button class="inline-flex text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded">Button</button>
-                        <p class="text-black text-sm md:ml-6 md:mt-0 mt-2 sm:text-left text-center">Bitters chicharrones fanny pack
-                            <br class="lg:block hidden" />waistcoat green juice
+                    <div className="lg:w-3/5  w-full px-4">
+                        <h2 className="title-font font-bold  text-main tracking-widest text-sm mb-3">
+                            SUBSCRIBE
+                        </h2>
+                        <form
+                            action="https://formsubmit.co/santhoshtechnologies22@gmail.com"
+                            method="POST"
+                            className="flex flex-col md:flex-row gap-3 justify-center items-center lg:items-end"
+                        >
+                            <input
+                                type="text"
+                                id="footer-field"
+                                name="footer-field"
+                                required
+                                autoComplete={"email"}
+                                placeholder="Your Email"
+                                className="w-full bg-main/5 bg-opacity-50 rounded border border-main/10 focus:bg-transparent focus:ring-2 focus:ring-main/20 focus:border-main/80 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                            />
+                            <button className="w-full sm:w-auto text-white bg-main border-0 py-2 px-4 lg:px-6 focus:outline-none hover:bg-main/80 rounded">
+                                Send&nbsp;Message
+                            </button>
+                        </form>
+                        <p className="text-main/80  text-sm mt-2  font-medium ">
+                            * All details are required for communication.
                         </p>
                     </div>
-                    <span class="inline-flex lg:ml-auto lg:mt-0 mt-6 w-full justify-center md:justify-start md:w-auto">
-                        <Link to="" class="text-black">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                            </svg>
-                        </Link >
-                        <Link to="" class="ml-3 text-black">
-                            <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                            </svg>
-                        </Link >
-                        <Link to="" class="ml-3 text-black">
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
-                            </svg>
-                        </Link >
-                        <Link to="" class="ml-3 text-black">
-                            <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" class="w-5 h-5" viewBox="0 0 24 24">
-                                <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
-                                <circle cx="4" cy="4" r="2" stroke="none"></circle>
-                            </svg>
-                        </Link >
-                    </span>
                 </div>
             </div>
-            <div class="bg-black">
-                <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-                    <p class="text-white text-sm text-center sm:text-left">© 2024 {AppName} —
-                        <Link to="https://santechh.vercel.app" target='_blank' class="text-gray-200 ml-1" rel="noopener noreferrer">@knyttneve</Link >
+            <div className="bg-main/10">
+                <div className="px-5 py-6 mx-auto flex flex-col items-center sm:flex-row">
+                    <span onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }} className="flex title-font cursor-pointer font-medium items-center justify-center text-main">
+                        <img src={require("../../assets/logo192.png")} alt="" className="size-10" />
+                    </span>
+                    <p className="text-sm text-main/80 mt-4 sm:ml-6 sm:mt-0 font-medium ">
+                        © 2024 CodeSpark —
+                        <Link
+                            to='https://santechh.vercel.app'
+                            rel="noopener noreferrer"
+                            className="text-gray-600 ml-1"
+                            target="_blank"
+                        >
+                            @SanTech
+                        </Link>
                     </p>
-                    <span class="sm:ml-auto sm:mt-0 mt-2 sm:w-auto w-full sm:text-left text-center text-white text-sm">Enamel pin tousled raclette tacos irony</span>
+
                 </div>
             </div>
         </footer>

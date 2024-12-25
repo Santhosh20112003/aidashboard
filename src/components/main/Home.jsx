@@ -27,10 +27,10 @@ function Home() {
     <div className="">
       <Header />
       <section class="text-black body-font">
-        <div class="container mx-auto home22-intro overflow-hidden relative flex px-5 md:px-12 py-20 md:flex-row flex-col items-center">
+        <div class="container md:h-[80vh] mx-auto home22-intro overflow-hidden relative flex px-5 md:px-12 py-12 md:flex-row flex-col-reverse gap-5 md:gap-0 items-center">
           <div class="lg:flex-grow md:w-1/2 lg:pr-16 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
-            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-semibold text-gray-900">Learn programming Interactively
-              <br class="hidden lg:inline-block" /><span className='sm:text-3xl font-medium text-3xl' >with AI-Powered Dashboards</span>
+            <h1 class="title-font sm:text-4xl text-2xl mb-4 font-semibold text-gray-900">Learn programming Interactively
+              <br class="hidden lg:inline-block" /><span className='sm:text-3xl font-medium text-2xl' >with AI-Powered Dashboards</span>
             </h1>
             <p class="mb-8 sm:text-lg md:text-base leading-relaxed"> CodeSpark crafts unique dashboards tailored to your specific needs. Tell us your topic – from sales performance to project progress – and our AI will generate a personalized dashboard, delivering insightful visualizations precisely where you need them.</p>
             <div className="flex gap-3">
@@ -40,7 +40,7 @@ function Home() {
               </button>
             </div>
           </div>
-          <div class="lg:max-w-xl lg:block hidden lg:w-full md:w-1/2 w-5/6">
+          <div class="lg:max-w-xl lg:block lg:w-full md:w-1/2 w-5/6">
             <ReactCompareSlider
               position={75}
               changePositionOnHover={true}
@@ -64,119 +64,56 @@ function Home() {
           </div>
         </div>
       </section>
-      <section class="text-black body-font border-t border-gray-200">
-        <div class="container px-5 md:px-12 py-24 mx-auto">
-          <div class="flex flex-col text-center w-full mb-20">
-            <h2 class="text-xs text-black tracking-widest font-medium title-font mb-1">ROOF PARTY POLAROID</h2>
-            <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900">Master Cleanse Reliac Heirloom</h1>
+      <section class="text-main/60 body-font">
+        <div class="container mx-auto flex lg:px-24 px-5 pt-24 pb-12 md:py-24 md:flex-row flex-col items-center">
+          <div class="lg:max-w-xl lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+            <img class="object-cover object-center rounded" alt="hero" src="https://ik.imagekit.io/vituepzjm/10.png" />
           </div>
-          <div class="flex flex-wrap -m-4">
-            <div class="p-4 md:w-1/3">
-              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div class="flex items-center mb-3">
-                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                      <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                    </svg>
-                  </div>
-                  <h2 class="text-gray-900 text-lg title-font font-medium">Shooting Stars</h2>
-                </div>
-                <div class="flex-grow">
-                  <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                  <Link to="" class="mt-3 text-black inline-flex items-center">Learn More
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link >
-                </div>
-              </div>
-            </div>
-            <div class="p-4 md:w-1/3">
-              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div class="flex items-center mb-3">
-                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                  </div>
-                  <h2 class="text-gray-900 text-lg title-font font-medium">The Catalyzer</h2>
-                </div>
-                <div class="flex-grow">
-                  <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                  <Link to="" class="mt-3 text-black inline-flex items-center">Learn More
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link >
-                </div>
-              </div>
-            </div>
-            <div class="p-4 md:w-1/3">
-              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
-                <div class="flex items-center mb-3">
-                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-                      <circle cx="6" cy="6" r="3"></circle>
-                      <circle cx="6" cy="18" r="3"></circle>
-                      <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                    </svg>
-                  </div>
-                  <h2 class="text-gray-900 text-lg title-font font-medium">Neptune</h2>
-                </div>
-                <div class="flex-grow">
-                  <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                  <Link to="" class="mt-3 text-black inline-flex items-center">Learn More
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                      <path d="M5 12h14M12 5l7 7-7 7"></path>
-                    </svg>
-                  </Link >
-                </div>
-              </div>
-            </div>
+          <div class="lg:flex-grow md:w-1/2 lg:pl-32 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+            <h1 className="px-5 py-2 border-2 border-dashed border-black uppercase text-sm rounded-md mb-5 font-bold text-main">CODE SPACE</h1>
+            <h1 class="title-font sm:text-5xl text-3xl mb-4 break-words font-bold text-main">Start Coding Simply
+              <br class="hidden lg:inline-block" /> with CodeSpace
+            </h1>
+            <p class="mb-8 font-medium leading-relaxed w-[80%]">Create personalized programming dashboards with Jarvis AI. Our CodeSpace includes a built-in code engine integrated with AI model.</p>
+            <Link to='/dashboard/space/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+              <span class="text-white">Start Creating</span>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </Link>
           </div>
         </div>
       </section>
-      <section class="text-black body-font border-t border-gray-200">
+      <hr className='mx-12' />
+      <section class="text-main/60 body-font">
+        <div class="container mx-auto flex lg:px-20 px-5 gap-12 md:gap-0 py-12 md:py-24 md:flex-row flex-col-reverse items-center">
+          <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+            <h1 className="px-5 py-2 border-2 border-dashed border-black uppercase text-sm rounded-md mb-5 font-bold text-main">WEB SPACE</h1>
+            <h1 class="title-font sm:text-5xl text-3xl capitalize mb-4 font-bold text-main">
+              Build Your Topic Website
+              <br class="hidden lg:inline-block" />with WebSpace
+            </h1>
+            <p class="mb-8 leading-relaxed w-[80%]">Build and manage your web space using over 50 pre-made templates, or create a completely personalized dashboard reflecting your unique vision.</p>
+            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+              <span class="text-white">Start Creating</span>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </Link>
+          </div>
+          <div class=" lg:max-w-xl lg:w-full md:w-1/2 w-5/6">
+            <img class="object-cover lg:-ml-24 object-center rounded" alt="hero" src="https://ik.imagekit.io/vituepzjm/webspacesample3.png" />
+          </div>
+        </div>
+      </section>
+      <hr className='mx-12' />
+      <section class="text-black body-font">
         <div class="container px-5 md:px-12 py-24 mx-auto flex flex-wrap">
-          <div class="lg:w-1/2 w-full mb-10 lg:mb-0 rounded-lg overflow-hidden">
-            <img alt="feature" class="object-cover object-center h-full w-full" src="https://dummyimage.com/600x600/edf2f7/a5afbd" />
+          <div class="lg:w-1/2 w-full border-4 border-white outline-2 outline-black outline mb-10 relative lg:mb-0 rounded-lg overflow-hidden">
+            <img alt="feature" class="object-cover object-center h-full w-full" src="https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?t=st=1735078333~exp=1735081933~hmac=bafadb0247faabb3513ef2126141a459b695c8bdeae7c8257608bbfc80e99321&w=996" />
+            <h1 className="absolute top-3 text-sm right-3 px-3 py-1 bg-black/60 text-white rounded-md">STEPS TO START</h1>
           </div>
           <div class="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
-            <div class="flex flex-col mb-10 lg:items-start items-center">
-              <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-black text-white mb-5">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                </svg>
-              </div>
-              <div class="flex-grow">
-                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Shooting Stars</h2>
-                <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                <Link to="" class="mt-3 text-white inline-flex items-center">Learn More
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </Link >
-              </div>
-            </div>
-            <div class="flex flex-col mb-10 lg:items-start items-center">
-              <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-black text-white mb-5">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                  <circle cx="6" cy="6" r="3"></circle>
-                  <circle cx="6" cy="18" r="3"></circle>
-                  <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                </svg>
-              </div>
-              <div class="flex-grow">
-                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">The Catalyzer</h2>
-                <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                <Link to="" class="mt-3 text-white inline-flex items-center">Learn More
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </Link >
-              </div>
-            </div>
             <div class="flex flex-col mb-10 lg:items-start items-center">
               <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-black text-white mb-5">
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
@@ -185,323 +122,117 @@ function Home() {
                 </svg>
               </div>
               <div class="flex-grow">
-                <h2 class="text-gray-900 text-lg title-font font-medium mb-3">Neptune</h2>
-                <p class="leading-relaxed text-base">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
-                <Link to="" class="mt-3 text-white inline-flex items-center">Learn More
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </Link >
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-1">Account Creation</h2>
+                <p class="leading-relaxed text-base">Register your free CodeSpark Learning account to leavarage your inner potential in coding.</p>
+
+              </div>
+            </div>
+            <div class="flex flex-col mb-10 lg:items-start items-center">
+              <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-black text-white mb-5">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" class="w-6 h-6" viewBox="0 0 256 256" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M229.5,113,166.06,89.94,143,26.5a16,16,0,0,0-30,0L89.94,89.94,26.5,113a16,16,0,0,0,0,30l63.44,23.07L113,229.5a16,16,0,0,0,30,0l23.07-63.44L229.5,143a16,16,0,0,0,0-30ZM157.08,152.3a8,8,0,0,0-4.78,4.78L128,223.9l-24.3-66.82a8,8,0,0,0-4.78-4.78L32.1,128l66.82-24.3a8,8,0,0,0,4.78-4.78L128,32.1l24.3,66.82a8,8,0,0,0,4.78,4.78L223.9,128Z"></path></svg>
+              </div>
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-1">Create your own Spaces</h2>
+                <p class="leading-relaxed text-base">Generate the Learning Dashboards for your lagging topics with the help of our AI model Jarvis AI or create with blank space.</p>
+
+              </div>
+            </div>
+            <div class="flex flex-col mb-10 lg:items-start items-center">
+              <div class="w-12 h-12 inline-flex items-center justify-center rounded-full bg-black text-white mb-5">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                </svg>
+              </div>
+              <div class="flex-grow">
+                <h2 class="text-gray-900 text-lg title-font font-medium mb-1">Start Learning and Inovating</h2>
+                <p class="leading-relaxed text-base">Learn complex topics effectively using an adaptive learning approach featuring hands-on coding, integrated compilers, and personalized learning paths.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section class="text-black body-font border-t border-gray-200">
+      <hr className='mx-12' />
+      <section class="text-black body-font ">
         <div class="container px-5 md:px-12 py-24 mx-auto">
-          <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-gray-900">Pitchfork Kickstarter Taxidermy</h1>
-            <p class="lg:w-1/2 w-full leading-relaxed text-base">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table.</p>
+          <div class="flex flex-col text-center w-full mb-12">
+            <h2 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-1">We Offer the Best Features</h2>
+            <h1 class="text-xs text-black tracking-widest font-medium title-font">From Us For Your Convenience</h1>
           </div>
           <div class="flex flex-wrap -m-4">
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                  </svg>
+            <div class="p-4 md:w-1/3">
+              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
+                    <svg class="svg-inline--fa fa-users size-4" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="users" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg=""><path fill="currentColor" d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80s-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80s80 35.8 80 80s-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM416 224c0 53-43 96-96 96s-96-43-96-96s43-96 96-96s96 43 96 96zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z"></path></svg>
+                  </div>
+                  <h2 class="text-gray-900 text-lg title-font font-medium">Collaboration</h2>
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Shooting Stars</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-              </div>
-            </div>
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <circle cx="6" cy="6" r="3"></circle>
-                    <circle cx="6" cy="18" r="3"></circle>
-                    <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
-                  </svg>
+                <div class="flex-grow">
+                  <p class="leading-relaxed text-base">Some platforms allow multiple users to edit same Card or Book simultaneously.</p>
+                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </Link >
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">The Catalyzer</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
               </div>
             </div>
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
+            <div class="p-4 md:w-1/3">
+              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20.4668 8.69379L20.7134 8.12811C21.1529 7.11947 21.9445 6.31641 22.9323 5.87708L23.6919 5.53922C24.1027 5.35653 24.1027 4.75881 23.6919 4.57612L22.9748 4.25714C21.9616 3.80651 21.1558 2.97373 20.7238 1.93083L20.4706 1.31953C20.2942 0.893489 19.7058 0.893489 19.5293 1.31953L19.2761 1.93083C18.8442 2.97373 18.0384 3.80651 17.0252 4.25714L16.308 4.57612C15.8973 4.75881 15.8973 5.35653 16.308 5.53922L17.0677 5.87708C18.0555 6.31641 18.8471 7.11947 19.2866 8.12811L19.5331 8.69379C19.7136 9.10792 20.2864 9.10792 20.4668 8.69379ZM5.79993 16H7.95399L8.55399 14.5H11.4459L12.0459 16H14.1999L10.9999 8H8.99993L5.79993 16ZM9.99993 10.8852L10.6459 12.5H9.35399L9.99993 10.8852ZM15 16V8H17V16H15ZM3 3C2.44772 3 2 3.44772 2 4V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20V11H20V19H4V5H14V3H3Z"></path></svg>
+                  </div>
+                  <h2 class="text-gray-900 text-lg title-font font-medium">Ai Space Generation</h2>
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Neptune</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-              </div>
-            </div>
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"></path>
-                  </svg>
+                <div class="flex-grow">
+                  <p class="leading-relaxed text-base">Effortlessly create engaging courses on any topic with the power of AI. Try Jarvis AI today!</p>
+                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </Link >
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Melanchole</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
               </div>
             </div>
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-                  </svg>
+            <div class="p-4 md:w-1/3">
+              <div class="flex rounded-lg h-full bg-gray-100 p-8 flex-col">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 mr-3 inline-flex items-center justify-center rounded-full bg-black text-white flex-shrink-0">
+                    <svg class="svg-inline--fa fa-dropbox size-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="dropbox" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 512" data-fa-i2svg=""><path fill="currentColor" d="M264.4 116.3l-132 84.3 132 84.3-132 84.3L0 284.1l132.3-84.3L0 116.3 132.3 32l132.1 84.3zM131.6 395.7l132-84.3 132 84.3-132 84.3-132-84.3zm132.8-111.6l132-84.3-132-83.6L395.7 32 528 116.3l-132.3 84.3L528 284.8l-132.3 84.3-131.3-85z"></path></svg>
+                  </div>
+                  <h2 class="text-gray-900 text-lg title-font font-medium">Backup and Restore</h2>
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Bunker</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-              </div>
-            </div>
-            <div class="xl:w-1/3 md:w-1/2 p-4">
-              <div class="border border-gray-300 p-6 rounded-lg">
-                <div class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-black text-white mb-4">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-6 h-6" viewBox="0 0 24 24">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                  </svg>
+                <div class="flex-grow">
+                  <p class="leading-relaxed text-base">Back up, restore, or delete them directly from your dashboard's Trash.</p>
+                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                      <path d="M5 12h14M12 5l7 7-7 7"></path>
+                    </svg>
+                  </Link >
                 </div>
-                <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Ramona Falls</h2>
-                <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waist co, subway tile poke farm.</p>
-              </div>
-            </div>
-          </div>
-          <button class="flex mx-auto mt-16 text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-black rounded text-lg">Button</button>
-        </div>
-      </section>
-      <section class="text-black body-font overflow-hidden border-t border-gray-200">
-        <div class="container px-5 md:px-12 py-24 mx-auto flex flex-wrap">
-          <div class="lg:w-1/4 mt-48 hidden lg:block">
-            <div class="mt-px border-t border-gray-300 border-b border-l rounded-tl-lg rounded-bl-lg overflow-hidden">
-              <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start -mt-px">Fingerstache disrupt</p>
-              <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Franzen hashtag</p>
-              <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Tilde art party</p>
-              <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Banh mi cornhole</p>
-              <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Waistcoat squid hexagon</p>
-              <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Pinterest occupy authentic</p>
-              <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Brooklyn helvetica</p>
-              <p class="text-gray-900 h-12 text-center px-4 flex items-center justify-start">Long Feature Two</p>
-              <p class="bg-gray-100 text-gray-900 h-12 text-center px-4 flex items-center justify-start">Feature One</p>
-            </div>
-          </div>
-          <div class="flex lg:w-3/4 w-full flex-wrap lg:border border-gray-300 rounded-lg">
-            <div class="lg:w-1/3 lg:mt-px w-full mb-10 lg:mb-0 border-2 border-gray-300 lg:border-none rounded-lg lg:rounded-none">
-              <div class="px-2 text-center h-48 flex flex-col items-center justify-center">
-                <h3 class="tracking-widest">START</h3>
-                <h2 class="text-5xl text-gray-900 font-medium leading-none mb-4 mt-2">Free</h2>
-                <span class="text-sm text-gray-600">Next 3 months</span>
-              </div>
-              <p class="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">Schlitz single-origin</p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="h-12 text-gray-600 px-6 text-center leading-relaxed flex items-center justify-center">Feature</p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <div class="border-t border-gray-300 p-6 text-center rounded-bl-lg">
-                <button class="flex items-center mt-auto text-white bg-black border-0 py-2 px-4 w-full focus:outline-none hover:bg-black rounded">Button
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </button>
-                <p class="text-xs text-black mt-3">Literally you probably haven't heard of them jean shorts.</p>
-              </div>
-            </div>
-            <div class="lg:w-1/3 lg:-mt-px w-full mb-10 lg:mb-0 border-2 rounded-lg border-black relative">
-              <span class="bg-black text-white px-3 py-1 tracking-widest text-xs absolute right-0 top-0 rounded-bl">POPULAR</span>
-              <div class="px-2 text-center h-48 flex flex-col items-center justify-center">
-                <h3 class="tracking-widest">PRO</h3>
-                <h2 class="text-5xl text-gray-900 font-medium flex items-center justify-center leading-none mb-4 mt-2">$38
-                  <span class="text-gray-600 text-base ml-1">/mo</span>
-                </h2>
-                <span class="text-sm text-gray-600">Charging $456 per year</span>
-              </div>
-              <p class="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">Schlitz single-origin</p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="h-12 text-gray-600 text-center leading-relaxed flex items-center justify-center">Feature</p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <div class="p-6 text-center border-t border-gray-300">
-                <button class="flex items-center mt-auto text-white bg-black border-0 py-2 px-4 w-full focus:outline-none hover:bg-black rounded">Button
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </button>
-                <p class="text-xs text-black mt-3">Literally you probably haven't heard of them jean shorts.</p>
-              </div>
-            </div>
-            <div class="lg:w-1/3 w-full lg:mt-px border-2 border-gray-300 lg:border-none rounded-lg lg:rounded-none">
-              <div class="px-2 text-center h-48 flex flex-col items-center justify-center">
-                <h3 class="tracking-widest">BUSINESS</h3>
-                <h2 class="text-5xl text-gray-900 font-medium flex items-center justify-center leading-none mb-4 mt-2">$54
-                  <span class="text-gray-600 text-base ml-1">/mo</span>
-                </h2>
-                <span class="text-sm text-gray-600">Charging $648 per year</span>
-              </div>
-              <p class="bg-gray-100 text-gray-600 h-12 text-center px-2 flex items-center -mt-px justify-center border-t border-gray-300">Schlitz single-origin</p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="h-12 text-gray-600 text-center leading-relaxed flex items-center justify-center">Feature</p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <span class="w-5 h-5 inline-flex items-center justify-center bg-black text-white rounded-full flex-shrink-0">
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" class="w-3 h-3" viewBox="0 0 24 24">
-                    <path d="M20 6L9 17l-5-5"></path>
-                  </svg>
-                </span>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <p class="bg-gray-100 text-gray-600 text-center h-12 flex items-center justify-center">
-                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" class="w-5 h-5 text-black" viewBox="0 0 24 24">
-                  <path d="M18 6L6 18M6 6l12 12"></path>
-                </svg>
-              </p>
-              <div class="p-6 text-center border-t border-gray-300">
-                <button class="flex items-center mt-auto text-white bg-black border-0 py-2 px-4 w-full focus:outline-none hover:bg-black rounded">Button
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </button>
-                <p class="text-xs text-black mt-3">Literally you probably haven't heard of them jean shorts.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section class="text-black body-font border-t border-gray-200">
+      <section class="text-gray-300 bg-main">
         <div class="container px-5 py-24 mx-auto">
-          <div class="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="inline-block w-8 h-8 text-black mb-8" viewBox="0 0 975.036 975.036">
-              <path d="M925.036 57.197h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.399 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l36 76c11.6 24.399 40.3 35.1 65.1 24.399 66.2-28.6 122.101-64.8 167.7-108.8 55.601-53.7 93.7-114.3 114.3-181.9 20.601-67.6 30.9-159.8 30.9-276.8v-239c0-27.599-22.401-50-50-50zM106.036 913.497c65.4-28.5 121-64.699 166.9-108.6 56.1-53.7 94.4-114.1 115-181.2 20.6-67.1 30.899-159.6 30.899-277.5v-239c0-27.6-22.399-50-50-50h-304c-27.6 0-50 22.4-50 50v304c0 27.601 22.4 50 50 50h145.5c-1.9 79.601-20.4 143.3-55.4 191.2-27.6 37.8-69.4 69.1-125.3 93.8-25.7 11.3-36.8 41.7-24.8 67.101l35.9 75.8c11.601 24.399 40.501 35.2 65.301 24.399z"></path>
-            </svg>
-            <p class="leading-relaxed text-lg">Edison bulb retro cloud bread echo park, helvetica stumptown taiyaki taxidermy 90's cronut +1 kinfolk. Single-origin coffee ennui shaman taiyaki vape DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware. Man bun next level coloring book skateboard four loko knausgaard. Kitsch keffiyeh master cleanse direct trade blackce before they sold out gentrify plaid gastropub normcore XOXO 90's pickled cblackn shorts. Slow-carb next level shoblack ethical authentic, yr scenester sriracha forage franzen organic drinking vinegar.</p>
-            <span class="inline-block h-1 w-10 rounded bg-black mt-8 mb-6"></span>
-            <h2 class="text-gray-900 font-medium title-font tracking-wider text-sm">HOLDEN CAULFIELD</h2>
-            <p class="text-black">Senior Product Designer</p>
-          </div>
-        </div>
-      </section>
-      <section class="text-black body-font relative">
-        <div class="absolute inset-0 bg-gray-300">
-          <iframe width="100%" className='grayscale' height="100%" frameborder="0" marginheight="0" marginwidth="0" title="map" scrolling="no" src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"></iframe>
-        </div>
-        <div class="container px-5 py-24 mx-auto flex">
-          <div class="lg:w-1/3 md:w-1/2 bg-white rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0 relative z-10">
-            <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Feedback</h2>
-            <p class="leading-relaxed mb-5 text-gray-600">Post-ironic portland shabby chic echo park, banjo fashion axe</p>
-            <input class="bg-white rounded border border-gray-400 focus:outline-none focus:border-black text-base px-4 py-2 mb-4" placeholder="Email" type="email" />
-            <textareLink class="bg-white rounded border border-gray-400 focus:outline-none h-32 focus:border-black text-base px-4 py-2 mb-4 resize-none" placeholder="Message"></textareLink >
-            <button class="text-white bg-black border-0 py-2 px-6 focus:outline-none hover:bg-black rounded text-lg">Button</button>
-            <p class="text-xs text-black mt-3">Chicharrones blog helvetica normcore iceland tousled brook viral artisan.</p>
+          <div class="flex flex-col text-center items-center justify-center w-full mb-12">
+            <h1 className="px-8 py-3 mb-5 bg-white  rounded-full text-sm font-bold text-main">Join With Us </h1>
+            <h1 class="sm:text-4xl text-2xl lg:font-semibold font-bold title-font mb-4 text-white break-words">Try it now for an efficient and Collabrative experience!</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed lg:text-xl">Unlock The future of Learning is seamless and connected.</p>
+            {user ? <Link to='/dashboard/home' class="flex mt-10 justify-center  items-center bg-white ps-5 pe-3 py-3 rounded-md ">
+              <span class="text-main font-semibold">Explore More</span>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </Link> : <Link to='/auth' class="flex mt-10 justify-center  items-center bg-white ps-5 pe-3 py-3 rounded-md ">
+              <span class="text-main font-semibold">Get Started Now</span>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </Link>}
           </div>
         </div>
       </section>
