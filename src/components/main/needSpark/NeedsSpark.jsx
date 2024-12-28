@@ -156,15 +156,15 @@ function NeedsSpark() {
           <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-10 text-start leading-relaxed list-disc w-[80%]">
-              <li className=" mb-2">Code Space offers AI-powered code generation, error
+              <li className="text-justify mb-2">Code Space offers AI-powered code generation, error
                 explanations, a code engine, collaborative tools, and Focus
                 Mode with a timer to track learning time. Full screen activates
-                Focus Mode</li>
-              <li className=" mb-2">The platform features a guided tour, integrated YouTube
+                Focus Mode.</li>
+              <li className="text-justify mb-2">The platform features a guided tour, integrated YouTube
                 videos, AI-generated Space Notes, real-time collaboration,
                 and the ability to switch between five video perspectives.
               </li>
-              <li className=" mb-2">It includes a blank code editor, code trash for safe deletion
+              <li className="text-justify mb-2">It includes a blank code editor, code trash for safe deletion
                 and retrieval, and Jarvis AI to assist with learner queries,
                 creating a dynamic environment for coding practice.</li>
             </ul>
@@ -330,9 +330,9 @@ public class Palindrome {
           <div class="lg:flex-grow md:w-1/2 lg:pl-32 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-8 text-start leading-relaxed list-disc w-[90%]">
-              <li className=" mb-2">WebSpace is an AI-powered web development platform. Live code, preview, and collaborate in real-time. Supports HTML, CSS, JavaScript, frameworks, and templates. Includes content recovery and AI tools for creation and code generation.</li>
-              <li className=" mb-2">Jarvis AI provides query resolution, and Focus Mode with a timer tracks learning time. The platform includes blank workspaces, a guided tour, and a flexible editor, ideal for both learners and developers.</li>
-              <li className=" mb-2">Web Space combines practical tools and user-friendly features to streamline web development, helping users build, test, and collaborate effectively.</li>
+              <li className="text-justify mb-2">WebSpace is an AI-powered web development platform. Live code, preview, and collaborate in real-time. Supports HTML, CSS, JavaScript, frameworks, and templates. Includes content recovery and AI tools for creation and code generation.</li>
+              <li className="text-justify mb-2">Jarvis AI provides query resolution, and Focus Mode with a timer tracks learning time. The platform includes blank workspaces, a guided tour, and a flexible editor, ideal for both learners and developers.</li>
+              <li className="text-justify mb-2">Web Space combines practical tools and user-friendly features to streamline web development, helping users build, test, and collaborate effectively.</li>
             </ul>
             <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">Try Now</span>
@@ -365,9 +365,9 @@ public class Palindrome {
           <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-10 text-start leading-relaxed list-disc w-[80%]">
-              <li className=" mb-2">Jarvis AI is an advanced AI model integrated into both Code Space and Web Space, offering real-time assistance to learners. It acts as a virtual tutor, answering queries, clarifying doubts, and providing detailed explanations for coding errors in both programming and web development.</li>
-              <li className=" mb-2">In Code Space, Jarvis AI provides tailored solutions for programming challenges, while in Web Space, it helps with web development techniques and framework-related queries. It also integrates with Space Notes, allowing users to save answers for later reference.</li>
-              <li className=" mb-2">By fostering an interactive, supportive learning environment, Jarvis AI empowers learners to confidently master programming and web development.</li>
+              <li className="text-justify mb-2">Jarvis AI is an advanced AI model integrated into both Code Space and Web Space, offering real-time assistance to learners. It acts as a virtual tutor, answering queries, clarifying doubts, and providing detailed explanations for coding errors in both programming and web development.</li>
+              <li className="text-justify mb-2">In Code Space, Jarvis AI provides tailored solutions for programming challenges, while in Web Space, it helps with web development techniques and framework-related queries. It also integrates with Space Notes, allowing users to save answers for later reference.</li>
+              <li className="text-justify mb-2">By fostering an interactive, supportive learning environment, Jarvis AI empowers learners to confidently master programming and web development.</li>
             </ul>
             <div className="w-[80%] grid grid-cols-2 gap-5">
               <Link to='https://aijarvis.vercel.app' class="flex justify-center items-center bg-main ps-5 pe-5 py-3 rounded-md gap-2">
@@ -381,7 +381,7 @@ public class Palindrome {
               </h1>
             </div>
           </div>
-          <div class="lg:max-w-xl lg:w-full h-[60vh] md:h-[80vh] shadow border border-black rounded-md md:w-1/2 w-full">
+          <div class="lg:max-w-xl lg:w-full h-[70vh] md:h-[80vh] shadow border border-black rounded-md md:w-1/2 w-full">
             <Chat />
           </div>
         </div>
@@ -393,8 +393,8 @@ public class Palindrome {
           </div>
           <div class="lg:flex-grow md:w-1/2 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-main">Build Your Topic Website</h1>
-            <p className="mb-5 text-black/70 text-start leading-relaxed list-disc w-[90%]">Space Notes, integrated into Code & Web Space, lets users take detailed, AI-assisted notes during development. Real-time syncing, easy organization, and search help consolidate learning, track progress, and improve knowledge retention without workflow disruption.</p>
-            <ul className="mb-5 border-2 border-white outline outline-2 outline-black w-full list-disc grid grid-cols-2 text-left list-inside text-white h-full bg-main p-5 rounded-md">
+            <p className="mb-5 text-black/70 text-justify leading-relaxed list-disc w-[90%]">Space Notes, integrated into Code & Web Space, lets users take detailed, AI-assisted notes during development. Real-time syncing, easy organization, and search help consolidate learning, track progress, and improve knowledge retention without workflow disruption.</p>
+            <ul className="mb-5 border border-black outline outline-4 outline-white w-full list-disc grid grid-cols-2 text-left list-inside text-black h-full bg-white p-5 rounded-md">
               <li>Title</li>
               <li>Delimiter</li>
               <li>CheckList</li>
@@ -405,17 +405,17 @@ public class Palindrome {
               <li>Alert</li>
               <li>Math</li>
             </ul>
-            <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-gray-200 ps-5 pe-3 py-3 rounded-md gap-2">
-              <span class="text-black">Try Now</span>
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
+            <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
+              <span class="text-white">Try Now</span>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"></path>
               </svg>
             </Link>
             <Dialog.Root open={isEditorOpen} onOpenChange={setIsEditorOpen} >
               <Dialog.Trigger asChild>
-                <button class="md:flex hidden justify-center items-center bg-gray-200 ps-5 pe-3 py-3 rounded-md gap-2">
-                  <span class="text-black">Try Now</span>
-                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-black" viewBox="0 0 24 24">
+                <button class="md:flex hidden justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
+                  <span class="text-white">Try Now</span>
+                  <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
                     <path d="M5 12h14M12 5l7 7-7 7"></path>
                   </svg>
                 </button>
@@ -438,7 +438,7 @@ public class Palindrome {
           <div class="md:px-8 flex pe-3 md:pe-0 col-span-3 md:col-span-2 md:text-center flex-col items-start md:items-center justify-start mt-12 md:mt-0 md:justify-center">
             <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black">SPACE TRASH </h1>
             <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-main">Build Your Topic Website</h1>
-            <p className="mb-8 text-black/70 line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">The Trash feature in Code Space and Web Space provides a safety net by allowing easy deletion and retrieval of code or web spaces. Deleted items are temporarily moved to the Trash, where they can be reviewed before permanent removal.This feature is particularly useful for learners and developers who may want to revisit or restore previous versions of their work. Items in the Trash can be restored to their original location, offering flexibility and peace of mind.The Trash also helps keep workspaces organized by clearing unnecessary content without the risk of irreversible deletion, promoting a more efficient and worry-free learning experience.</p>
+            <p className="mb-8 text-black/70 text-justify line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">The Trash feature in Code Space and Web Space provides a safety net by allowing easy deletion and retrieval of code or web spaces. Deleted items are temporarily moved to the Trash, where they can be reviewed before permanent removal.This feature is particularly useful for learners and developers who may want to revisit or restore previous versions of their work. Items in the Trash can be restored to their original location, offering flexibility and peace of mind.The Trash also helps keep workspaces organized by clearing unnecessary content without the risk of irreversible deletion, promoting a more efficient and worry-free learning experience.</p>
             <Link to='/dashboard/trash/codespace' class="flex justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">See Yours</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
@@ -453,17 +453,17 @@ public class Palindrome {
       </section>
       <hr className="md:mx-12" />
       <section id="sharedspace" class="py-24 md:pb-0 relative">
-        <div class="w-full max-w-7xl mb-6 px-4 md:px-5 lg:px-5 mx-auto">
+        <div class="w-full mb-6 px-4 md:px-12 lg:px-5 mx-auto">
           <div class="w-full flex-col justify-center items-center lg:gap-14 gap-10 inline-flex">
-            <div class="w-full flex-col justify-center items-center gap-5 flex">
-              <img className=' h-auto md:h-96' src="https://ik.imagekit.io/vituepzjm/Scribby/front_main_hero_together.webp?updatedAt=1725384601380" alt="under maintenance image" />
-              <div class="w-full flex-col justify-center items-center gap-6 flex">
-                <div class="w-full flex-col justify-start items-center gap-2.5 flex">
-                  <h2 class="text-center text-gray-800 text-3xl font-bold leading-normal">Share and collaborate</h2>
-                  <p class="text-center max-w-3xl mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">The collaboration feature in Code Space and Web Space allows users to share their code or web space for real-time teamwork. Collaborators can be assigned roles: Viewer, who can only view, and Editor, who can modify and contribute.The sender can switch these roles at any time, offering flexibility in managing the collaboration. This setup fosters a cooperative learning environment, promoting idea exchange and collective problem-solving.With shared editing, code reviews, and instant updates, the collaboration feature strengthens teamwork, improving learning outcomes and the final product</p>
+            <div class="w-full flex-col lg:flex-row md:gap-5 md:mb-12 justify-center md:justify-evenly items-center gap-5 flex">
+              <img className='h-auto sm:h-96' src="https://ik.imagekit.io/vituepzjm/Scribby/front_main_hero_together.webp?updatedAt=1725384601380" alt="under maintenance image" />
+              <div class="w-fit flex-col justify-center items-center gap-6 flex">
+                <div class="w-fit flex-col justify-start items-center gap-2.5 flex">
+                  <h2 class="sm:text-center text-gray-800 text-3xl font-bold leading-normal">Share and collaborate</h2>
+                  <p class="text-justify max-w-2xl mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">The collaboration feature in Code Space and Web Space allows users to share their code or web space for real-time teamwork. Collaborators can be assigned roles: Viewer, who can only view, and Editor, who can modify and contribute.The sender can switch these roles at any time, offering flexibility in managing the collaboration. This setup fosters a cooperative learning environment, promoting idea exchange and collective problem-solving.With shared editing, code reviews, and instant updates, the collaboration feature strengthens teamwork, improving learning outcomes and the final product</p>
                   <div className="flex items-center md:hidden gap-6">
-                    <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Editor Mode</h1>
-                    <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Viewer Mode</h1>
+                    <h1 className="px-8 py-3 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Editor Mode</h1>
+                    <h1 className="px-8 py-3 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Viewer Mode</h1>
                   </div>
                 </div>
               </div>
@@ -475,7 +475,7 @@ public class Palindrome {
             <div className="text-justify text-gray-600 gap-3 flex items-center justify-center flex-col transition-all">
               <p className="master-mind w-[90%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
             </div>
-            <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 right-5 bg-black text-white rounded-full text-sm font-bold uppercase">Editor Mode</Link>
+            <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 left-5 bg-black text-white rounded-full text-sm font-bold uppercase">Editor Mode</Link>
           </div>
           <div className="w-1/2 relative rounded-lg group px-6 py-10 flex flex-col items-center justify-center bg-white border-[3.5px] border-dashed border-black">
             <div className=" text-justify text-gray-600 gap-3 flex items-center justify-center flex-col transition-all">
