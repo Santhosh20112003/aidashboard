@@ -38,6 +38,7 @@ const DataContext = createContext();
 
 export function DataContextProvider({ children }) {
   const { user } = useUserAuth();
+  const [profile, setProfile] = useState({});
   const navigate = useNavigate();
   const [searchPrompt, setSearchPrompt] = useState("");
   const [websearchPrompt, setWebSearchPrompt] = useState("");
@@ -1115,6 +1116,21 @@ export function DataContextProvider({ children }) {
     }
   };
 
+  const getUserDetails = async (user) => {
+    try {
+      if (!user?.uid) throw new Error("Invalid user object.");
+      const userDocRef = query(
+        collection(db, "users"),
+        where("userid", "==", user.uid)
+      );
+      const docSnapshot = await getDocs(userDocRef);
+      if (docSnapshot.docs.length === 0) throw new Error("User not found");
+      setProfile(docSnapshot.docs[0].data());
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+
   const NewUserCloud = async (user) => {
     try {
       // Validate the user object
@@ -1136,6 +1152,9 @@ export function DataContextProvider({ children }) {
         userid: user.uid,
         name: user.displayName || "Unknown",
         email: user.email || "No Email",
+        image:
+          user.photoURL ||
+          "https://xsgames.co/randomusers/assets/avatars/pixel/51.jpg",
         createdAt: new Date(),
         lang: [],
       };
@@ -1769,7 +1788,14 @@ export function DataContextProvider({ children }) {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
+      const data = {
+        userid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        language: item.language,
+      };
       await addDoc(collection(db, "spaces"), newData);
+      const lang = await UpdateLanguage(data);
       setSpaces((prevSpaces) => [newData, ...prevSpaces]);
       setIsLoading(false);
       navigate(`/dashboard/space/${newData.spaceid}`);
@@ -1783,6 +1809,9 @@ export function DataContextProvider({ children }) {
   return (
     <DataContext.Provider
       value={{
+        setProfile,
+        profile,
+        getUserDetails,
         isHamOpen,
         setIsHamOpen,
         reloadSpaces,

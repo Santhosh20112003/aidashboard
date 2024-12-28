@@ -10,10 +10,17 @@ import { LANGUAGE_VERSIONS } from '../../../constants';
 
 function Overview() {
   const { user } = useUserAuth();
-  const { isWebTemplateOpen, setIsWebTemplateOpen, isTemplateOpen, setIsTemplateOpen, handleWebTemplateAdd, isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
+  const { profile, isWebTemplateOpen, setIsWebTemplateOpen, isTemplateOpen, setIsTemplateOpen, handleWebTemplateAdd, isLoading, handleCodeTemplateAdd, webspacestemplates, spacestemplates, spaces, webspaces, webTrashes, codeTrashes } = useData();
   const [isClosed, setisClosed] = useState(false);
   const [currentWeb, setcurrentWeb] = useState({});
   const [currentCode, setcurrentCode] = useState({});
+
+  const filteredTemplates = spacestemplates.filter(item => profile?.lang.includes(item.language));
+  const numTemplatesNeeded = Math.max(6, filteredTemplates.length);
+  const finalTemplates = filteredTemplates.concat(
+    spacestemplates.filter(item => !filteredTemplates.includes(item))
+      .slice(0, numTemplatesNeeded - filteredTemplates.length)
+  );
 
   return (
     <div className="py-5 px-3 bg-gray-100 min-h-[90vh] w-full">
@@ -135,7 +142,7 @@ function Overview() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {
-            spacestemplates.slice(0, 6).map((item, index) => (
+            finalTemplates.map((item, index) => (
               <div key={index} className="block bg-white p-4 rounded-lg shadow hover:shadow-md transition">
                 <img onClick={() => {
                   setcurrentCode(item);

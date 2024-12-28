@@ -12,8 +12,14 @@ import { LANGUAGE_VERSIONS } from '../../../constants';
 
 function Structure() {
     const { user, logOut } = useUserAuth();
-    const { reloadSpaces, handleNewSpaceAdd, isLoading, handleNewWebSpaceAdd, setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen } = useData();
+    const { reloadSpaces, handleNewSpaceAdd, isLoading, handleNewWebSpaceAdd, setNewOpen, newOpen, getWebTemplates, getCodeTemplates, getWebTrashes, getWebSpaces, getCodeTrashes, NewUserCloud, isFetching, getSpaces, isDropdownOpen, setIsDropdownOpen, open, setOpen, getUserDetails } = useData();
     const location = useLocation();
+
+    useEffect(() => {
+        if (!isFetching && Object.keys(user).length > 0) {
+            getUserDetails(user);
+        }
+    }, [user, reloadSpaces]);
 
     useEffect(() => {
         if (!isFetching && Object.keys(user).length > 0) {
