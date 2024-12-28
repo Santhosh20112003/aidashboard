@@ -15,11 +15,18 @@ function Overview() {
   const [currentWeb, setcurrentWeb] = useState({});
   const [currentCode, setcurrentCode] = useState({});
 
-  const filteredTemplates = spacestemplates.filter(item => profile?.lang.includes(item.language));
+  const filteredTemplates = profile ? spacestemplates.filter(item => profile?.lang.includes(item?.language)) : spacestemplates;
   const numTemplatesNeeded = Math.max(6, filteredTemplates.length);
   const finalTemplates = filteredTemplates.concat(
     spacestemplates.filter(item => !filteredTemplates.includes(item))
       .slice(0, numTemplatesNeeded - filteredTemplates.length)
+  );
+
+  const filteredWebTemplates = profile ? webspacestemplates.filter(item => profile?.web.includes(item?.frameworks)) : webspacestemplates;
+  const numWebTemplatesNeeded = Math.max(6, filteredWebTemplates.length);
+  const finalWebTemplates = filteredWebTemplates.concat(
+    webspacestemplates.filter(item => !filteredWebTemplates.includes(item))
+      .slice(0, numWebTemplatesNeeded - filteredWebTemplates.length)
   );
 
   return (
@@ -223,7 +230,7 @@ function Overview() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {
-            webspacestemplates.slice(0, 6).map((item, index) => (
+            finalWebTemplates.map((item, index) => (
               <div key={index} className="block bg-white p-4 rounded-lg shadow hover:shadow-md transition">
                 <img onClick={() => {
                   setcurrentWeb(item);

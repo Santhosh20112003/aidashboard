@@ -257,6 +257,35 @@ export function DataContextProvider({ children }) {
     }
   };
 
+  const UpdateWeb = async (data) => {
+    try {
+      if (!data || Object.keys(data).length < 1) {
+        throw new Error("Object is empty. No web can be updated.");
+      }
+
+      const userDocQuery = query(
+        collection(db, "users"),
+        where("userid", "==", user.uid)
+      );
+      const querySnapshot = await getDocs(userDocQuery);
+
+      if (querySnapshot.empty) {
+        console.log("No matching document found.");
+        return false;
+      }
+
+      const docRef = querySnapshot.docs[0].ref;
+      const docData = querySnapshot.docs[0].data();
+      const webSet = new Set([...(docData.web || []), data.web]);
+      const updatedData = { ...docData, web: Array.from(webSet) };
+      await updateDoc(docRef, updatedData);
+      return true;
+    } catch (error) {
+      console.error("Error updating web:", error.message);
+      throw error;
+    }
+  };
+
   const handleChatSubmission = async () => {
     if (!input || input === lastInput) {
       toast.remove();
@@ -672,8 +701,16 @@ export function DataContextProvider({ children }) {
           createdAt: new Date(),
           updatedAt: new Date(),
         };
+        const data = {
+          userid: user.uid,
+          email: user.email,
+          name: user.displayName,
+          language: responseData.frameworks,
+        };
         const response = await AddNewWebSpace(newData);
-        if (!response) {
+
+        const lang = await UpdateWeb(data);
+        if (!response || !lang) {
           new Error("Unable to upoad to Cloud");
         }
         setWebSpaces((lastSpaces) => [newData, ...lastSpaces]);
@@ -1157,6 +1194,7 @@ export function DataContextProvider({ children }) {
           "https://xsgames.co/randomusers/assets/avatars/pixel/51.jpg",
         createdAt: new Date(),
         lang: [],
+        web: [],
       };
 
       // Add the new user to Firestore using set
@@ -1712,9 +1750,6 @@ export function DataContextProvider({ children }) {
       await addDoc(collection(db, "spaces"), newData);
 
       setSpaces((prevSpaces) => [newData, ...prevSpaces]);
-      // setSpacesTemplates((prevTemplates) =>
-      //   prevTemplates.filter((template) => template.heading !== item.heading)
-      // );
       setIsLoading(false);
       setIsTemplateOpen(false);
 
@@ -1741,15 +1776,11 @@ export function DataContextProvider({ children }) {
       };
 
       await addDoc(collection(db, "webspaces"), newData);
-
       setWebSpaces((prevSpaces) => [newData, ...prevSpaces]);
-      // setWebSpacesTemplates((prevTemplates) =>
-      //   prevTemplates.filter((template) => template.heading !== item.heading)
-      // );
       setIsWebTemplateOpen(false);
       navigate(`/dashboard/webspace/${newData.spaceid}`);
     } catch (error) {
-      console.error("Error adding code template:", error.message, error);
+      console.error("Error adding web template:", error.message, error);
     } finally {
       setIsLoading(false);
     }
@@ -1766,13 +1797,20 @@ export function DataContextProvider({ children }) {
         createdAt: new Date(),
         updatedAt: new Date(),
       };
+      const data = {
+        userid: user.uid,
+        email: user.email,
+        name: user.displayName,
+        web: item.frameworks,
+      };
       await addDoc(collection(db, "webspaces"), newData);
+      const lang = await UpdateWeb(data);
       setWebSpaces((prevSpaces) => [newData, ...prevSpaces]);
       setIsLoading(false);
       navigate(`/dashboard/webspace/${newData.spaceid}`);
       setNewOpen(false);
     } catch (error) {
-      console.error("Error adding code template:", error.message, error);
+      console.error("Error adding web template1221:", error.message, error);
       setIsLoading(false);
     }
   };
