@@ -57,7 +57,8 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">CodeSpace</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Code Space is an innovative platform enhancing programming learning with AI-driven tools and collaboration.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">Code Space is an innovative platform enhancing
+                    programming learning with AI-driven tools and collaboration.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -73,7 +74,8 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">WebSpace</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">WebSpace streamlines web development with powerful
+                    tools, collab, and AI support for learners and developers on WebDev.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -89,7 +91,7 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">Jarvis AI</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">Jarvis AI provides real-time assistance, enhancing learning and empowering mastery in code space and webspace</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -105,7 +107,8 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">SpaceNotes</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">Space Notes enhances learning by allowing users to take,
+                    organize, and review notes efficiently.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -121,7 +124,7 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">SpaceTrash</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">The SpaceTrash feature ensures safe deletion and recovery of work, promoting efficient and worry-free learning.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -137,7 +140,8 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">SharedSpace</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.</p>
+                  <p class="leading-5 text-sm font-normal text-black/60">The collaboration feature enhances teamwork and learning by
+                    enabling real-time code sharing and role management.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
@@ -152,9 +156,17 @@ function NeedsSpark() {
           <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-10 text-start leading-relaxed list-disc w-[80%]">
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
+              <li className=" mb-2">Code Space offers AI-powered code generation, error
+                explanations, a code engine, collaborative tools, and Focus
+                Mode with a timer to track learning time. Full screen activates
+                Focus Mode</li>
+              <li className=" mb-2">The platform features a guided tour, integrated YouTube
+                videos, AI-generated Space Notes, real-time collaboration,
+                and the ability to switch between five video perspectives.
+              </li>
+              <li className=" mb-2">It includes a blank code editor, code trash for safe deletion
+                and retrieval, and Jarvis AI to assist with learner queries,
+                creating a dynamic environment for coding practice.</li>
             </ul>
             <Link to='/dashboard/space/new' class="flex md:hidden justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">Try Now</span>
@@ -318,9 +330,9 @@ public class Palindrome {
           <div class="lg:flex-grow md:w-1/2 lg:pl-32 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-8 text-start leading-relaxed list-disc w-[90%]">
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis vel adipisci perferendis unde sed ab nostrum sapiente ipsa earum quo?</li>
+              <li className=" mb-2">WebSpace is an AI-powered web development platform. Live code, preview, and collaborate in real-time. Supports HTML, CSS, JavaScript, frameworks, and templates. Includes content recovery and AI tools for creation and code generation.</li>
+              <li className=" mb-2">Jarvis AI provides query resolution, and Focus Mode with a timer tracks learning time. The platform includes blank workspaces, a guided tour, and a flexible editor, ideal for both learners and developers.</li>
+              <li className=" mb-2">Web Space combines practical tools and user-friendly features to streamline web development, helping users build, test, and collaborate effectively.</li>
             </ul>
             <Link to='/dashboard/webspace/new' class="flex md:hidden justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">Try Now</span>
@@ -353,9 +365,9 @@ public class Palindrome {
           <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-10 text-start leading-relaxed list-disc w-[80%]">
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, doloribus asperiores tempora quaerat dignissimos, a obcaecati reiciendis cupiditate ratione iusto, suscipit eligendi magnam omnis quos porro?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, doloribus asperiores tempora quaerat dignissimos, a obcaecati reiciendis cupiditate ratione iusto, suscipit eligendi magnam omnis quos porro?</li>
-              <li className=" mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, doloribus asperiores tempora quaerat dignissimos, a obcaecati reiciendis cupiditate ratione iusto, suscipit eligendi magnam omnis quos porro?</li>
+              <li className=" mb-2">Jarvis AI is an advanced AI model integrated into both Code Space and Web Space, offering real-time assistance to learners. It acts as a virtual tutor, answering queries, clarifying doubts, and providing detailed explanations for coding errors in both programming and web development.</li>
+              <li className=" mb-2">In Code Space, Jarvis AI provides tailored solutions for programming challenges, while in Web Space, it helps with web development techniques and framework-related queries. It also integrates with Space Notes, allowing users to save answers for later reference.</li>
+              <li className=" mb-2">By fostering an interactive, supportive learning environment, Jarvis AI empowers learners to confidently master programming and web development.</li>
             </ul>
             <div className="w-[80%] grid grid-cols-2 gap-5">
               <Link to='https://aijarvis.vercel.app' class="flex justify-center items-center bg-main ps-5 pe-5 py-3 rounded-md gap-2">
@@ -381,7 +393,7 @@ public class Palindrome {
           </div>
           <div class="lg:flex-grow md:w-1/2 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-main">Build Your Topic Website</h1>
-            <p className="mb-8 text-black/70 text-start leading-relaxed list-disc w-[90%]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, quaerat quidem facere, iusto modi excepturi placeat dignissimos quae explicabo culpa, aliquid quam sint debitis. Sit?</p>
+            <p className="mb-5 text-black/70 text-start leading-relaxed list-disc w-[90%]">Space Notes, integrated into Code & Web Space, lets users take detailed, AI-assisted notes during development. Real-time syncing, easy organization, and search help consolidate learning, track progress, and improve knowledge retention without workflow disruption.</p>
             <ul className="mb-5 border-2 border-white outline outline-2 outline-black w-full list-disc grid grid-cols-2 text-left list-inside text-white h-full bg-main p-5 rounded-md">
               <li>Title</li>
               <li>Delimiter</li>
@@ -426,7 +438,7 @@ public class Palindrome {
           <div class="md:px-8 flex pe-3 md:pe-0 col-span-3 md:col-span-2 md:text-center flex-col items-start md:items-center justify-start mt-12 md:mt-0 md:justify-center">
             <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black">SPACE TRASH </h1>
             <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-main">Build Your Topic Website</h1>
-            <p className="mb-8 text-black/70 line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque reiciendis architecto consectetur, illo facilis nobis atque officia voluptatem nisi ex corrupti excepturi, a quis quaerat quasi laudantium consequatur nesciunt doloremque nihil dicta. Reiciendis sed facere impedit quod quam deleniti consequuntur quas laudantium provident distinctio inventore asperiores vero unde, aperiam neque.</p>
+            <p className="mb-8 text-black/70 line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">The Trash feature in Code Space and Web Space provides a safety net by allowing easy deletion and retrieval of code or web spaces. Deleted items are temporarily moved to the Trash, where they can be reviewed before permanent removal.This feature is particularly useful for learners and developers who may want to revisit or restore previous versions of their work. Items in the Trash can be restored to their original location, offering flexibility and peace of mind.The Trash also helps keep workspaces organized by clearing unnecessary content without the risk of irreversible deletion, promoting a more efficient and worry-free learning experience.</p>
             <Link to='/dashboard/trash/codespace' class="flex justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">See Yours</span>
               <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
@@ -448,7 +460,7 @@ public class Palindrome {
               <div class="w-full flex-col justify-center items-center gap-6 flex">
                 <div class="w-full flex-col justify-start items-center gap-2.5 flex">
                   <h2 class="text-center text-gray-800 text-3xl font-bold leading-normal">Share and collaborate</h2>
-                  <p class="text-center max-w-3xl mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">Securely collaborate on code and web projects. Share your CodeSpaces and WebSpaces with trusted team members, ensuring your work remains private and protected.</p>
+                  <p class="text-center max-w-3xl mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">The collaboration feature in Code Space and Web Space allows users to share their code or web space for real-time teamwork. Collaborators can be assigned roles: Viewer, who can only view, and Editor, who can modify and contribute.The sender can switch these roles at any time, offering flexibility in managing the collaboration. This setup fosters a cooperative learning environment, promoting idea exchange and collective problem-solving.With shared editing, code reviews, and instant updates, the collaboration feature strengthens teamwork, improving learning outcomes and the final product</p>
                   <div className="flex items-center md:hidden gap-6">
                     <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Editor Mode</h1>
                     <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Viewer Mode</h1>
