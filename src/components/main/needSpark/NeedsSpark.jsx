@@ -448,7 +448,7 @@ public class Palindrome {
               <div class="w-full flex-col justify-center items-center gap-6 flex">
                 <div class="w-full flex-col justify-start items-center gap-2.5 flex">
                   <h2 class="text-center text-gray-800 text-3xl font-bold leading-normal">Share and collaborate</h2>
-                  <p class="text-center max-w-3xl w-[90%] mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">Securely collaborate on code and web projects. Share your CodeSpaces and WebSpaces with trusted team members, ensuring your work remains private and protected.</p>
+                  <p class="text-center max-w-3xl mb-6 md:mb-12 text-gray-500 text-lg font-medium leading-relaxed">Securely collaborate on code and web projects. Share your CodeSpaces and WebSpaces with trusted team members, ensuring your work remains private and protected.</p>
                   <div className="flex items-center md:hidden gap-6">
                     <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Editor Mode</h1>
                     <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black uppercase">Viewer Mode</h1>
@@ -458,19 +458,19 @@ public class Palindrome {
             </div>
           </div>
         </div>
-        <div className="w-full hidden md:flex">
-          <Link to="/dashboard/shared/list" className="w-1/2 group p-5 flex flex-col items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image_126.webp')] bg-gray-200">
-            <div className="group-hover:scale-90 text-center text-white gap-3 flex items-center justify-center flex-col transition-all">
-              <h1 className="master-mind text-5xl font-semibold">EDITOR MODE</h1>
-              <p className="master-mind w-[80%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+        <div className="w-full px-12 pb-24 hidden gap-5 md:flex">
+          <div className="w-1/2 relative rounded-lg group px-6 py-10 flex flex-col items-center justify-center bg-white border-[3.5px] border-dashed border-black">
+            <div className="text-justify text-gray-600 gap-3 flex items-center justify-center flex-col transition-all">
+              <p className="master-mind w-[90%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
             </div>
-          </Link>
-          <Link to="/dashboard/shared/list" className="w-1/2 group flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image-15.webp')] bg-gray-200">
-            <div className="group-hover:scale-90 text-center text-black gap-3 flex items-center justify-center flex-col transition-all">
-              <h1 className="master-mind text-5xl font-semibold">VIEWER MODE</h1>
-              <p className="master-mind w-[80%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+            <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 right-5 bg-black text-white rounded-full text-sm font-bold uppercase">Editor Mode</Link>
+          </div>
+          <div className="w-1/2 relative rounded-lg group px-6 py-10 flex flex-col items-center justify-center bg-white border-[3.5px] border-dashed border-black">
+            <div className=" text-justify text-gray-600 gap-3 flex items-center justify-center flex-col transition-all">
+              <p className="master-mind w-[90%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
             </div>
-          </Link>
+            <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 left-5 bg-black text-white rounded-full text-sm font-bold uppercase">Viewer Mode</Link>
+          </div>
         </div>
       </section>
       <section class="text-gray-300 bg-main">

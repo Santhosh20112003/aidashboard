@@ -245,7 +245,7 @@ export function DataContextProvider({ children }) {
       const docRef = querySnapshot.docs[0].ref;
       const docData = querySnapshot.docs[0].data();
 
-      const langSet = new Set([...(docData.lang || []), data.language]);
+      const langSet = new Set([data.language, ...(docData.lang || [])]);
       const updatedData = { ...docData, lang: Array.from(langSet) };
 
       // Update the document
@@ -276,7 +276,7 @@ export function DataContextProvider({ children }) {
 
       const docRef = querySnapshot.docs[0].ref;
       const docData = querySnapshot.docs[0].data();
-      const webSet = new Set([...(docData.web || []), data.web]);
+      const webSet = new Set([data.web, ...(docData.web || [])]);
       const updatedData = { ...docData, web: Array.from(webSet) };
       await updateDoc(docRef, updatedData);
       return true;
