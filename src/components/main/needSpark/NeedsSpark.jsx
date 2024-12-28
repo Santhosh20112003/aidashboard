@@ -13,9 +13,11 @@ import { FaPlay } from 'react-icons/fa6';
 import { TbSettingsCode } from 'react-icons/tb';
 import { RiFullscreenExitLine } from 'react-icons/ri';
 import WebSpace from './WebSpace';
+import { useData } from '../../context/DataContext';
 
 function NeedsSpark() {
   const { user } = useUserAuth();
+  const { Loading } = useData();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [theme, setTheme] = useState("dark");
 
@@ -25,18 +27,18 @@ function NeedsSpark() {
       <section id="custom-back" class="flex min-h-[60vh] md:min-h-fit py-24 md:py-0 flex-col bg-contain items-center justify-center bg-[url(https://dashboard.algolia.com/client-assets/c1c9361fe75370d1b156733e962f7214/514f2ec3798090c6df00dad1592c8166.svg)]">
         <div class="flex max-w-5xl flex-col px-6 items-center text-center lg:pb-48 lg:pt-32">
           <h1 class="mb-8 text-4xl font-semibold text-black sm:text-5xl md:mb-6 md:text-6xl">Why Choose CodeSpark?</h1>
-          <h2 class="mb-8 text-xl font-medium text-black/70 md:mb-12">Scribby is your one-stop shop for staying organized. Take notes, plan projects, and easily find what you need, all in one place.</h2>
-          {/* <Link to={buttonLink}>
-            <button className="group/button relative inline-flex items-center justify-center overflow-hidden rounded-md bg-main backdrop-blur-lg px-6 py-4 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-[1.03] border border-white/20">
-              <span className="text-lg">{buttonText}</span>
+          <h2 class="mb-8 text-xl font-medium text-black/70 ">Scribby is your one-stop shop for staying organized. Take notes, plan projects, and easily find what you need, all in one place.</h2>
+          <a href="#top-features">
+            <button className="group/button relative inline-flex items-center justify-center overflow-hidden rounded-full bg-main backdrop-blur-lg px-6 py-3 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-[1.03] border border-white/20">
+              <span className="text-lg">Explore Top Features</span>
               <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-13deg)_translateX(-100%)] group-hover/button:duration-1000 group-hover/button:[transform:skew(-13deg)_translateX(100%)]">
                 <div className="relative h-full w-10 bg-white/30"></div>
               </div>
             </button>
-          </Link> */}
+          </a>
         </div>
       </section>
-      <section class="text-white bg-black body-font">
+      <section id="top-features" class="text-white bg-black body-font">
         <div class="container px-5 md:px-12 py-24 mx-auto">
           <div className="flex items-center mb-12 justify-between w-full">
             <div class="flex flex-col">
@@ -217,6 +219,7 @@ function NeedsSpark() {
                       >
                         <Editor
                           language={'java'}
+                          loading={<Loading />}
                           value={`import java.lang.Character;
 
 public class Palindrome {
@@ -456,11 +459,17 @@ public class Palindrome {
           </div>
         </div>
         <div className="w-full hidden md:flex">
-          <Link to="/dashboard/shared/list" className="w-1/2 group flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image_126.webp')] bg-gray-200">
-            <h1 className="master-mind text-7xl group-hover:scale-90 transition-all text-white font-bold">EDITOR MODE</h1>
+          <Link to="/dashboard/shared/list" className="w-1/2 group p-5 flex flex-col items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image_126.webp')] bg-gray-200">
+            <div className="group-hover:scale-90 text-center text-white gap-3 flex items-center justify-center flex-col transition-all">
+              <h1 className="master-mind text-5xl font-semibold">EDITOR MODE</h1>
+              <p className="master-mind w-[80%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+            </div>
           </Link>
           <Link to="/dashboard/shared/list" className="w-1/2 group flex items-center justify-center h-[500px] bg-[url('https://ik.imagekit.io/vituepzjm/image-15.webp')] bg-gray-200">
-            <h1 className="master-mind text-7xl group-hover:scale-90 transition-all text-black font-bold">VIEWER MODE</h1>
+            <div className="group-hover:scale-90 text-center text-black gap-3 flex items-center justify-center flex-col transition-all">
+              <h1 className="master-mind text-5xl font-semibold">VIEWER MODE</h1>
+              <p className="master-mind w-[80%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+            </div>
           </Link>
         </div>
       </section>
