@@ -110,7 +110,7 @@ function Home() {
       <section class="text-black body-font">
         <div class="container px-5 md:px-12 py-24 mx-auto flex flex-wrap">
           <div class="lg:w-1/2 w-full border-4 border-white outline-2 outline-black outline mb-10 relative lg:mb-0 rounded-lg overflow-hidden">
-            <img alt="feature" class="object-cover object-center h-full w-full" src="https://img.freepik.com/free-photo/rear-view-programmer-working-all-night-long_1098-18697.jpg?t=st=1735078333~exp=1735081933~hmac=bafadb0247faabb3513ef2126141a459b695c8bdeae7c8257608bbfc80e99321&w=996" />
+            <img alt="feature" class="object-cover object-center h-full w-full" src="https://ik.imagekit.io/vituepzjm/WhatsApp%20Image%202024-12-25%20at%2010.14.29%20PM.jpeg?updatedAt=1735403330914" />
             <h1 className="absolute top-3 text-sm right-3 px-3 py-1 bg-black/60 text-white rounded-md">STEPS TO START</h1>
           </div>
           <div class="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">

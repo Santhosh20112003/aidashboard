@@ -23,6 +23,43 @@
   border: 0;
   z-index: 1;
 }
+
+.crisp-client
+  .cc-1brb6
+  .cc-1yy0g
+  .cc-1no03
+  .cc-rfbfu
+  .cc-1iwcs
+  .cc-1nvun
+  .cc-qqgts {
+  display: none !important;
+  width: 0px !important;
+  transform: scale(0) !important;
+  height: 0px !important;
+}
+
+.crisp-client
+  .cc-1brb6
+  .cc-1yy0g
+  .cc-1m2mf
+  .cc-157aw
+  .cc-d73fc
+  .cc-1bvfm
+  .cc-1d4mk,
+.crisp-client
+  .cc-1brb6
+  .cc-1yy0g
+  .cc-1m2mf
+  .cc-157aw
+  .cc-d73fc
+  .cc-1bvfm
+  .cc-1d4mk
+  .cc-1kqps {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+}
+
 /* 
 .home22-intro:before {
   content: "";
