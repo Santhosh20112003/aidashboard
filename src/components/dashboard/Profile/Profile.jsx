@@ -21,7 +21,7 @@ function Profile() {
       <img
         src={'https://picsum.photos/1000/200' || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw5fHxjb3ZlcnxlbnwwfDB8fHwxNzEwNzQxNzY0fDA&ixlib=rb-4.0.3&q=80&w=1080"}
         alt="cover-image"
-        class="w-full absolute top-0 left-0 z-0 h-60"
+        class="w-full absolute md:object-cover md:object-center top-0 left-0 z-0 h-60"
       />
 
       <div class="w-full mx-auto max-w-7xl px-6 md:px-8">

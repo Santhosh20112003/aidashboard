@@ -4,7 +4,7 @@ import Showdown from "showdown";
 
 export const converter = new Showdown.Converter();
 export const genAI = new GoogleGenerativeAI(
-  "AIzaSyCVYbRztmqUamxjghxQYoqXTmwGnRD4Z7Q"
+  "AIzaSyBr2cK3DGn5W2EV6IN36V21RFoUTlh0dj4"
 );
 
 export const generationConfig = {
