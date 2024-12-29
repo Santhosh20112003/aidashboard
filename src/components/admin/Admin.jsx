@@ -117,7 +117,7 @@ function Admin() {
     useEffect(() => {
         const getDetails = () => {
             if (Object.keys(user).length > 0) {
-                if (user.email === AdminEmail && user.uid === AdminUSerid) {
+                if (AdminUSerid.includes(user.uid)) {
                     getAdminDetails();
                 } else {
                     navigate("/dashboard/home");

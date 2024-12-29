@@ -10,7 +10,7 @@ import { useData } from "../../context/DataContext";
 import { LuUserSquare2 } from "react-icons/lu";
 import { MdLogout, MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { MdOutlineGroups } from "react-icons/md";
-import { AdminEmail } from '../../../common/links';
+import { AdminEmail, AdminUSerid } from '../../../common/links';
 
 function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
@@ -195,7 +195,7 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                                 <p className="text-[.8rem] text-gray-500 dark:text-gray-400">{user.uid}</p>
                             </Link>
 
-                            {user.email == AdminEmail && <div className="">
+                            {AdminUSerid.includes(user.uid) && <div className="">
                                 <Link
                                     to="/dashboard/admin/spaces"
                                     className={`flex items-center justify-center gap-1 px-3 py-2 text-center text-sm font-medium rounded-lg transition-all ${location.pathname.includes('admin')

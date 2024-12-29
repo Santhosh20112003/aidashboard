@@ -26,8 +26,8 @@ function NeedsSpark() {
       <Header />
       <section id="custom-back" class="flex min-h-[60vh] md:min-h-fit py-24 md:py-0 flex-col bg-contain items-center justify-center bg-[url(https://dashboard.algolia.com/client-assets/c1c9361fe75370d1b156733e962f7214/514f2ec3798090c6df00dad1592c8166.svg)]">
         <div class="flex max-w-5xl flex-col px-6 items-center text-center lg:pb-48 lg:pt-32">
-          <h1 class="mb-8 text-4xl font-semibold text-black sm:text-5xl md:mb-6 md:text-6xl">Why Choose CodeSpark?</h1>
-          <h2 class="mb-8 text-xl font-medium text-black/70 ">Scribby is your one-stop shop for staying organized. Take notes, plan projects, and easily find what you need, all in one place.</h2>
+          <h1 class="mb-8 text-4xl font-semibold text-black sm:text-5xl md:mb-6 md:text-6xl">Why CodeSpark?</h1>
+          <h2 class="mb-8 text-xl font-medium text-black/70 ">CodeSpark centralizes coding and web development, offering seamless integration of features, AI-powered assistance, collaboration, and real-time tools—all in one dashboard, ensuring efficiency, convenience, and an enhanced learning experience.</h2>
           <a href="#top-features">
             <button className="group/button relative inline-flex items-center justify-center overflow-hidden rounded-full bg-main backdrop-blur-lg px-6 py-3 text-base font-semibold text-white transition-all duration-300 ease-in-out hover:scale-[1.03] border border-white/20">
               <span className="text-lg">Explore Top Features</span>
@@ -42,8 +42,8 @@ function NeedsSpark() {
         <div class="container px-5 md:px-12 py-24 mx-auto">
           <div className="flex items-center mb-12 justify-between w-full">
             <div class="flex flex-col">
-              <h1 class="sm:text-3xl text-2xl font-medium title-font text-white">Master Cleanse Reliac Heirloom</h1>
-              <p class="leading-relaxed text-base text-gray-200">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto, et.</p>
+              <h1 class="sm:text-3xl text-2xl font-medium title-font text-white">Explore the Full Potential of CodeSpark</h1>
+              <p class="leading-relaxed text-base text-gray-200">Discover the Top Features That Make CodeSpark Unstoppable!</p>
             </div>
             <h1 className="px-5 py-2 border-2 border-dashed border-white hidden md:block uppercase text-sm rounded-md font-medium tracking-widest text-white">TOP FEATURES</h1>
           </div>
@@ -57,7 +57,7 @@ function NeedsSpark() {
                 </div>
                 <div class="flex-grow">
                   <h1 className="text-lg leading-relaxed font-medium text-black">CodeSpace</h1>
-                  <p class="leading-5 text-sm font-normal text-black/60">Code Space is an innovative platform enhancing
+                  <p class="leading-5 text-sm font-normal text-black/60">CodeSpace is an innovative platform enhancing
                     programming learning with AI-driven tools and collaboration.</p>
                 </div>
                 <button className='absolute top-5 text-black right-5'>
@@ -156,7 +156,7 @@ function NeedsSpark() {
           <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-main">Build Your Topic Website</h1>
             <ul class="mb-8 text-black/70 md:ms-10 text-start leading-relaxed list-disc w-[80%]">
-              <li className="text-justify mb-2">Code Space offers AI-powered code generation, error
+              <li className="text-justify mb-2">CodeSpace offers AI-powered code generation, error
                 explanations, a code engine, collaborative tools, and Focus
                 Mode with a timer to track learning time. Full screen activates
                 Focus Mode.</li>

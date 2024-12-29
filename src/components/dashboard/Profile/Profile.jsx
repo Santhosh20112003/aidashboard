@@ -19,7 +19,7 @@ function Profile() {
   return (
     <section class="relative bg-white overflow-y-auto h-full max-h-[90vh] pt-44">
       <img
-        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw5fHxjb3ZlcnxlbnwwfDB8fHwxNzEwNzQxNzY0fDA&ixlib=rb-4.0.3&q=80&w=1080"
+        src={'https://picsum.photos/1000/200' || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw5fHxjb3ZlcnxlbnwwfDB8fHwxNzEwNzQxNzY0fDA&ixlib=rb-4.0.3&q=80&w=1080"}
         alt="cover-image"
         class="w-full absolute top-0 left-0 z-0 h-60"
       />
@@ -106,7 +106,7 @@ function Profile() {
                         </p>
                       </div>
                     </div>)}
-                    <Link to="/dashboard/space/list" className="absolute lg:flex hidden -right-2.5 top-1/2 transition-all  bg-main/80 text-white -mt-8 p-2 rounded-full -translate-x-1/2"><MdOutlineKeyboardDoubleArrowRight className="text-lg" /></Link>
+                    {spaces.length > 3 && <Link to="/dashboard/space/list" className="absolute lg:flex hidden -right-2.5 top-1/2 transition-all  bg-main/80 text-white -mt-8 p-2 rounded-full -translate-x-1/2"><MdOutlineKeyboardDoubleArrowRight className="text-lg" /></Link>}
                   </div>
                 </div>
               }
@@ -156,7 +156,7 @@ function Profile() {
                         </p>
                       </div>
                     </div>)}
-                    <Link to="/dashboard/webspace/list" className="absolute lg:flex hidden -right-2.5 top-1/2 transition-all  bg-main/80 text-white -mt-8 p-2 rounded-full -translate-x-1/2"><MdOutlineKeyboardDoubleArrowRight className="text-lg" /></Link>
+                    {webspaces.length > 3 && <Link to="/dashboard/webspace/list" className="absolute lg:flex hidden -right-2.5 top-1/2 transition-all  bg-main/80 text-white -mt-8 p-2 rounded-full -translate-x-1/2"><MdOutlineKeyboardDoubleArrowRight className="text-lg" /></Link>}
                   </div>
                 </div>
               }
