@@ -705,7 +705,7 @@ export function DataContextProvider({ children }) {
           userid: user.uid,
           email: user.email,
           name: user.displayName,
-          language: responseData.frameworks,
+          web: responseData.frameworks,
         };
         const response = await AddNewWebSpace(newData);
 
