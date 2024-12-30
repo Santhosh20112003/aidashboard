@@ -20,14 +20,14 @@ function Overview() {
   const finalTemplates = filteredTemplates.concat(
     spacestemplates.filter(item => !filteredTemplates.includes(item))
       .slice(0, numTemplatesNeeded - filteredTemplates.length)
-  );
+  ).slice(0,6);
 
   const filteredWebTemplates = profile ? webspacestemplates.filter(item => profile?.web.includes(item?.frameworks)) : webspacestemplates;
   const numWebTemplatesNeeded = Math.max(6, filteredWebTemplates.length);
   const finalWebTemplates = filteredWebTemplates.concat(
     webspacestemplates.filter(item => !filteredWebTemplates.includes(item))
       .slice(0, numWebTemplatesNeeded - filteredWebTemplates.length)
-  );
+  ).slice(0,6);
 
   return (
     <div className="py-5 px-3 bg-gray-100 min-h-[90vh] w-full">
@@ -108,8 +108,9 @@ function Overview() {
           </Link>
         </div>
         <div className="lg:row-span-2 relative bg-white flex items-start col-span-2 flex-col justify-end p-5 rounded-lg lg:row-start-4">
-          <PiTerminalWindowFill className='text-[2.5rem] mb-2' />
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">CodeSpaces</h2>
+          {/* <PiTerminalWindowFill className='text-[2.5rem] mb-2' /> */}
+          <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" className=' mb-3.5 w-8' xmlns="http://www.w3.org/2000/svg"><path d="M9.25 12a.75.75 0 0 1-.22.53l-2.75 2.75a.75.75 0 0 1-1.06-1.06L7.44 12 5.22 9.78a.75.75 0 1 1 1.06-1.06l2.75 2.75c.141.14.22.331.22.53Zm2 2a.75.75 0 0 0 0 1.5h5a.75.75 0 0 0 0-1.5h-5Z"></path><path d="M0 4.75C0 3.784.784 3 1.75 3h20.5c.966 0 1.75.784 1.75 1.75v14.5A1.75 1.75 0 0 1 22.25 21H1.75A1.75 1.75 0 0 1 0 19.25Zm1.75-.25a.25.25 0 0 0-.25.25v14.5c0 .138.112.25.25.25h20.5a.25.25 0 0 0 .25-.25V4.75a.25.25 0 0 0-.25-.25Z"></path></svg>
+          <h2 className="text-xl font-semibold text-gray-800">CodeSpaces</h2>
           <p className="text-gray-600 leading-6 line-clamp-2 text-sm mb-4">
             Set up Codespaces development environments for various programming languages, including Java and Python.
           </p>
@@ -122,8 +123,8 @@ function Overview() {
           {codeTrashes.length > 0 && <Link to="/dashboard/trash/codespace" className="absolute top-3 font-medium right-3 border border-black text-xs px-2 py-1 rounded-md">{codeTrashes.length} in CodeTrash</Link>}
         </div>
         <div className="lg:row-span-2 relative bg-white flex items-start col-span-2 flex-col justify-end p-5 rounded-lg lg:row-start-4">
-          <HiOutlineGlobeAlt className='text-[2.5rem] mb-2' />
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">WebSpaces</h2>
+          <HiOutlineGlobeAlt className='text-[2.5rem] mb-3' />
+          <h2 className="text-xl font-semibold text-gray-800">WebSpaces</h2>
           <p className="text-gray-600 leading-6 line-clamp-2 text-sm mb-4">
             Create Webspaces development environments for HTML, CSS, JavaScript, and frameworks like Tailwind CSS and Bulma.
           </p>

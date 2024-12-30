@@ -1698,6 +1698,8 @@ export function DataContextProvider({ children }) {
         },
       };
 
+      console.log(item)
+
       const chat = genAI
         .getGenerativeModel({
           model: "gemini-1.5-flash",
