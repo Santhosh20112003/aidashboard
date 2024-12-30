@@ -256,7 +256,7 @@ function LoadWebSpace() {
     }
 
     return (
-        <div id="webspace" className="w-full h-[90vh] md:px-4 md:pb-2 px-2 pt-2 bg-white flex gap-4">
+        <div id="webspace" className="w-full h-[90vh] md:px-4 md:pb-2 px-2 pt-2 bg-white flex md:gap-4">
             <div className={`${isCodeOpen ? "md:block hidden" : ""} md:w-1/2 w-full h-full space-y-4`}>
                 <CodePlayground htmlCode={htmlCode} cssCode={cssCode} jsCode={jsCode} framework={framework} />
                 <ChatInput input={input} setInput={setInput} handleWebChatSubmission={() => { }} isLoading={isLoading} />
@@ -271,6 +271,7 @@ function LoadWebSpace() {
                 continuous
                 steps={steps}
                 showSkipButton
+                className="hidden md:block"
                 tooltipComponent={Tooltip}
                 styles={{
                     options: {

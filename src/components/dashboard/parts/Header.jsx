@@ -2,7 +2,7 @@ import React from 'react'
 import * as Popover from "@radix-ui/react-popover";
 import { TiPlusOutline } from "react-icons/ti";
 import { TbLayoutSidebarLeftExpand } from "react-icons/tb";
-import { IoMdCodeWorking } from "react-icons/io";
+import { IoMdCloudDone, IoMdCodeWorking } from "react-icons/io";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useUserAuth } from '../../context/UserAuthContext';
 import { Link, useLocation, useParams } from 'react-router-dom';
@@ -11,12 +11,13 @@ import { LuUserSquare2 } from "react-icons/lu";
 import { MdLogout, MdOutlineAdminPanelSettings } from 'react-icons/md';
 import { MdOutlineGroups } from "react-icons/md";
 import { AdminEmail, AdminUSerid } from '../../../common/links';
+import { IoCloudOfflineSharp } from 'react-icons/io5';
 
 function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
     const { id } = useParams();
     const { user } = useUserAuth();
     const location = useLocation();
-    const { reloadSpaces, setReloadSpaces, setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, isFetching, setReloadShared, reloadShared } = useData();
+    const { isSaving, isGenerating, reloadSpaces, setReloadSpaces, setNewOpen, setisCodeOpen, isCodeOpen, spaces, webspaces, isLoading, isFetching, setReloadShared, reloadShared } = useData();
     return (
         <div className="w-full items-center justify-between h-[8vh] px-4 pt-5 pb-5 bg-white flex space-x-4">
             <div className="flex items-center gap-3 sm:gap-6">
@@ -128,40 +129,21 @@ function Header({ logOut, isDropdownOpen, setIsDropdownOpen, open, setOpen }) {
                     <IoMdCodeWorking className="text-2xl" />
                 </button>}
 
-                {!location.pathname.includes("shared") && <button disabled={isFetching} onClick={() => { setReloadSpaces(!reloadSpaces) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:brightness-75 disabled:cursor-not-allowed active:scale-95 transition-all" >
+                {!location.pathname.match(/\/dashboard\/space\/([a-f0-9-]+)/i) && !location.pathname.match(/\/dashboard\/webspace\/([a-f0-9-]+)/i) && !location.pathname.includes("shared") && <button disabled={isFetching} onClick={() => { setReloadSpaces(!reloadSpaces) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:brightness-75 disabled:cursor-not-allowed active:scale-95 transition-all" >
                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-base transition-all group-active:animate-spin text-main" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path><path d="M20 4v5h-5"></path></svg>
                 </button>}
 
-                {(location.pathname.includes("shared") && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <button disabled={isLoading} onClick={() => { setReloadShared(!reloadShared) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 transition-all" >
+                {(!location.pathname.match(/\/dashboard\/space\/([a-f0-9-]+)/i) && !location.pathname.match(/\/dashboard\/webspace\/([a-f0-9-]+)/i) && location.pathname.includes("shared") && !location.pathname.includes("/dashboard/shared/webspace") && !location.pathname.includes("/dashboard/shared/codespace")) && <button disabled={isLoading} onClick={() => { setReloadShared(!reloadShared) }} className="p-2 bg-gray-200 rounded-lg disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 transition-all" >
                     <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="text-base transition-all group-active:animate-spin text-main" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M19.933 13.041a8 8 0 1 1 -9.925 -8.788c3.899 -1 7.935 1.007 9.425 4.747"></path><path d="M20 4v5h-5"></path></svg>
                 </button>}
 
-                {/* <Popover.Root>
-                    <Popover.Trigger asChild>
-                        
-                    </Popover.Trigger>
-                    <Popover.Portal >
-                        <Popover.Content sideOffset={10} side="bottom" className="me-[4rem] z-[1000] rounded-lg p-2 flex items-center justify-center gap-2 bg-white w-[300px] border border-main/20 shadow-lg">
-                            <Link to={"/dashboard/space/new"}
-                                className="w-full inline-flex items-center gap-2 justify-center px-3 py-2 text-sm bg-main rounded-md text-white focus:outline-none"
-                                role="menuitem"
-                            >
-                                <PiTerminalWindowFill /> CodeSpace
-                            </Link>
-                            <Link to={"/dashboard/webspace/new"}
-                                className="w-full inline-flex items-center gap-2 justify-center px-3 py-2 text-sm bg-main rounded-md text-white focus:outline-none"
-                                role="menuitem"
-                            >
-                                <HiOutlineGlobeAlt />WebSpace
-                            </Link>
-                            <Popover.Arrow className="fill-main/30 " />
-                        </Popover.Content>
-                    </Popover.Portal>
-                </Popover.Root> */}
-
-                <button onClick={() => setNewOpen(true)} className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
+                {(!location.pathname.match(/\/dashboard\/space\/([a-f0-9-]+)/i) && !location.pathname.match(/\/dashboard\/webspace\/([a-f0-9-]+)/i)) && <button onClick={() => setNewOpen(true)} className="inline-flex active:scale-95 transition-all p-2 md:px-2.5 md:py-1.5 bg-black text-white rounded-lg items-center justify-center gap-1" >
                     <TiPlusOutline className="text-lg md:text-base" />  <p className="hidden sm:block">New Space</p>
-                </button>
+                </button>}
+
+                {(location.pathname.match(/\/dashboard\/space\/([a-f0-9-]+)/i) || location.pathname.match(/\/dashboard\/webspace\/([a-f0-9-]+)/i)) && <button className=" p-1.5 bg-main/5 rounded-lg">
+                    {isSaving || isLoading || isGenerating ? <IoCloudOfflineSharp title="data not synced with cloud" className="text-xl md:text-2xl text-yellow-600" /> : <IoMdCloudDone title="data synced with cloud" className="text-xl md:text-2xl text-green-600" />}
+                </button>}
 
                 <Popover.Root>
                     <Popover.Trigger asChild>

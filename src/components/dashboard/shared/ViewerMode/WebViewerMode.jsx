@@ -57,7 +57,7 @@ function WebViewerMode() {
   }
 
   return (
-    <div id="sharedwebspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
+    <div id="sharedwebspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex md:gap-4">
       <div className={`${isCodeOpen ? "md:block hidden" : ""} md:w-1/2 w-full h-full space-y-4`}>
         <CodePlayground html={html} css={css} js={js} setHtml={setHtml} setCss={setCss} setJs={setJs} framework={framework} setFramework={setFramework} />
       </div>

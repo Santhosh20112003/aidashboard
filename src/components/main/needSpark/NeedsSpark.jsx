@@ -318,14 +318,14 @@ public class Palindrome {
             </Dialog.Root>
           </div>
           <div class="lg:max-w-xl lg:w-full h-80 md:w-1/2 w-full">
-            <iframe class="object-cover w-full h-full lg:-ml-12 object-center rounded" src="https://www.youtube.com/embed/QcTVFOS24eI?si=kWGpptxcz_-01hOB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="object-cover w-full h-full lg:-ml-12 object-center rounded" src="https://www.youtube.com/embed/ULQqSYihvdk?si=WpkseySB-A9-CNpd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
       </section>
       <section id="webspace" class="body-font">
         <div class="container mx-auto flex lg:px-24 px-5 pt-24 pb-12 md:py-24 md:flex-row flex-col items-center">
           <div class="lg:max-w-xl lg:w-full h-80 mb-10 md:mb-0 md:w-1/2 w-full">
-            <iframe class="object-cover w-full h-full lg:-ml-12 object-center rounded" src="https://www.youtube.com/embed/QcTVFOS24eI?si=kWGpptxcz_-01hOB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <iframe class="object-cover w-full h-full lg:-ml-12 object-center rounded" src="https://www.youtube.com/embed/RgMmZlUhV2Y?si=_wVVY1mqN3JSIUwb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
           <div class="lg:flex-grow md:w-1/2 lg:pl-32 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
             <h1 class="title-font text-3xl capitalize mb-4 font-semibold text-black">Kickstart Your WebDev with WebSpace!</h1>
@@ -437,7 +437,7 @@ public class Palindrome {
           </div>
           <div class="md:px-8 flex pe-3 md:pe-0 col-span-3 md:col-span-2 md:text-center flex-col items-start md:items-center justify-start mt-12 md:mt-0 md:justify-center">
             <h1 className="px-8 py-3 mb-5 bg-gray-200 rounded-full text-sm font-bold text-black">SPACE TRASH </h1>
-            <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-black">Effortlessly Manage Code with Space Trash!</h1>
+            <h1 class="title-font text-3xl capitalize mb-2 font-semibold text-black">Safe deletion and recovery with Space Trash!</h1>
             <p className="mb-8 text-black/60 text-justify line-clamp-5 md:line-clamp-none leading-relaxed list-disc w-[90%]">The Trash feature in Code Space and Web Space provides a safety net by allowing easy deletion and retrieval of code or web spaces. Deleted items are temporarily moved to the Trash, where they can be reviewed before permanent removal.This feature is particularly useful for learners and developers who may want to revisit or restore previous versions of their work. Items in the Trash can be restored to their original location, offering flexibility and peace of mind.The Trash also helps keep workspaces organized by clearing unnecessary content without the risk of irreversible deletion, promoting a more efficient and worry-free learning experience.</p>
             <Link to='/dashboard/trash/codespace' class="flex justify-center items-center bg-black ps-5 pe-3 py-3 rounded-md gap-2">
               <span class="text-white">See Yours</span>
@@ -473,13 +473,13 @@ public class Palindrome {
         <div className="w-full px-12 pb-24 hidden gap-5 md:flex">
           <div className="w-1/2 relative rounded-lg group px-6 py-10 flex flex-col items-center justify-center bg-white border-[3.5px] border-dashed border-black">
             <div className="text-justify text-black/60 gap-3 flex items-center justify-center flex-col transition-all">
-              <p className="master-mind w-[90%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+              <p className="master-mind w-[90%] text-xl">In Viewer mode, collaborators can access and view the shared code or web space but cannot make any edits. This role ensures secure content sharing without altering the original work.</p>
             </div>
             <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 left-5 bg-black text-white rounded-full text-sm font-bold uppercase">Editor Mode</Link>
           </div>
           <div className="w-1/2 relative rounded-lg group px-6 py-10 flex flex-col items-center justify-center bg-white border-[3.5px] border-dashed border-black">
             <div className=" text-justify text-black/60 gap-3 flex items-center justify-center flex-col transition-all">
-              <p className="master-mind w-[90%] text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto ex culpa veniam quos porro vel deleniti. Quo esse ipsam, reiciendis cumque sunt, libero minima soluta vel ipsa quod quidem quis.</p>
+              <p className="master-mind w-[90%] text-xl">In Editor mode, collaborators have full access to modify and contribute to the shared code or web space. This role enables real-time collaboration, fostering teamwork and active participation in projects.</p>
             </div>
             <Link to="/dashboard/shared/list" className="px-8 py-3 mb-5 absolute -top-6 left-5 bg-black text-white rounded-full text-sm font-bold uppercase">Viewer Mode</Link>
           </div>

@@ -110,7 +110,7 @@ function CodeViewerSharedMode() {
   }
 
   return (
-    <div id="codesharedspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex gap-4">
+    <div id="codesharedspace" className="w-full h-[90vh] px-4 pb-2 pt-2 bg-white flex md:gap-4">
       <div className={`${isCodeOpen ? "md:block hidden" : ""} ${videoID ? "md:w-1/2 w-full" : "md:w-full w-full"} space-y-4`}>
         <YouTubeFrame videoID={data.videoID} />
         {data.explanation && data.videoID && (

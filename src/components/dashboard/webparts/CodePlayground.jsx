@@ -14,6 +14,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     const editorRef = useRef(null);
     const [activeTab, setActiveTab] = useState("HTML");
     const {
+        setisSaving,
         Loading,
         isFullScreen,
         setFramework,
@@ -36,19 +37,6 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
         "JS": { name: "script.js", language: "javascript", value: jsCode, title: "JS" },
     };
 
-    //     const rTabs = (str) => str.trim().replace(/^ {4}/gm, "");
-    //     const exampleCode = {
-    //         javascript: rTabs(`
-    //     // This is comment to code
-    //     const sample = "Say something now";
-    //     console.log(sample);
-    //   `),
-    //         html: rTabs(`
-    //     <h1 class="title">Hi, Cool Man</h1>
-    //     <p class="description">I'm Boba</p>
-    //   `)
-    //     };
-
     const file = files[activeTab];
 
     useEffect(() => {
@@ -56,6 +44,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     }, [file.name]);
 
     const handleFrameworkChange = async (item) => {
+        setisSaving(true);
         if (item.name === framework) return;
 
         try {
@@ -83,6 +72,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
             );
 
             toast.success(`${item.name} has been applied to your WebSpace.`);
+            setisSaving(false);
         } catch (error) {
             console.error("Error changing framework:", error);
             toast.error("Unable to change the CSS framework.");
@@ -148,7 +138,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
                                 ))}
                             </div>
                         </div>
-                        <Popover.Arrow className="fill-gray-300 ms-8" />
+                        <Popover.Arrow className="fill-gray-300" />
                     </Popover.Content>
                 </Popover.Portal>
             </Popover.Root>
@@ -179,7 +169,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
     }, [isFullScreen, isCodeOpen])
 
     const handleWebChange = (value) => {
-        console.log(JSON.stringify(value))
+        setisSaving(true);
         switch (file.language) {
             case "html":
                 setHtmlCode(value || "");
@@ -193,9 +183,7 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
             default:
                 break;
         }
-
         clearTimeout(debounceWebTimeout.current);
-
         debounceWebTimeout.current = setTimeout(async () => {
             try {
                 const updateData = {
@@ -227,6 +215,9 @@ function CodePlayground({ htmlCode, cssCode, jsCode, framework }) {
                 );
             } catch (error) {
                 console.error("Error updating webspace:", error);
+            }
+            finally {
+                setisSaving(false);
             }
         }, 3000);
     };

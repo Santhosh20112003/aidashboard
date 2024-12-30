@@ -8,7 +8,7 @@ import { LANGUAGE_VERSIONS } from "../../../constants";
 
 function Profile() {
   const { user } = useUserAuth();
-  const { spaces, webspaces, codeTrashes, webTrashes, isLoading } = useData();
+  const { profile, spaces, webspaces, codeTrashes, webTrashes, isLoading } = useData();
 
   const formatCount = (count) => (count < 10 ? `0${count}` : count);
 
@@ -54,16 +54,41 @@ function Profile() {
           </div>
         </div>
         <div className="flex mb-10 max-sm:flex-wrap max-sm:justify-center items-center gap-4">
-          <Link to="/dashboard/trash/codespace" className="rounded-full py-2 px-4 md:py-3 md:px-6 bg-stone-100 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900">
-            {codeTrashes?.length > 0 ? `${formatCount(codeTrashes?.length)} in CodeTrash` : `Not Created Yet`}
+          <Link to="/dashboard/trash/codespace" className="rounded-full py-2 px-4 md:py-3 md:px-6 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10">
+            {codeTrashes?.length > 0 ? `${formatCount(codeTrashes?.length)} in CodeTrash` : `Nothing in CodeTrash`}
           </Link>
           <Link to="/dashboard/trash/webspace"
-            class="rounded-full py-2 px-4 md:py-3 md:px-6 bg-stone-100 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-stone-200 hover:text-gray-900"
+            className="rounded-full py-2 px-4 md:py-3 md:px-6 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10"
           >
-            {webTrashes?.length > 0 ? `${formatCount(webTrashes?.length)} in WebTrash` : `Not Created Yet`}
+            {webTrashes?.length > 0 ? `${formatCount(webTrashes?.length)} in WebTrash` : `Nothing in WebTrash`}
           </Link>
         </div>
+        <div className="mb-10 grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-6">
+          <div className="border-2 cursor-default relative md:col-span-3 flex items-center gap-3 justify-start flex-wrap border-dashed border-black/60 rounded-md px-5 pb-5 pt-7">
+            {profile?.lang && profile.lang.length > 0 ? (
+              profile.lang.map((item, index) =>
+                <div key={index} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
+                  {item}
+                </div>)
+            ) : (
+              <div>No languages specified</div>
+            )}
 
+            <h1 to="/dashboard/shared/list" className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Programing Languages</h1>
+          </div>
+          <div className="border-2 cursor-default relative md:col-span-2 flex items-center gap-3 justify-start flex-wrap border-dashed border-black/60 rounded-md px-5 pb-5 pt-7">
+            {profile?.web && profile.web.length > 0 ? (
+              profile.web.map((item, index) =>
+                <div key={index} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
+                  {item}
+                </div>)
+            ) : (
+              <div>No frameworks specified</div>
+            )}
+
+            <h1 to="/dashboard/shared/list" className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Web Frameworks</h1>
+          </div>
+        </div>
         {spaces?.length > 0 && <div className="mb-5" >
           {isLoading ? <div className="flex items-center flex-col w-full h-[200px] mb-5 px-3 justify-center ">
             <l-ping bg-opacity="0.1" speed="1.75" color="#1a1a1a"></l-ping>
@@ -113,7 +138,6 @@ function Profile() {
             </div>
           }
         </div>}
-
         {webspaces?.length > 0 && <div className="mb-5" >
           {isLoading ? <div className="flex items-center flex-col w-full h-[200px] mb-5 px-3 justify-center ">
             <l-ping bg-opacity="0.1" speed="1.75" color="#1a1a1a"></l-ping>

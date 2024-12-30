@@ -5,16 +5,18 @@ import { useData } from "../../context/DataContext";
 const CodeEditor = ({ editorReference, language, editorContent, handleChange, theme }) => {
     const debounceTimeout = useRef(null);
     const latestContent = useRef(editorContent);
-    const { isCodeOpen, Loading, isGenerating, handleEditorValidation, isFullScreen } = useData();
+    const { setisSaving, isCodeOpen, Loading, handleEditorValidation, isFullScreen } = useData();
 
     const DEBOUNCE_TIME = 3000;
 
     const handleEditorChange = (value) => {
+        setisSaving(true);
         latestContent.current = value;
 
         clearTimeout(debounceTimeout.current);
         debounceTimeout.current = setTimeout(() => {
             handleChange(latestContent.current);
+            setisSaving(false);
         }, DEBOUNCE_TIME);
     };
 

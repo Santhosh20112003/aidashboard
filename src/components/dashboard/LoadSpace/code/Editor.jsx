@@ -93,7 +93,7 @@ function Editor({ editorData, setCloudSync, Type }) {
                             };
 
                             const response = await (Type === "web" ? UpdateWebExistingSpace(updatedSpace) : UpdateExistingSpace(updatedSpace));
-                            
+
                             if (!response) throw new Error("Failed to upload to Cloud");
 
                             setNotes(savedData);
