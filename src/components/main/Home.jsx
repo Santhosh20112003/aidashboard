@@ -6,6 +6,7 @@ import { HiOutlineShare } from "react-icons/hi";
 import Header from '../../common/parts/Header';
 import Footer from '../../common/parts/Footer';
 import toast from 'react-hot-toast';
+import { HashLink } from 'react-router-hash-link';
 
 function Home() {
   const { user } = useUserAuth();
@@ -75,12 +76,17 @@ function Home() {
               <br class="hidden lg:inline-block" /> with CodeSpace
             </h1>
             <p class="mb-8 font-medium leading-relaxed w-[80%]">CodeSpace is a dynamic and user-friendly platform designed to enhance your coding experience, providing a seamless environment for learning and developing projects with real-time feedback and intuitive tools.</p>
-            <Link to='/dashboard/space/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
-              <span class="text-white">Start Creating</span>
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link to='/dashboard/space/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+                <span class="text-white">Start Creating</span>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+              </Link>
+              <HashLink to="/need-spark#codespace" class="hover:underline hover:text-black cursor-pointer underline-offset-2 ps-5 pe-3 py-3 rounded-md gap-2">
+                more about this
+              </HashLink>
+            </div>
           </div>
         </div>
       </section>
@@ -94,12 +100,17 @@ function Home() {
               <br class="hidden lg:inline-block" />with WebSpace
             </h1>
             <p class="mb-8 leading-relaxed w-[80%]">WebSpace is an intuitive platform for building responsive websites, offering easy-to-use templates, live previews, and seamless collaboration, allowing users to create, manage, and share web projects effortlessly.</p>
-            <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
-              <span class="text-white">Start Creating</span>
-              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
-                <path d="M5 12h14M12 5l7 7-7 7"></path>
-              </svg>
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link to='/dashboard/webspace/new' class="flex justify-center items-center bg-main ps-5 pe-3 py-3 rounded-md gap-2">
+                <span class="text-white">Start Creating</span>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-1 text-white" viewBox="0 0 24 24">
+                  <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+              </Link>
+              <HashLink to="/need-spark#webspace" className="hover:underline hover:text-black cursor-pointer underline-offset-2 ps-5 pe-3 py-3 rounded-md gap-2">
+                more about this
+              </HashLink>
+            </div>
           </div>
           <div class=" lg:max-w-xl lg:w-full md:w-1/2 w-5/6">
             <img class="object-cover lg:-ml-24 object-center rounded" alt="hero" src="https://ik.imagekit.io/vituepzjm/webspacesample3.png" />
@@ -169,11 +180,11 @@ function Home() {
                 </div>
                 <div class="flex-grow">
                   <p class="leading-relaxed text-base">Collaborate seamlessly in real-time, sharing and working on projects together effortlessly.</p>
-                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                  <HashLink to="/need-spark#sharedspace" class="mt-3 text-black inline-flex items-center">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
-                  </Link>
+                  </HashLink>
                 </div>
               </div>
             </div>
@@ -187,11 +198,11 @@ function Home() {
                 </div>
                 <div class="flex-grow">
                   <p class="leading-relaxed text-base">Create customized content and code on any topic effortlessly with AI assistance.                  </p>
-                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                  <HashLink to="/need-spark#jarvisai" class="mt-3 text-black inline-flex items-center">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
-                  </Link>
+                  </HashLink>
                 </div>
               </div>
             </div>
@@ -205,11 +216,11 @@ function Home() {
                 </div>
                 <div class="flex-grow">
                   <p class="leading-relaxed text-base">Easily delete, back up, and recover your code with Trash Backup and Restore.</p>
-                  <Link to="/need-spark" class="mt-3 text-black inline-flex items-center">Learn More
+                  <HashLink to="/need-spark#spacetrash" class="mt-3 text-black inline-flex items-center">Learn More
                     <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
                       <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
-                  </Link>
+                  </HashLink>
                 </div>
               </div>
             </div>

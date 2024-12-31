@@ -14,6 +14,7 @@ import { TbSettingsCode } from 'react-icons/tb';
 import { RiFullscreenExitLine } from 'react-icons/ri';
 import WebSpace from './WebSpace';
 import { useData } from '../../context/DataContext';
+import { HashLink } from 'react-router-hash-link';
 
 function NeedsSpark() {
   const { user } = useUserAuth();
@@ -43,12 +44,12 @@ function NeedsSpark() {
           <div className="flex items-center mb-12 justify-between w-full">
             <div class="flex flex-col">
               <h1 class="sm:text-3xl text-2xl font-medium title-font text-white">Explore the Full Potential of CodeSpark</h1>
-              <p class="leading-relaxed text-base text-black/60">Discover the Top Features That Make CodeSpark Unstoppable!</p>
+              <p class="leading-relaxed text-base text-gray-200">Discover the Top Features That Make CodeSpark Unstoppable!</p>
             </div>
             <h1 className="px-5 py-2 border-2 border-dashed border-white hidden md:block uppercase text-sm rounded-md font-medium tracking-widest text-white">TOP FEATURES</h1>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-5 ">
-            <a href="#codespace" class="active:scale-95 transition-all">
+            <HashLink to="#codespace" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -60,12 +61,12 @@ function NeedsSpark() {
                   <p class="leading-5 text-sm font-normal text-black/60">CodeSpace is an innovative platform enhancing
                     programming learning with AI-driven tools and collaboration.</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
-            <a href="#webspace" class="active:scale-95 transition-all">
+            </HashLink>
+            <HashLink to="#webspace" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -77,12 +78,12 @@ function NeedsSpark() {
                   <p class="leading-5 text-sm font-normal text-black/60">WebSpace streamlines web development with powerful
                     tools, collab, and AI support for learners and developers on WebDev.</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
-            <a href="#jarvisai" class="active:scale-95 transition-all">
+            </HashLink>
+            <HashLink to="#jarvisai" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -93,12 +94,12 @@ function NeedsSpark() {
                   <h1 className="text-lg leading-relaxed font-medium text-black">Jarvis AI</h1>
                   <p class="leading-5 text-sm font-normal text-black/60">Jarvis AI provides real-time assistance, enhancing learning and empowering mastery in code space and webspace</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
-            <a href="#spacenotes" class="active:scale-95 transition-all">
+            </HashLink>
+            <HashLink to="#spacenotes" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -110,12 +111,12 @@ function NeedsSpark() {
                   <p class="leading-5 text-sm font-normal text-black/60">Space Notes enhances learning by allowing users to take,
                     organize, and review notes efficiently.</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
-            <a href="#spacetrash" class="active:scale-95 transition-all">
+            </HashLink>
+            <HashLink to="#spacetrash" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -126,12 +127,12 @@ function NeedsSpark() {
                   <h1 className="text-lg leading-relaxed font-medium text-black">SpaceTrash</h1>
                   <p class="leading-5 text-sm font-normal text-black/60">The SpaceTrash feature ensures safe deletion and recovery of work, promoting efficient and worry-free learning.</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
-            <a href="#sharedspace" class="active:scale-95 transition-all">
+            </HashLink>
+            <HashLink to="#sharedspace" class="active:scale-95 group transition-all">
               <div class="flex relative rounded-lg h-full p-5 bg-gray-100 flex-col">
                 <div class="flex items-center mb-8">
                   <div class="w-8 h-8 inline-flex items-center justify-center rounded-full text-black flex-shrink-0">
@@ -143,11 +144,11 @@ function NeedsSpark() {
                   <p class="leading-5 text-sm font-normal text-black/60">The collaboration feature enhances teamwork and learning by
                     enabling real-time code sharing and role management.</p>
                 </div>
-                <button className='absolute top-5 text-black right-5'>
+                <button className='absolute top-5 group-hover:rotate-[135deg] transition-all text-black right-5'>
                   <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" aria-hidden="true" className='size-4' xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8.25 3.75H19.5a.75.75 0 0 1 .75.75v11.25a.75.75 0 0 1-1.5 0V6.31L5.03 20.03a.75.75 0 0 1-1.06-1.06L17.69 5.25H8.25a.75.75 0 0 1 0-1.5Z" clip-rule="evenodd"></path></svg>
                 </button>
               </div>
-            </a>
+            </HashLink>
           </div>
         </div>
       </section>

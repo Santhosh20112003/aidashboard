@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { HashLink } from "react-router-hash-link";
 
 function Login() {
     const [loading, setloading] = useState(false);
@@ -132,7 +133,7 @@ function Login() {
                                 Google
                             </button>
                         </div>
-                        <p className="text-sm mx-2 text-center font-normal text-white">*by signing into the CodeSpark you accept <Link to="/terms-of-use" className="underline underline-offset-2" >Privacy Policy</Link> </p>
+                        <p className="text-sm mx-2 text-center font-normal text-white">*by signing into the CodeSpark you accept <HashLink to="/terms-of-use#privacy-policy" className="underline underline-offset-2" >Privacy Policy</HashLink> and agree to the <HashLink to="/terms-of-use#data-collect" className="underline underline-offset-2" >Data Collection</HashLink>.</p>
                     </div>
                 </span>
             </div>

@@ -7,7 +7,7 @@ function Terms() {
         <div className="">
             <Header />
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-gray-800">
-                <h1 className="text-4xl font-bold text-start ">Privacy Policy</h1>
+                <h1 id='privacy-policy' className="text-4xl font-bold text-start ">Privacy Policy</h1>
                 <p className="text-sm text-gray-600 text-start mb-8">Last updated: December 19, 2024</p>
 
                 <section className="mb-8">
@@ -45,7 +45,7 @@ function Terms() {
                     </ul>
                 </section>
 
-                <section className="mb-8">
+                <section id='data-collect' className="mb-8">
                     <h2 className="text-2xl font-semibold mb-4">Collecting and Using Your Personal Data</h2>
 
                     <h3 className="text-xl font-medium mb-2">Types of Data Collected</h3>
@@ -57,6 +57,7 @@ function Terms() {
                     <ul className="list-disc pl-6 space-y-2">
                         <li>Email address</li>
                         <li>First name and last name</li>
+                        <li>Social Profile image</li>
                         <li>Usage Data</li>
                     </ul>
 
@@ -67,14 +68,14 @@ function Terms() {
                 </section>
 
                 <section className="bg-gray-100 rounded-lg p-6">
-                    <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-                    <p>If you have any questions about this Privacy Policy, you can contact us:</p>
+                    <h2 className="text-2xl font-semibold">Contact Us</h2>
+                    <p className='mb-4' >If you have any questions about this Privacy Policy, you can contact us:</p>
                     <ul className="list-disc pl-6 space-y-2">
                         <li>
                             <span className="font-medium">By email:</span> <a href="mailto:shanmugamsanthosh22@gmail.com" className="text-blue-500 hover:underline">shanmugamsanthosh22@gmail.com</a>
                         </li>
                         <li>
-                            <span className="font-medium">By visiting this page on our website:</span> <a href="https://codesparkk.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">codesparkk.vercel.app</a>
+                            <span className="font-medium">By visiting this website:</span> <a href="https://santechh.vercel.app" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">santechh.vercel.app</a>
                         </li>
                     </ul>
                 </section>

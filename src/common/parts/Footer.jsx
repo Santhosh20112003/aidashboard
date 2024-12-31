@@ -35,7 +35,7 @@ function Footer() {
                             <li>
                                 <Link onClick={() => {
                                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                                }} to="/need-spark" className="text-main/80 lg:hover:text-main">Need Spark?</Link>
+                                }} to="/need-spark" className="text-main/80 lg:hover:text-main">Need a Spark?</Link>
                             </li>
                             <li>
                                 <Link onClick={() => {
