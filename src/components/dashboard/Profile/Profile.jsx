@@ -74,7 +74,7 @@ function Profile() {
               <div>No languages specified</div>
             )}
 
-            <h1 to="/dashboard/shared/list" className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Programing Languages</h1>
+            <h1 className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Preferred Languages</h1>
           </div>
           <div className="border-2 cursor-default relative md:col-span-2 flex items-center gap-3 justify-start flex-wrap border-dashed border-black/60 rounded-md px-5 pb-5 pt-7">
             {profile?.web && profile.web.length > 0 ? (
@@ -86,7 +86,7 @@ function Profile() {
               <div>No frameworks specified</div>
             )}
 
-            <h1 to="/dashboard/shared/list" className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Web Frameworks</h1>
+            <h1 to="/dashboard/shared/list" className="px-3 py-1 absolute -top-3.5 left-5 bg-black text-white rounded-md text-xs">Preferred Frameworks</h1>
           </div>
         </div>
         {spaces?.length > 0 && <div className="mb-5" >
