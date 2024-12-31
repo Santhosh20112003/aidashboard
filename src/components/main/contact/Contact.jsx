@@ -51,7 +51,7 @@ function Contact() {
             </div>
           </div>
           <form
-            action="https://formsubmit.co/shanmugamsanthosh22@gmail.com"
+            action="https://formsubmit.co/0b4ee2cd42a0e78f61eb1715e33bb409"
             method="POST"
             class="lg:w-1/3 md:w-1/2  flex shadow-xl p-5 md:p-0 md:shadow-none rounded-lg flex-col md:ml-auto  w-full md:py-8 mt-8 md:mt-0"
           >
