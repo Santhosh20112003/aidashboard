@@ -8,7 +8,7 @@ import { LANGUAGE_VERSIONS } from "../../../constants";
 
 function Profile() {
   const { user } = useUserAuth();
-  const { profile, spaces, webspaces, codeTrashes, webTrashes, isLoading } = useData();
+  const { setwebpromptLang, setpromptLang, profile, spaces, webspaces, codeTrashes, webTrashes, isLoading } = useData();
 
   const formatCount = (count) => (count < 10 ? `0${count}` : count);
 
@@ -67,9 +67,9 @@ function Profile() {
           <div className="border-2 cursor-default relative md:col-span-3 flex items-center gap-3 justify-start flex-wrap border-dashed border-black/60 rounded-md px-5 pb-5 pt-7">
             {profile?.lang && profile.lang.length > 0 ? (
               profile.lang.map((item, index) =>
-                <div key={index} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
+                <Link to="/dashboard/space/list" key={index} onClick={() => { setpromptLang(item) }} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
                   {item}
-                </div>)
+                </Link>)
             ) : (
               <div>No languages specified</div>
             )}
@@ -79,9 +79,9 @@ function Profile() {
           <div className="border-2 cursor-default relative md:col-span-2 flex items-center gap-3 justify-start flex-wrap border-dashed border-black/60 rounded-md px-5 pb-5 pt-7">
             {profile?.web && profile.web.length > 0 ? (
               profile.web.map((item, index) =>
-                <div key={index} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
+                <Link to="/dashboard/webspace/list" key={index} onClick={() => { setwebpromptLang(item) }} className="rounded-full pt-1.5 pb-2 px-4 bg-black/5 text-black font-semibold text-sm leading-6 transition-all duration-500 hover:bg-black/10 uppercase">
                   {item}
-                </div>)
+                </Link>)
             ) : (
               <div>No frameworks specified</div>
             )}
